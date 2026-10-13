@@ -25,7 +25,7 @@
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.remove('reveal-hidden'); observer.unobserve(entry.target); }
     }), { threshold: 0.03 });
-    document.querySelectorAll('.element-when-and-where,.element-nostalgia-dress,.element-evening-programme,.element-gifts-photograph').forEach(section => {
+    document.querySelectorAll('.section-details, .section-dress, .section-programme, .section-gifts').forEach(section => {
       section.classList.add('reveal', 'reveal-hidden'); observer.observe(section);
     });
   }

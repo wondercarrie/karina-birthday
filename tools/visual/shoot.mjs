@@ -72,11 +72,11 @@ for (const width of WIDTHS) {
     const page = await open(width, lang === 'en' ? '?lang=en' : '');
     if (lang === 'ru') {
       meta.heroCurrentSrc[width] = await page.evaluate(() => {
-        const img = document.querySelector('.photo-birthday-png');
+        const img = document.querySelector('.hero-img');
         return { len: img.currentSrc.length, tail: img.currentSrc.slice(-40) };
       });
       const hero = await page.evaluate(async () => {
-        const src = document.querySelector('.photo-birthday-png').currentSrc;
+        const src = document.querySelector('.hero-img').currentSrc;
         const buf = await (await fetch(src)).arrayBuffer();
         const d = await crypto.subtle.digest('SHA-256', buf);
         return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');

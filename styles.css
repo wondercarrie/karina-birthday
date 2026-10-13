@@ -42,7 +42,7 @@ a {
   --space-text: 26px;
   --space-paragraph: 17px;
 }
-.MASTER-invitation {
+.invitation {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -55,7 +55,7 @@ a {
   --accent: var(--color-red);
 }
 
-.MASTER-invitation .element-header {
+.site-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -66,7 +66,7 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .wordmark {
+.wordmark {
   position: relative;
   width: fit-content;
   margin-top: -0.5px;
@@ -80,7 +80,7 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .language-navigation {
+.language-navigation {
   position: relative;
   width: fit-content;
   margin-top: -1px;
@@ -94,31 +94,31 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .language-navigation button {
+.language-navigation button {
   all: unset;
   cursor: pointer;
   font: inherit;
   color: inherit;
 }
 
-.MASTER-invitation .language-navigation button[aria-pressed="true"] {
+.language-navigation button[aria-pressed="true"] {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-.MASTER-invitation .language-navigation button:focus-visible {
+.language-navigation button:focus-visible {
   /* Native focus ring, with a blue fallback where it is not supported. */
   outline: 2px solid #4a90e2;
   outline: -webkit-focus-ring-color auto 5px;
   outline-offset: 5px;
 }
 
-.MASTER-invitation a:focus-visible {
+a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 5px;
 }
 
-.MASTER-invitation .div-wrapper {
+.inset {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,7 +129,7 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .element-hero-one-cake {
+.hero {
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -137,7 +137,7 @@ a {
   overflow: hidden;
 }
 
-.MASTER-invitation .cake-photograph {
+.hero-photo {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -147,13 +147,13 @@ a {
   background-color: #ffffff;
 }
 
-.MASTER-invitation .hero-picture {
+.hero-picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.MASTER-invitation .photo-birthday-png {
+.hero-img {
   display: block;
   width: 100%;
   height: 100%;
@@ -161,7 +161,7 @@ a {
   object-position: 50% 56%;
 }
 
-.MASTER-invitation .photo-shade {
+.hero-shade {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -180,7 +180,7 @@ a {
     );
 }
 
-.MASTER-invitation .hero-typography {
+.hero-text {
   width: 100%;
   height: 240px;
   padding: 0px 55.2px;
@@ -189,7 +189,7 @@ a {
   bottom: 3px;
 }
 
-.MASTER-invitation .title {
+.hero-title {
   position: relative;
   width: 756px;
   max-width: 100%;
@@ -205,7 +205,7 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .childhood-caption {
+.hero-caption {
   position: absolute;
   top: 260px;
   left: 746px;
@@ -220,7 +220,7 @@ a {
   line-height: 36.4px;
 }
 
-.MASTER-invitation .element-invitation {
+.intro {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,7 +232,7 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .album-flourish {
+.flourish {
   display: flex;
   width: 180px;
   align-items: center;
@@ -242,14 +242,14 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .hairline {
+.flourish-line {
   position: relative;
   flex: 1;
   height: 1px;
   background-color: var(--color-red);
 }
 
-.MASTER-invitation .star {
+.flourish-star {
   position: relative;
   flex: 1;
   margin-top: -1px;
@@ -262,7 +262,7 @@ a {
   line-height: 18px;
 }
 
-.MASTER-invitation .text-wrapper {
+.body-text {
   position: relative;
   width: 620px;
   max-width: 100%;
@@ -275,7 +275,7 @@ a {
   line-height: 28.9px;
 }
 
-.MASTER-invitation .button {
+.button {
   all: unset;
   box-sizing: border-box;
   display: inline-flex;
@@ -291,11 +291,11 @@ a {
   text-decoration: none;
 }
 
-.MASTER-invitation .button:hover {
+.button:hover {
   background-color: var(--color-red-hover);
 }
 
-.MASTER-invitation .text-wrapper-2 {
+.button-label {
   display: block;
   position: relative;
   width: fit-content;
@@ -309,7 +309,7 @@ a {
   font-style: normal;
 }
 
-.MASTER-invitation .element-when-and-where {
+.section-details {
   display: flex;
   flex-direction: column;
   max-width: 1008px;
@@ -326,27 +326,27 @@ a {
 }
 
 /* Vertical rhythm of the "when & where" section. */
-.MASTER-invitation .element-when-and-where .heading {
+.section-details .heading {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-when-and-where .date-and-venue {
+.section-details .date-and-venue {
   margin-top: 30px;
 }
 
-.MASTER-invitation .element-when-and-where .button {
+.section-details .button {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-when-and-where .pet-friendly-badge {
+.section-details .pet-friendly-badge {
   margin-top: var(--space-text);
 }
 
-.MASTER-invitation .element-when-and-where .text-wrapper-3 {
+.section-details .small-text {
   margin-top: 13px;
 }
 
-.MASTER-invitation .chapter {
+.chapter {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,14 +357,14 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .chapter-number {
+.chapter-number {
   position: relative;
   flex: 1;
   min-width: 33px;
   height: 33px;
 }
 
-.MASTER-invitation .number-ring {
+.number-ring {
   position: absolute;
   top: 0;
   left: 0;
@@ -374,7 +374,7 @@ a {
   border: 1px solid var(--accent);
 }
 
-.MASTER-invitation .number {
+.number {
   position: absolute;
   top: 7px;
   left: 0;
@@ -389,7 +389,7 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .chapter-label {
+.chapter-label {
   position: relative;
   width: fit-content;
   font-family: var(--font-narrow);
@@ -402,7 +402,7 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .heading {
+.heading {
   position: relative;
   max-width: 100%;
   font-family: var(--font-narrow);
@@ -414,7 +414,7 @@ a {
   line-height: 62.4px;
 }
 
-.MASTER-invitation .date-and-venue {
+.date-and-venue {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -426,7 +426,7 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .div-2 {
+.fact {
   display: flex;
   flex-direction: column;
   min-width: 250px;
@@ -436,7 +436,7 @@ a {
   flex: 1;
 }
 
-.MASTER-invitation .label {
+.fact-label {
   position: relative;
   margin-top: -1px;
   font-family: var(--font-narrow);
@@ -448,7 +448,7 @@ a {
   line-height: 20.8px;
 }
 
-.MASTER-invitation .value {
+.fact-value {
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -459,7 +459,7 @@ a {
   line-height: 37.5px;
 }
 
-.MASTER-invitation .note {
+.fact-note {
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -470,7 +470,7 @@ a {
   line-height: 23.8px;
 }
 
-.MASTER-invitation .pet-friendly-badge {
+.pet-friendly-badge {
   position: relative;
   width: 131.31px;
   height: 43px;
@@ -478,7 +478,7 @@ a {
   opacity: 0.55;
 }
 
-.MASTER-invitation .pet-friendly {
+.pet-friendly-text {
   position: absolute;
   top: 9px;
   left: 0;
@@ -493,7 +493,7 @@ a {
   letter-spacing: 0;
 }
 
-.MASTER-invitation .dog-paw-line-art {
+.pet-friendly-paw {
   position: absolute;
   top: 4px;
   left: 12px;
@@ -502,7 +502,7 @@ a {
   transform: rotate(7deg);
 }
 
-.MASTER-invitation .text-wrapper-3 {
+.small-text {
   position: relative;
   font-size: 14px;
   line-height: 23.8px;
@@ -513,7 +513,7 @@ a {
   letter-spacing: 0;
 }
 
-.MASTER-invitation .element-nostalgia-dress {
+.section-dress {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -525,27 +525,27 @@ a {
 }
 
 /* Vertical rhythm of the dress-code section. */
-.MASTER-invitation .element-nostalgia-dress .bow-photograph {
+.section-dress .photo-bow {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-nostalgia-dress .heading {
+.section-dress .heading {
   margin-top: 45px;
 }
 
-.MASTER-invitation .element-nostalgia-dress .heading + .text-wrapper {
+.section-dress .heading + .body-text {
   margin-top: var(--space-text);
 }
 
-.MASTER-invitation .element-nostalgia-dress .text-wrapper + .text-wrapper {
+.section-dress .body-text + .body-text {
   margin-top: var(--space-paragraph);
 }
 
-.MASTER-invitation .element-nostalgia-dress .dress-code {
+.section-dress .dress-code-note {
   margin-top: 25px;
 }
 
-.MASTER-invitation .bow-photograph {
+.photo-bow {
   position: relative;
   width: 285px;
   height: 356.25px;
@@ -555,7 +555,7 @@ a {
   background-position: 50% 25%;
 }
 
-.MASTER-invitation .inset-photo-border {
+.photo-border {
   position: absolute;
   width: calc(100% - 16px);
   height: calc(100% - 16px);
@@ -564,7 +564,7 @@ a {
   border: 1px solid var(--color-cream);
 }
 
-.MASTER-invitation .photo-handwriting {
+.photo-caption {
   position: absolute;
   left: calc(50% - 175px);
   bottom: -40px;
@@ -582,7 +582,7 @@ a {
   line-height: 117px;
 }
 
-.MASTER-invitation .dress-code {
+.dress-code-note {
   position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
@@ -593,7 +593,7 @@ a {
   line-height: 39px;
 }
 
-.MASTER-invitation .divider {
+.divider {
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -601,7 +601,7 @@ a {
   background-color: var(--accent);
 }
 
-.MASTER-invitation .element-evening-programme {
+.section-programme {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -615,47 +615,47 @@ a {
 }
 
 /* Vertical rhythm of the evening programme section. */
-.MASTER-invitation .element-evening-programme .adaptive-programme {
+.section-programme .programme-intro {
   margin-top: 36px;
 }
 
-/* The block gap plus the extra 56px flex gap the old spacer added inside .adaptive-programme-2. */
-.MASTER-invitation .element-evening-programme .heading {
+/* The block gap plus the extra 56px flex gap the old spacer added inside .programme-title. */
+.section-programme .heading {
   margin-top: calc(var(--space-block) + 56px);
 }
 
-.MASTER-invitation .element-evening-programme .div-3 + .div-3 {
+.section-programme .programme-item + .programme-item {
   margin-top: 32px;
 }
 
-.MASTER-invitation .element-evening-programme .adaptive-quiz,
-.MASTER-invitation .element-evening-programme .divider + .time {
+.section-programme .quiz,
+.section-programme .divider + .programme-time {
   margin-top: 25px;
 }
 
-.MASTER-invitation .element-evening-programme .activity {
+.section-programme .programme-activity {
   margin-top: 8px;
 }
 
-.MASTER-invitation .element-evening-programme .adaptive-quiz + .p,
-.MASTER-invitation .element-evening-programme .activity + .p {
+.section-programme .quiz + .programme-text,
+.section-programme .programme-activity + .programme-text {
   margin-top: 15px;
 }
 
-.MASTER-invitation .element-evening-programme .programme {
+.section-programme .programme-note {
   margin-top: var(--space-paragraph);
   margin-bottom: 25px;
 }
 
-.MASTER-invitation .element-evening-programme .divider + .bar-caption {
+.section-programme .divider + .programme-caption {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-evening-programme .bar-caption + .p {
+.section-programme .programme-caption + .programme-text {
   margin-top: 14px;
 }
 
-.MASTER-invitation .adaptive-programme {
+.programme-intro {
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px 24px;
@@ -667,7 +667,7 @@ a {
   position: relative;
 }
 
-.MASTER-invitation .polaroid {
+.polaroid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -677,13 +677,13 @@ a {
   box-shadow: var(--shadow-polaroid);
 }
 
-.MASTER-invitation .upper-left-childhood {
+.polaroid--baby {
   width: 244.19px;
   height: 331.78px;
   transform: rotate(-12deg);
 }
 
-.MASTER-invitation .photo-mount {
+.polaroid-photo {
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -691,8 +691,8 @@ a {
   overflow: hidden;
 }
 
-.MASTER-invitation .photo-baby-jpg,
-.MASTER-invitation .photo-dinner-jpg {
+.polaroid-img,
+.polaroid-img {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -701,7 +701,7 @@ a {
   object-fit: cover;
 }
 
-.MASTER-invitation .adaptive-programme-2 {
+.programme-title {
   flex-direction: column;
   min-width: 240px;
   max-width: 550px;
@@ -714,12 +714,12 @@ a {
 }
 
 /* In this section the chapter label is set in Inter rather than Arial Narrow. */
-.MASTER-invitation .element-evening-programme .chapter-label {
+.section-programme .chapter-label {
   font-family: var(--font-sans);
   font-weight: 500;
 }
 
-.MASTER-invitation .div-3 {
+.programme-item {
   display: flex;
   flex-direction: column;
   max-width: 560px;
@@ -729,7 +729,7 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .adaptive-quiz {
+.quiz {
   flex-wrap: wrap;
   justify-content: center;
   align-self: stretch;
@@ -740,7 +740,7 @@ a {
   position: relative;
 }
 
-.MASTER-invitation .adaptive-quiz-title {
+.quiz-title {
   flex-direction: column;
   min-width: 160px;
   max-width: 360px;
@@ -750,7 +750,7 @@ a {
   position: relative;
 }
 
-.MASTER-invitation .time {
+.programme-time {
   position: relative;
   font-family: var(--font-luxurious);
   font-weight: 400;
@@ -761,11 +761,11 @@ a {
   line-height: 58.8px;
 }
 
-.MASTER-invitation .adaptive-quiz-title .time {
+.quiz-title .programme-time {
   margin-top: -1px;
 }
 
-.MASTER-invitation .activity {
+.programme-activity {
   position: relative;
   font-family: var(--font-luxurious);
   font-weight: 400;
@@ -776,13 +776,13 @@ a {
   line-height: 39.2px;
 }
 
-.MASTER-invitation .photo-next-to-quiz {
+.polaroid--dinner {
   width: 183.79px;
   height: 249.72px;
   transform: rotate(9deg);
 }
 
-.MASTER-invitation .p {
+.programme-text {
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -793,7 +793,7 @@ a {
   line-height: 27.2px;
 }
 
-.MASTER-invitation .programme {
+.programme-note {
   position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
@@ -804,7 +804,7 @@ a {
   line-height: 35.1px;
 }
 
-.MASTER-invitation .bar-caption {
+.programme-caption {
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -815,7 +815,7 @@ a {
   line-height: 20.8px;
 }
 
-.MASTER-invitation .lower-left-toast {
+.polaroid--toast {
   position: absolute;
   left: 26px;
   bottom: 0;
@@ -824,7 +824,7 @@ a {
   transform: rotate(10deg);
 }
 
-.MASTER-invitation .photo-mount-2 {
+.toast-photo {
   position: relative;
   width: 214.17px;
   height: 267.72px;
@@ -833,7 +833,7 @@ a {
   background-position: 50% 50%;
 }
 
-.MASTER-invitation .element-gifts-photograph {
+.section-gifts {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -845,20 +845,20 @@ a {
 }
 
 /* Vertical rhythm of the gifts section. */
-.MASTER-invitation .element-gifts-photograph .hat-photograph,
-.MASTER-invitation .element-gifts-photograph .button {
+.section-gifts .photo-hat,
+.section-gifts .button {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-gifts-photograph .heading {
+.section-gifts .heading {
   margin-top: 44px;
 }
 
-.MASTER-invitation .element-gifts-photograph .text-wrapper {
+.section-gifts .body-text {
   margin-top: var(--space-text);
 }
 
-.MASTER-invitation .hat-photograph {
+.photo-hat {
   position: relative;
   width: 260px;
   height: 325px;
@@ -868,13 +868,13 @@ a {
   background-position: 50% 10%;
 }
 
-.MASTER-invitation .photo-handwriting--cheers {
+.photo-caption--hat {
   left: calc(50% - 160px);
   bottom: -39px;
   width: 312px;
 }
 
-.MASTER-invitation .element-footer {
+.site-footer {
   display: flex;
   flex-direction: column;
   max-width: 1008px;
@@ -889,19 +889,19 @@ a {
 }
 
 /* Vertical rhythm of the footer. */
-.MASTER-invitation .element-footer .sign-off {
+.site-footer .sign-off {
   margin-top: var(--space-block);
 }
 
-.MASTER-invitation .element-footer .footer-date {
+.site-footer .footer-date {
   margin-top: 16px;
 }
 
-.MASTER-invitation .element-footer .text-wrapper-3 {
+.site-footer .small-text {
   margin-top: 12px;
 }
 
-.MASTER-invitation .sign-off {
+.sign-off {
   position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
@@ -912,7 +912,7 @@ a {
   line-height: 46.8px;
 }
 
-.MASTER-invitation .footer-date {
+.footer-date {
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -922,65 +922,65 @@ a {
   letter-spacing: 0.84px;
   line-height: 20.4px;
 }
-.MASTER-invitation .reveal {
+.reveal {
   transition: opacity 650ms ease, translate 650ms ease;
 }
 
-.MASTER-invitation .reveal-hidden {
+.reveal-hidden {
   opacity: 0;
   translate: 0 16px;
 }
 
 @media (min-width: 761px) and (max-width: 1050px) {
-  .MASTER-invitation .div-wrapper { padding-inline: 4%; }
-  .MASTER-invitation .element-header { padding-inline: 5%; }
-  .MASTER-invitation .element-invitation, .MASTER-invitation .element-nostalgia-dress,
-  .MASTER-invitation .element-gifts-photograph { padding-inline: 8%; }
-  .MASTER-invitation .element-when-and-where, .MASTER-invitation .element-footer { width: 84%; padding-inline: 5%; }
-  .MASTER-invitation .element-evening-programme { padding-inline: 8%; }
-  .MASTER-invitation .lower-left-toast { display: none; }
-  .MASTER-invitation .title { font-size: clamp(116px, 15.333vw, 184px); }
-  .MASTER-invitation .childhood-caption { left: auto; right: 8%; }
+  .inset { padding-inline: 4%; }
+  .site-header { padding-inline: 5%; }
+  .intro, .section-dress,
+  .section-gifts { padding-inline: 8%; }
+  .section-details, .site-footer { width: 84%; padding-inline: 5%; }
+  .section-programme { padding-inline: 8%; }
+  .polaroid--toast { display: none; }
+  .hero-title { font-size: clamp(116px, 15.333vw, 184px); }
+  .hero-caption { left: auto; right: 8%; }
 }
 
 @media (max-width: 760px) {
-  .MASTER-invitation .element-header { padding: 22px 5%; }
-  .MASTER-invitation .wordmark { font-size: 12px; line-height: 20.4px; }
-  .MASTER-invitation .div-wrapper { padding-inline: 4%; }
-  .MASTER-invitation .photo-birthday-png { object-position: 50% 55%; }
-  .MASTER-invitation .hero-typography { padding-inline: 2%; }
-  .MASTER-invitation .title { width: 100%; height: auto; font-size: clamp(68px, 21.5vw, 110px); line-height: 1.45; }
+  .site-header { padding: 22px 5%; }
+  .wordmark { font-size: 12px; line-height: 20.4px; }
+  .inset { padding-inline: 4%; }
+  .hero-img { object-position: 50% 55%; }
+  .hero-text { padding-inline: 2%; }
+  .hero-title { width: 100%; height: auto; font-size: clamp(68px, 21.5vw, 110px); line-height: 1.45; }
   /* The supplied mobile reference has no visible childhood caption. */
-  .MASTER-invitation .childhood-caption { display: none; }
-  .MASTER-invitation .element-invitation { padding: 35px 9% 43px; }
-  .MASTER-invitation .element-when-and-where { width: 82%; max-width: none; padding: 35px 3% 40px; }
-  .MASTER-invitation .element-nostalgia-dress, .MASTER-invitation .element-gifts-photograph { padding: 42px 9%; }
-  .MASTER-invitation .element-footer { width: 82%; max-width: none; padding-inline: 5%; }
-  .MASTER-invitation .heading { font-size: 32px; line-height: 1.3; letter-spacing: -1.28px; }
-  .MASTER-invitation .text-wrapper { width: 100%; font-size: 16px; line-height: 27.2px; }
-  .MASTER-invitation .date-and-venue { flex-direction: column; align-items: stretch; gap: 27px; }
-  .MASTER-invitation .div-2 { min-width: 0; }
-  .MASTER-invitation .pet-friendly { font-size: 17px; }
-  .MASTER-invitation .bow-photograph { max-width: 100%; }
-  .MASTER-invitation .hat-photograph { max-width: 100%; }
-  .MASTER-invitation .photo-handwriting { width: calc(100% + 36px); left: -18px; }
-  .MASTER-invitation .dress-code { width: 100%; font-size: 28px; line-height: 36.4px; }
-  .MASTER-invitation .element-evening-programme { padding: 34px 9% 44px; }
-  .MASTER-invitation .adaptive-programme, .MASTER-invitation .adaptive-quiz { flex-direction: column; flex-wrap: nowrap; gap: 24px; }
-  .MASTER-invitation .adaptive-programme-2 { width: 100%; min-width: 0; flex: none; }
-  .MASTER-invitation .adaptive-quiz-title { width: 100%; min-width: 0; flex: none; }
-  .MASTER-invitation .upper-left-childhood { max-width: 100%; }
-  .MASTER-invitation .time { font-size: 39px; line-height: 54.6px; letter-spacing: -1.56px; }
-  .MASTER-invitation .activity { font-size: 26px; line-height: 36.4px; letter-spacing: -0.52px; }
-  .MASTER-invitation .programme { max-width: 100%; }
-  .MASTER-invitation .lower-left-toast { display: none; }
-  .MASTER-invitation .bar-caption { font-size: 12px; line-height: 19.2px; }
-  .MASTER-invitation .chapter-label { font-size: 12px; letter-spacing: 0.96px; max-width: calc(100% - 46px); white-space: normal; text-align: right; }
-  .MASTER-invitation .sign-off { font-size: 32px; line-height: 41.6px; }
+  .hero-caption { display: none; }
+  .intro { padding: 35px 9% 43px; }
+  .section-details { width: 82%; max-width: none; padding: 35px 3% 40px; }
+  .section-dress, .section-gifts { padding: 42px 9%; }
+  .site-footer { width: 82%; max-width: none; padding-inline: 5%; }
+  .heading { font-size: 32px; line-height: 1.3; letter-spacing: -1.28px; }
+  .body-text { width: 100%; font-size: 16px; line-height: 27.2px; }
+  .date-and-venue { flex-direction: column; align-items: stretch; gap: 27px; }
+  .fact { min-width: 0; }
+  .pet-friendly-text { font-size: 17px; }
+  .photo-bow { max-width: 100%; }
+  .photo-hat { max-width: 100%; }
+  .photo-caption { width: calc(100% + 36px); left: -18px; }
+  .dress-code-note { width: 100%; font-size: 28px; line-height: 36.4px; }
+  .section-programme { padding: 34px 9% 44px; }
+  .programme-intro, .quiz { flex-direction: column; flex-wrap: nowrap; gap: 24px; }
+  .programme-title { width: 100%; min-width: 0; flex: none; }
+  .quiz-title { width: 100%; min-width: 0; flex: none; }
+  .polaroid--baby { max-width: 100%; }
+  .programme-time { font-size: 39px; line-height: 54.6px; letter-spacing: -1.56px; }
+  .programme-activity { font-size: 26px; line-height: 36.4px; letter-spacing: -0.52px; }
+  .programme-note { max-width: 100%; }
+  .polaroid--toast { display: none; }
+  .programme-caption { font-size: 12px; line-height: 19.2px; }
+  .chapter-label { font-size: 12px; letter-spacing: 0.96px; max-width: calc(100% - 46px); white-space: normal; text-align: right; }
+  .sign-off { font-size: 32px; line-height: 41.6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .MASTER-invitation .reveal { transition: none; }
-  .MASTER-invitation .reveal-hidden { opacity: 1; translate: none; }
+  .reveal { transition: none; }
+  .reveal-hidden { opacity: 1; translate: none; }
 }
