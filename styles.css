@@ -296,6 +296,7 @@ a {
 }
 
 .MASTER-invitation .text-wrapper-2 {
+  display: block;
   position: relative;
   width: fit-content;
   font-family: var(--font-button);
