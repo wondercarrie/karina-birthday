@@ -622,10 +622,45 @@ a {
   background-color: #c02230;
 }
 
-.MASTER-invitation .spacing-9 {
-  height: 36px;
-  position: relative;
-  width: 10px;
+/* Vertical rhythm of the evening programme section. */
+.MASTER-invitation .element-evening-programme .adaptive-programme {
+  margin-top: 36px;
+}
+
+/* 28px plus the extra 56px gap the old spacer added inside .adaptive-programme-2. */
+.MASTER-invitation .element-evening-programme .heading-2 {
+  margin-top: 84px;
+}
+
+.MASTER-invitation .element-evening-programme .div-3 + .div-3 {
+  margin-top: 32px;
+}
+
+.MASTER-invitation .element-evening-programme .adaptive-quiz,
+.MASTER-invitation .element-evening-programme .hairline-3 + .time-2 {
+  margin-top: 25px;
+}
+
+.MASTER-invitation .element-evening-programme .activity {
+  margin-top: 8px;
+}
+
+.MASTER-invitation .element-evening-programme .adaptive-quiz + .p,
+.MASTER-invitation .element-evening-programme .activity + .p {
+  margin-top: 15px;
+}
+
+.MASTER-invitation .element-evening-programme .programme {
+  margin-top: 17px;
+  margin-bottom: 25px;
+}
+
+.MASTER-invitation .element-evening-programme .hairline-3 + .bar-caption {
+  margin-top: 28px;
+}
+
+.MASTER-invitation .element-evening-programme .bar-caption + .p {
+  margin-top: 14px;
 }
 
 .MASTER-invitation .adaptive-programme {
@@ -744,12 +779,6 @@ a {
   flex: 0 0 auto;
 }
 
-.MASTER-invitation .spacing-10 {
-  height: 25px;
-  position: relative;
-  width: 10px;
-}
-
 .MASTER-invitation .adaptive-quiz {
   flex-wrap: wrap;
   justify-content: center;
@@ -807,12 +836,6 @@ a {
   box-shadow: 0px 6px 15px #62121d30;
 }
 
-.MASTER-invitation .spacing-11 {
-  height: 15px;
-  position: relative;
-  width: 10px;
-}
-
 .MASTER-invitation .p {
   position: relative;
   font-family: "Arial Narrow-Regular", Helvetica;
@@ -833,12 +856,6 @@ a {
   text-align: center;
   letter-spacing: 0;
   line-height: 35.1px;
-}
-
-.MASTER-invitation .spacing-12 {
-  height: 32px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .hairline-3 {
@@ -869,12 +886,6 @@ a {
   text-align: center;
   letter-spacing: 1.04px;
   line-height: 20.8px;
-}
-
-.MASTER-invitation .spacing-13 {
-  height: 14px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .lower-left-toast {
