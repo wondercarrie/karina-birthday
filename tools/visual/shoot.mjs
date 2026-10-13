@@ -7,9 +7,10 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(fileURLToPath(import.meta.url), '../../..');
+// SITE_ROOT lets you shoot another checkout (e.g. a worktree of main) with the same tool.
+const ROOT = process.env.SITE_ROOT ? path.resolve(process.env.SITE_ROOT) : path.resolve(fileURLToPath(import.meta.url), '../../..');
 const OUT = path.resolve(fileURLToPath(import.meta.url), '..', 'shots', process.argv[2] || 'current');
-const WIDTHS = [375, 768, 1440];
+const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [375, 768, 1440];
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml',
@@ -72,11 +73,11 @@ for (const width of WIDTHS) {
     const page = await open(width, lang === 'en' ? '?lang=en' : '');
     if (lang === 'ru') {
       meta.heroCurrentSrc[width] = await page.evaluate(() => {
-        const img = document.querySelector('.hero-img');
+        const img = document.querySelector('.hero-img, .photo-birthday-png');
         return { len: img.currentSrc.length, tail: img.currentSrc.slice(-40) };
       });
       const hero = await page.evaluate(async () => {
-        const src = document.querySelector('.hero-img').currentSrc;
+        const src = document.querySelector('.hero-img, .photo-birthday-png').currentSrc;
         const buf = await (await fetch(src)).arrayBuffer();
         const d = await crypto.subtle.digest('SHA-256', buf);
         return [...new Uint8Array(d)].map(b => b.toString(16).padStart(2, '0')).join('');

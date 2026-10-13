@@ -168,7 +168,6 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   padding: 0 48px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -181,14 +180,12 @@ a:focus-visible {
   align-items: center;
   justify-content: space-between;
   padding: 22px 60px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
 }
 
 .wordmark {
-  position: relative;
   width: fit-content;
   margin-top: -0.5px;
   font-family: var(--font-sans);
@@ -202,7 +199,6 @@ a:focus-visible {
 }
 
 .language-navigation {
-  position: relative;
   width: fit-content;
   margin-top: -1px;
   font-family: var(--font-sans);
@@ -245,7 +241,6 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 13px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -284,7 +279,6 @@ a:focus-visible {
 }
 
 .chapter-label {
-  position: relative;
   width: fit-content;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -299,7 +293,6 @@ a:focus-visible {
 /* --- Text --------------------------------------------------------------- */
 
 .heading {
-  position: relative;
   max-width: 100%;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -311,7 +304,6 @@ a:focus-visible {
 }
 
 .body-text {
-  position: relative;
   width: 620px;
   max-width: 100%;
   font-family: var(--font-narrow);
@@ -324,7 +316,6 @@ a:focus-visible {
 }
 
 .small-text {
-  position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
@@ -358,7 +349,6 @@ a:focus-visible {
 
 .button-label {
   display: block;
-  position: relative;
   width: fit-content;
   font-family: var(--font-button);
   font-weight: 400;
@@ -373,7 +363,6 @@ a:focus-visible {
 /* --- Rules -------------------------------------------------------------- */
 
 .divider {
-  position: relative;
   align-self: stretch;
   width: 100%;
   height: 1px;
@@ -387,19 +376,16 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  position: relative;
   flex: 0 0 auto;
 }
 
 .flourish-line {
-  position: relative;
   flex: 1;
   height: 1px;
   background-color: var(--color-red);
 }
 
 .flourish-star {
-  position: relative;
   flex: 1;
   margin-top: -1px;
   font-family: var(--font-sans);
@@ -497,7 +483,6 @@ a:focus-visible {
 }
 
 .toast-photo {
-  position: relative;
   width: 214.17px;
   height: 267.72px;
   background-image: url("assets/img/toast.jpg");
@@ -570,7 +555,6 @@ a:focus-visible {
 }
 
 .hero-title {
-  position: relative;
   width: 756px;
   max-width: 100%;
   height: 287px;
@@ -610,7 +594,6 @@ a:focus-visible {
   align-items: center;
   gap: var(--space-block);
   padding: 52px 120px 65px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -626,7 +609,6 @@ a:focus-visible {
   max-width: 1008px;
   align-items: center;
   padding: 45px 60px 50px;
-  position: relative;
   width: 100%;
   flex: 0 0 auto;
   border-block: 1px solid;
@@ -659,7 +641,6 @@ a:focus-visible {
   align-items: flex-start;
   justify-content: center;
   gap: 27px 30px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -671,12 +652,10 @@ a:focus-visible {
   min-width: 250px;
   align-items: center;
   gap: 9px;
-  position: relative;
   flex: 1;
 }
 
 .fact-label {
-  position: relative;
   margin-top: -1px;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -688,7 +667,6 @@ a:focus-visible {
 }
 
 .fact-value {
-  position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
@@ -699,7 +677,6 @@ a:focus-visible {
 }
 
 .fact-note {
-  position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-ink);
@@ -750,7 +727,6 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   padding: 62px 120px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -787,7 +763,6 @@ a:focus-visible {
 }
 
 .dress-code-note {
-  position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-red);
@@ -867,7 +842,6 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -881,7 +855,6 @@ a:focus-visible {
   max-width: 550px;
   height: 375px;
   gap: 56px;
-  position: relative;
   flex: 1;
 }
 
@@ -891,7 +864,6 @@ a:focus-visible {
   flex-direction: column;
   max-width: 560px;
   align-items: center;
-  position: relative;
   width: 100%;
   flex: 0 0 auto;
 }
@@ -902,7 +874,6 @@ a:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -914,12 +885,10 @@ a:focus-visible {
   align-items: center;
   min-width: 160px;
   max-width: 360px;
-  position: relative;
   flex: 1;
 }
 
 .programme-time {
-  position: relative;
   font-family: var(--font-luxurious);
   font-weight: 400;
   color: var(--color-cream);
@@ -934,7 +903,6 @@ a:focus-visible {
 }
 
 .programme-activity {
-  position: relative;
   font-family: var(--font-luxurious);
   font-weight: 400;
   color: var(--color-cream);
@@ -945,6 +913,7 @@ a:focus-visible {
 }
 
 .programme-text {
+  /* Keeps the text painted above the overlapping rotated polaroid shadow. */
   position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -956,7 +925,6 @@ a:focus-visible {
 }
 
 .programme-note {
-  position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-cream);
@@ -967,7 +935,6 @@ a:focus-visible {
 }
 
 .programme-caption {
-  position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
@@ -986,7 +953,6 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   padding: 70px 120px 62px;
-  position: relative;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -1025,7 +991,6 @@ a:focus-visible {
   max-width: 1008px;
   align-items: center;
   padding: 25px 60px 38px;
-  position: relative;
   width: 100%;
   flex: 0 0 auto;
   border-top: 1px solid;
@@ -1045,7 +1010,6 @@ a:focus-visible {
 }
 
 .sign-off {
-  position: relative;
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-red);
@@ -1056,7 +1020,6 @@ a:focus-visible {
 }
 
 .footer-date {
-  position: relative;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
