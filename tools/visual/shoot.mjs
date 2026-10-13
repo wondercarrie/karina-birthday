@@ -41,6 +41,8 @@ await fs.mkdir(OUT, { recursive: true });
 
 async function open(width, query = '') {
   const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+  // Software rasterisation of the 3 MB hero is slow on a busy machine.
+  page.setDefaultTimeout(120000);
   page.on('console', m => { if (['error', 'warning'].includes(m.type())) meta.console.push(`${width}${query} ${m.type()}: ${m.text()}`); });
   page.on('pageerror', e => meta.console.push(`${width}${query} pageerror: ${e.message}`));
   page.on('requestfailed', r => meta.failedRequests.push(`${width}${query} ${r.url().slice(0, 120)}`));
