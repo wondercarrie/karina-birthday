@@ -386,12 +386,6 @@ a {
   white-space: nowrap;
 }
 
-.MASTER-invitation .spacing-2 {
-  position: relative;
-  width: 10px;
-  height: 28px;
-}
-
 .MASTER-invitation .heading {
   position: relative;
   max-width: 100%;
@@ -458,12 +452,6 @@ a {
   text-align: center;
   letter-spacing: 0;
   line-height: 23.8px;
-}
-
-.MASTER-invitation .spacing-4 {
-  height: 26px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .pet-friendly-badge {
@@ -577,18 +565,6 @@ a {
   text-align: center;
   letter-spacing: 0;
   line-height: 117px;
-}
-
-.MASTER-invitation .spacing-7 {
-  height: 17px;
-  position: relative;
-  width: 10px;
-}
-
-.MASTER-invitation .spacing-8 {
-  height: 8px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .dress-code {
@@ -979,6 +955,19 @@ a {
   border-color: #c02230;
 }
 
+/* Vertical rhythm of the footer. */
+.MASTER-invitation .element-footer .sign-off {
+  margin-top: 28px;
+}
+
+.MASTER-invitation .element-footer .footer-date {
+  margin-top: 16px;
+}
+
+.MASTER-invitation .element-footer .text-wrapper-3 {
+  margin-top: 12px;
+}
+
 .MASTER-invitation .sign-off {
   position: relative;
   font-family: "Caveat-Regular", Helvetica;
@@ -990,12 +979,6 @@ a {
   line-height: 46.8px;
 }
 
-.MASTER-invitation .spacing-15 {
-  height: 16px;
-  position: relative;
-  width: 10px;
-}
-
 .MASTER-invitation .footer-date {
   position: relative;
   font-family: "Arial Narrow-Regular", Helvetica;
@@ -1005,12 +988,6 @@ a {
   text-align: center;
   letter-spacing: 0.84px;
   line-height: 20.4px;
-}
-
-.MASTER-invitation .spacing-16 {
-  height: 12px;
-  position: relative;
-  width: 10px;
 }
 .MASTER-invitation .reveal {
   transition: opacity 650ms ease, translate 650ms ease;
