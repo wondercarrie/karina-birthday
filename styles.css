@@ -308,6 +308,27 @@ a {
   border-color: #c02230;
 }
 
+/* Vertical rhythm of the "when & where" section. */
+.MASTER-invitation .element-when-and-where .heading {
+  margin-top: 28px;
+}
+
+.MASTER-invitation .element-when-and-where .date-and-venue {
+  margin-top: 30px;
+}
+
+.MASTER-invitation .element-when-and-where .button {
+  margin-top: 28px;
+}
+
+.MASTER-invitation .element-when-and-where .pet-friendly-badge {
+  margin-top: 26px;
+}
+
+.MASTER-invitation .element-when-and-where .text-wrapper-3 {
+  margin-top: 13px;
+}
+
 .MASTER-invitation .chapter {
   display: flex;
   align-items: center;
@@ -381,12 +402,6 @@ a {
   text-align: center;
   letter-spacing: -1.92px;
   line-height: 62.4px;
-}
-
-.MASTER-invitation .spacing-3 {
-  height: 30px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .date-and-venue {
@@ -481,12 +496,6 @@ a {
   width: 24px;
   height: 30px;
   transform: rotate(7deg);
-}
-
-.MASTER-invitation .spacing-5 {
-  height: 13px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .text-wrapper-3 {
