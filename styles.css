@@ -520,6 +520,27 @@ a {
   flex: 0 0 auto;
 }
 
+/* Vertical rhythm of the dress-code section. */
+.MASTER-invitation .element-nostalgia-dress .bow-photograph {
+  margin-top: 28px;
+}
+
+.MASTER-invitation .element-nostalgia-dress .heading {
+  margin-top: 45px;
+}
+
+.MASTER-invitation .element-nostalgia-dress .heading + .text-wrapper {
+  margin-top: 26px;
+}
+
+.MASTER-invitation .element-nostalgia-dress .text-wrapper + .text-wrapper {
+  margin-top: 17px;
+}
+
+.MASTER-invitation .element-nostalgia-dress .dress-code {
+  margin-top: 25px;
+}
+
 .MASTER-invitation .bow-photograph {
   position: relative;
   width: 285px;
@@ -556,12 +577,6 @@ a {
   text-align: center;
   letter-spacing: 0;
   line-height: 117px;
-}
-
-.MASTER-invitation .spacing-6 {
-  height: 45px;
-  position: relative;
-  width: 10px;
 }
 
 .MASTER-invitation .spacing-7 {
