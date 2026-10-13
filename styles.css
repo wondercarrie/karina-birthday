@@ -16,7 +16,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: #f4f0e9;
+  background: var(--color-cream);
 }
 /* a blue color as a generic focus style */
 button:focus-visible {
@@ -27,12 +27,25 @@ a {
   text-decoration: none;
 }
 :root {
-  --nostalgia-button-font-family: "Arial Narrow", Helvetica;
-  --nostalgia-button-font-weight: 400;
-  --nostalgia-button-font-size: 15px;
-  --nostalgia-button-letter-spacing: 0px;
-  --nostalgia-button-line-height: 23.25px;
-  --nostalgia-button-font-style: normal;
+  /* Colours */
+  --color-red: #c02230;
+  --color-red-hover: #a91c29;
+  --color-cream: #f4f0e9;
+  --color-ink: #26231f;
+  --shadow-polaroid: 0px 6px 15px #62121d30;
+
+  /* Font stacks (family names match the bundled @font-face rules) */
+  --font-sans: "Inter-Medium", Helvetica;
+  --font-narrow: "Arial Narrow-Regular", Helvetica;
+  --font-button: "Arial Narrow", Helvetica;
+  --font-script: "Pinyon Script-Regular", Helvetica;
+  --font-hand: "Caveat-Regular", Helvetica;
+  --font-luxurious: "Luxurious Script-Regular", Helvetica;
+
+  /* Vertical rhythm */
+  --space-block: 28px;
+  --space-text: 26px;
+  --space-paragraph: 17px;
 }
 .MASTER-invitation {
   display: flex;
@@ -42,7 +55,7 @@ a {
   margin: 0 auto;
   align-items: center;
   position: relative;
-  background-color: #f4f0e9;
+  background-color: var(--color-cream);
 }
 
 .MASTER-invitation .element-header {
@@ -60,9 +73,9 @@ a {
   position: relative;
   width: fit-content;
   margin-top: -0.5px;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 13px;
   text-align: center;
   letter-spacing: 0.52px;
@@ -74,9 +87,9 @@ a {
   position: relative;
   width: fit-content;
   margin-top: -1px;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 14px;
   text-align: center;
   letter-spacing: 0;
@@ -179,9 +192,9 @@ a {
   max-width: 100%;
   height: 287px;
   margin: 0 auto;
-  font-family: "Pinyon Script-Regular", Helvetica;
+  font-family: var(--font-script);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 184px;
   text-align: center;
   letter-spacing: 0;
@@ -195,9 +208,9 @@ a {
   left: 746px;
   width: 220px;
   transform: rotate(-6deg);
-  font-family: "Caveat-Regular", Helvetica;
+  font-family: var(--font-hand);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 28px;
   text-align: center;
   letter-spacing: 0;
@@ -208,7 +221,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: var(--space-block);
   padding: 52px 120px 65px;
   position: relative;
   align-self: stretch;
@@ -230,16 +243,16 @@ a {
   position: relative;
   flex: 1;
   height: 1px;
-  background-color: #c02230;
+  background-color: var(--color-red);
 }
 
 .MASTER-invitation .star {
   position: relative;
   flex: 1;
   margin-top: -1px;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 18px;
   text-align: center;
   letter-spacing: 0;
@@ -250,9 +263,9 @@ a {
   position: relative;
   width: 620px;
   max-width: 100%;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 17px;
   text-align: center;
   letter-spacing: 0;
@@ -268,7 +281,7 @@ a {
   padding: 12px 27px;
   position: relative;
   flex: 0 0 auto;
-  background-color: #c02230;
+  background-color: var(--color-red);
   border-radius: 3px;
   border: 1px solid;
   cursor: pointer;
@@ -276,20 +289,20 @@ a {
 }
 
 .MASTER-invitation .button:hover {
-  background-color: #a91c29;
+  background-color: var(--color-red-hover);
 }
 
 .MASTER-invitation .text-wrapper-2 {
   position: relative;
   width: fit-content;
-  font-family: var(--nostalgia-button-font-family);
-  font-weight: var(--nostalgia-button-font-weight);
-  color: #f4f0e9;
-  font-size: var(--nostalgia-button-font-size);
-  letter-spacing: var(--nostalgia-button-letter-spacing);
-  line-height: var(--nostalgia-button-line-height);
+  font-family: var(--font-button);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 15px;
+  letter-spacing: 0px;
+  line-height: 23.25px;
   white-space: nowrap;
-  font-style: var(--nostalgia-button-font-style);
+  font-style: normal;
 }
 
 .MASTER-invitation .element-when-and-where {
@@ -305,12 +318,12 @@ a {
   border-top-style: solid;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-color: #c02230;
+  border-color: var(--color-red);
 }
 
 /* Vertical rhythm of the "when & where" section. */
 .MASTER-invitation .element-when-and-where .heading {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-when-and-where .date-and-venue {
@@ -318,11 +331,11 @@ a {
 }
 
 .MASTER-invitation .element-when-and-where .button {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-when-and-where .pet-friendly-badge {
-  margin-top: 26px;
+  margin-top: var(--space-text);
 }
 
 .MASTER-invitation .element-when-and-where .text-wrapper-3 {
@@ -352,7 +365,7 @@ a {
   height: 33px;
   border-radius: 16.5px;
   border: 1px solid;
-  border-color: #c02230;
+  border-color: var(--color-red);
   position: absolute;
   left: 0;
   width: 33px;
@@ -363,9 +376,9 @@ a {
   top: 7px;
   left: 0;
   width: 33px;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 12px;
   text-align: center;
   letter-spacing: 0;
@@ -376,9 +389,9 @@ a {
 .MASTER-invitation .chapter-label {
   position: relative;
   width: fit-content;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 13px;
   text-align: center;
   letter-spacing: 1.04px;
@@ -389,9 +402,9 @@ a {
 .MASTER-invitation .heading {
   position: relative;
   max-width: 100%;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 48px;
   text-align: center;
   letter-spacing: -1.92px;
@@ -423,9 +436,9 @@ a {
 .MASTER-invitation .label {
   position: relative;
   margin-top: -1px;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 13px;
   text-align: center;
   letter-spacing: 1.04px;
@@ -434,9 +447,9 @@ a {
 
 .MASTER-invitation .value {
   position: relative;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 25px;
   text-align: center;
   letter-spacing: -0.62px;
@@ -445,9 +458,9 @@ a {
 
 .MASTER-invitation .note {
   position: relative;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #26231f;
+  color: var(--color-ink);
   font-size: 14px;
   text-align: center;
   letter-spacing: 0;
@@ -470,9 +483,9 @@ a {
   font-size: 18px;
   line-height: 23.4px;
   white-space: nowrap;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   text-align: center;
   letter-spacing: 0;
 }
@@ -490,9 +503,9 @@ a {
   position: relative;
   font-size: 14px;
   line-height: 23.8px;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   text-align: center;
   letter-spacing: 0;
 }
@@ -510,7 +523,7 @@ a {
 
 /* Vertical rhythm of the dress-code section. */
 .MASTER-invitation .element-nostalgia-dress .bow-photograph {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-nostalgia-dress .heading {
@@ -518,11 +531,11 @@ a {
 }
 
 .MASTER-invitation .element-nostalgia-dress .heading + .text-wrapper {
-  margin-top: 26px;
+  margin-top: var(--space-text);
 }
 
 .MASTER-invitation .element-nostalgia-dress .text-wrapper + .text-wrapper {
-  margin-top: 17px;
+  margin-top: var(--space-paragraph);
 }
 
 .MASTER-invitation .element-nostalgia-dress .dress-code {
@@ -546,7 +559,7 @@ a {
   top: 8px;
   left: 8px;
   border: 1px solid;
-  border-color: #f4f0e9;
+  border-color: var(--color-cream);
 }
 
 .MASTER-invitation .photo-handwriting {
@@ -555,12 +568,12 @@ a {
   bottom: -40px;
   width: 342px;
   transform: rotate(-6deg);
-  -webkit-text-stroke: 4px #f4f0e9;
+  -webkit-text-stroke: 4px var(--color-cream);
   paint-order: stroke fill;
-  -webkit-text-fill-color: #c02230;
-  font-family: "Pinyon Script-Regular", Helvetica;
+  -webkit-text-fill-color: var(--color-red);
+  font-family: var(--font-script);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 90px;
   text-align: center;
   letter-spacing: 0;
@@ -569,9 +582,9 @@ a {
 
 .MASTER-invitation .dress-code {
   position: relative;
-  font-family: "Caveat-Regular", Helvetica;
+  font-family: var(--font-hand);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 30px;
   text-align: center;
   letter-spacing: 0;
@@ -579,7 +592,7 @@ a {
 }
 
 .MASTER-invitation .hairline-2 {
-  background-color: #c02230;
+  background-color: var(--color-red);
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -595,7 +608,7 @@ a {
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
-  background-color: #c02230;
+  background-color: var(--color-red);
 }
 
 /* Vertical rhythm of the evening programme section. */
@@ -603,9 +616,9 @@ a {
   margin-top: 36px;
 }
 
-/* 28px plus the extra 56px gap the old spacer added inside .adaptive-programme-2. */
+/* The block gap plus the extra 56px flex gap the old spacer added inside .adaptive-programme-2. */
 .MASTER-invitation .element-evening-programme .heading-2 {
-  margin-top: 84px;
+  margin-top: calc(var(--space-block) + 56px);
 }
 
 .MASTER-invitation .element-evening-programme .div-3 + .div-3 {
@@ -627,12 +640,12 @@ a {
 }
 
 .MASTER-invitation .element-evening-programme .programme {
-  margin-top: 17px;
+  margin-top: var(--space-paragraph);
   margin-bottom: 25px;
 }
 
 .MASTER-invitation .element-evening-programme .hairline-3 + .bar-caption {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-evening-programme .bar-caption + .p {
@@ -659,9 +672,9 @@ a {
   align-items: center;
   padding: 8px 8px 27px;
   position: relative;
-  background-color: #f4f0e9;
+  background-color: var(--color-cream);
   transform: rotate(-12deg);
-  box-shadow: 0px 6px 15px #62121d30;
+  box-shadow: var(--shadow-polaroid);
 }
 
 .MASTER-invitation .photo-mount {
@@ -702,14 +715,14 @@ a {
   height: 33px;
   border-radius: 16.5px;
   border: 1px solid;
-  border-color: #f4f0e9;
+  border-color: var(--color-cream);
 }
 
 .MASTER-invitation .number-2 {
   top: 7px;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 12px;
   text-align: center;
   letter-spacing: 0;
@@ -723,9 +736,9 @@ a {
 .MASTER-invitation .chapter-label-2 {
   position: relative;
   width: fit-content;
-  font-family: "Inter-Medium", Helvetica;
+  font-family: var(--font-sans);
   font-weight: 500;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 13px;
   text-align: center;
   letter-spacing: 1.04px;
@@ -736,9 +749,9 @@ a {
 .MASTER-invitation .heading-2 {
   position: relative;
   max-width: 100%;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 48px;
   text-align: center;
   letter-spacing: -1.92px;
@@ -779,9 +792,9 @@ a {
 .MASTER-invitation .time {
   position: relative;
   margin-top: -1px;
-  font-family: "Luxurious Script-Regular", Helvetica;
+  font-family: var(--font-luxurious);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 96px;
   text-align: center;
   letter-spacing: -3.84px;
@@ -790,9 +803,9 @@ a {
 
 .MASTER-invitation .activity {
   position: relative;
-  font-family: "Luxurious Script-Regular", Helvetica;
+  font-family: var(--font-luxurious);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 64px;
   text-align: center;
   letter-spacing: -1.28px;
@@ -807,16 +820,16 @@ a {
   align-items: center;
   padding: 8px 8px 27px;
   position: relative;
-  background-color: #f4f0e9;
+  background-color: var(--color-cream);
   transform: rotate(9deg);
-  box-shadow: 0px 6px 15px #62121d30;
+  box-shadow: var(--shadow-polaroid);
 }
 
 .MASTER-invitation .p {
   position: relative;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 16px;
   text-align: center;
   letter-spacing: 0;
@@ -825,9 +838,9 @@ a {
 
 .MASTER-invitation .programme {
   position: relative;
-  font-family: "Caveat-Regular", Helvetica;
+  font-family: var(--font-hand);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 27px;
   text-align: center;
   letter-spacing: 0;
@@ -835,7 +848,7 @@ a {
 }
 
 .MASTER-invitation .hairline-3 {
-  background-color: #f4f0e9;
+  background-color: var(--color-cream);
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -844,9 +857,9 @@ a {
 
 .MASTER-invitation .time-2 {
   position: relative;
-  font-family: "Luxurious Script-Regular", Helvetica;
+  font-family: var(--font-luxurious);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 96px;
   text-align: center;
   letter-spacing: -3.84px;
@@ -855,9 +868,9 @@ a {
 
 .MASTER-invitation .bar-caption {
   position: relative;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #f4f0e9;
+  color: var(--color-cream);
   font-size: 13px;
   text-align: center;
   letter-spacing: 1.04px;
@@ -874,9 +887,9 @@ a {
   position: absolute;
   left: 26px;
   bottom: 0;
-  background-color: #f4f0e9;
+  background-color: var(--color-cream);
   transform: rotate(10deg);
-  box-shadow: 0px 6px 15px #62121d30;
+  box-shadow: var(--shadow-polaroid);
 }
 
 .MASTER-invitation .photo-mount-2 {
@@ -902,7 +915,7 @@ a {
 /* Vertical rhythm of the gifts section. */
 .MASTER-invitation .element-gifts-photograph .hat-photograph,
 .MASTER-invitation .element-gifts-photograph .button {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-gifts-photograph .heading {
@@ -910,7 +923,7 @@ a {
 }
 
 .MASTER-invitation .element-gifts-photograph .text-wrapper {
-  margin-top: 26px;
+  margin-top: var(--space-text);
 }
 
 .MASTER-invitation .hat-photograph {
@@ -929,12 +942,12 @@ a {
   bottom: -39px;
   width: 312px;
   transform: rotate(-6deg);
-  -webkit-text-stroke: 4px #f4f0e9;
+  -webkit-text-stroke: 4px var(--color-cream);
   paint-order: stroke fill;
-  -webkit-text-fill-color: #c02230;
-  font-family: "Pinyon Script-Regular", Helvetica;
+  -webkit-text-fill-color: var(--color-red);
+  font-family: var(--font-script);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 90px;
   text-align: center;
   letter-spacing: 0;
@@ -952,12 +965,12 @@ a {
   flex: 0 0 auto;
   border-top-width: 1px;
   border-top-style: solid;
-  border-color: #c02230;
+  border-color: var(--color-red);
 }
 
 /* Vertical rhythm of the footer. */
 .MASTER-invitation .element-footer .sign-off {
-  margin-top: 28px;
+  margin-top: var(--space-block);
 }
 
 .MASTER-invitation .element-footer .footer-date {
@@ -970,9 +983,9 @@ a {
 
 .MASTER-invitation .sign-off {
   position: relative;
-  font-family: "Caveat-Regular", Helvetica;
+  font-family: var(--font-hand);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 36px;
   text-align: center;
   letter-spacing: 0;
@@ -981,9 +994,9 @@ a {
 
 .MASTER-invitation .footer-date {
   position: relative;
-  font-family: "Arial Narrow-Regular", Helvetica;
+  font-family: var(--font-narrow);
   font-weight: 400;
-  color: #c02230;
+  color: var(--color-red);
   font-size: 12px;
   text-align: center;
   letter-spacing: 0.84px;
