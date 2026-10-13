@@ -5,7 +5,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 html,
 body {
-  margin: 0px;
   min-height: 100%;
 }
 /* a blue color as a generic focus style */
@@ -16,61 +15,7 @@ button:focus-visible {
 a {
   text-decoration: none;
 }
-@font-face {
-  font-family: "Inter-Medium";
-  src: local("Inter-Medium");
-}
-@font-face {
-  font-family: "Pinyon Script-Regular";
-  src: local("Pinyon Script-Regular");
-}
-@font-face {
-  font-family: "Caveat-Regular";
-  src: local("Caveat-Regular");
-}
-@font-face {
-  font-family: "Arial Narrow-Regular";
-  src: local("Arial Narrow-Regular");
-}
-@font-face {
-  font-family: "Arial Narrow";
-  src: local("Arial Narrow");
-}
-@font-face {
-  font-family: "Luxurious Script-Regular";
-  src: local("Luxurious Script-Regular");
-}
 :root {
-  --nostalgia-body-font-family: "Arial Narrow", Helvetica;
-  --nostalgia-body-font-weight: 400;
-  --nostalgia-body-font-size: 17px;
-  --nostalgia-body-letter-spacing: 0px;
-  --nostalgia-body-line-height: 28.899999618530273px;
-  --nostalgia-body-font-style: normal;
-  --nostalgia-heading-font-family: "Arial Narrow", Helvetica;
-  --nostalgia-heading-font-weight: 400;
-  --nostalgia-heading-font-size: 48px;
-  --nostalgia-heading-letter-spacing: 0px;
-  --nostalgia-heading-line-height: 62.400001525878906px;
-  --nostalgia-heading-font-style: normal;
-  --nostalgia-caption-font-family: "Arial Narrow", Helvetica;
-  --nostalgia-caption-font-weight: 400;
-  --nostalgia-caption-font-size: 13px;
-  --nostalgia-caption-letter-spacing: 0px;
-  --nostalgia-caption-line-height: 20.799999237060547px;
-  --nostalgia-caption-font-style: normal;
-  --nostalgia-handwriting-font-family: "Caveat", Helvetica;
-  --nostalgia-handwriting-font-weight: 400;
-  --nostalgia-handwriting-font-size: 30px;
-  --nostalgia-handwriting-letter-spacing: 0px;
-  --nostalgia-handwriting-line-height: 39px;
-  --nostalgia-handwriting-font-style: normal;
-  --nostalgia-script-font-family: "Pinyon Script", Helvetica;
-  --nostalgia-script-font-weight: 400;
-  --nostalgia-script-font-size: 90px;
-  --nostalgia-script-letter-spacing: 0px;
-  --nostalgia-script-line-height: 117px;
-  --nostalgia-script-font-style: normal;
   --nostalgia-button-font-family: "Arial Narrow", Helvetica;
   --nostalgia-button-font-weight: 400;
   --nostalgia-button-font-size: 15px;
@@ -81,7 +26,6 @@ a {
 .MASTER-invitation {
   display: flex;
   flex-direction: column;
-  width: 1200px;
   align-items: center;
   position: relative;
   background-color: #f4f0e9;
@@ -154,11 +98,6 @@ a {
   background-color: #ffffff;
 }
 
-.MASTER-invitation .photo-birthday-png {
-  flex: 1;
-  width: 1104px;
-}
-
 .MASTER-invitation .photo-shade {
   position: absolute;
   width: 100%;
@@ -179,36 +118,18 @@ a {
 }
 
 .MASTER-invitation .hero-typography {
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 240px;
-  align-items: center;
   padding: 0px 55.2px;
   position: absolute;
   left: 0;
   bottom: 3px;
 }
 
-.MASTER-invitation .spacing {
-  height: 18px;
-  position: relative;
-  width: 10px;
-}
-
-.MASTER-invitation .div {
-  height: 8px;
-  margin-top: -57px;
-  position: relative;
-  width: 10px;
-}
-
 .MASTER-invitation .title {
   position: relative;
   width: 756px;
   height: 287px;
-  margin-bottom: -56px;
-  margin-top: -57px;
   font-family: "Pinyon Script-Regular", Helvetica;
   font-weight: 400;
   color: #f4f0e9;
@@ -260,7 +181,6 @@ a {
 .MASTER-invitation .hairline {
   position: relative;
   flex: 1;
-  flex-grow: 1;
   height: 1px;
   background-color: #c02230;
 }
@@ -346,7 +266,6 @@ a {
 .MASTER-invitation .chapter-number {
   position: relative;
   flex: 1;
-  flex-grow: 1;
   height: 33px;
 }
 
@@ -432,7 +351,6 @@ a {
   gap: 9px;
   position: relative;
   flex: 1;
-  flex-grow: 1;
 }
 
 .MASTER-invitation .label {
@@ -541,7 +459,8 @@ a {
   height: 356.25px;
   background-image: url("assets/img/bow.jpg");
   background-size: cover;
-  background-position: 50% 50%;
+  /* Keep the hair bow visible. */
+  background-position: 50% 25%;
 }
 
 .MASTER-invitation .inset-photo-border {
@@ -657,13 +576,13 @@ a {
   aspect-ratio: 0.8;
 }
 
-.MASTER-invitation .photo-baby-jpg {
+.MASTER-invitation .photo-baby-jpg,
+.MASTER-invitation .photo-dinner-jpg {
   position: absolute;
-  width: calc(100% + 27px);
-  height: calc(100% + 21px);
-  top: -21px;
-  left: -27px;
-  transform: rotate(12deg);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   object-fit: cover;
 }
 
@@ -674,7 +593,6 @@ a {
   height: 375px;
   gap: 56px;
   flex: 1;
-  flex-grow: 1;
   display: flex;
   align-items: center;
   position: relative;
@@ -749,7 +667,6 @@ a {
 .MASTER-invitation .adaptive-quiz {
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px -41px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -763,7 +680,6 @@ a {
   min-width: 160px;
   max-width: 360px;
   flex: 1;
-  flex-grow: 1;
   display: flex;
   align-items: center;
   position: relative;
@@ -803,15 +719,6 @@ a {
   background-color: #f4f0e9;
   transform: rotate(9deg);
   box-shadow: 0px 6px 15px #62121d30;
-}
-
-.MASTER-invitation .photo-dinner-jpg {
-  position: absolute;
-  width: calc(100% + 15px);
-  height: calc(100% + 12px);
-  top: -12px;
-  left: -15px;
-  transform: rotate(-9deg);
 }
 
 .MASTER-invitation .spacing-11 {
@@ -924,7 +831,9 @@ a {
   width: 260px;
   height: 325px;
   background-image: url("assets/img/hat.jpg");
-  background-size: 100% 100%;
+  background-size: cover;
+  /* Keep the whole hat visible. */
+  background-position: 50% 10%;
 }
 
 .MASTER-invitation .photo-handwriting-2 {
@@ -1009,8 +918,6 @@ body { background: #f4f0e9; }
 .MASTER-invitation .element-hero-one-cake { overflow: hidden; }
 .MASTER-invitation .hero-picture { display: block; width: 100%; height: 100%; }
 .MASTER-invitation .photo-birthday-png { display: block; width: 100%; height: 100%; object-fit: cover; }
-.MASTER-invitation .hero-typography { display: block; }
-.MASTER-invitation .hero-typography > .spacing, .MASTER-invitation .hero-typography > .div { display: none; }
 .MASTER-invitation .hero-typography > .title { margin: 0 auto; max-width: 100%; }
 .MASTER-invitation .childhood-caption { white-space: normal; }
 .MASTER-invitation .photo-handwriting, .MASTER-invitation .photo-handwriting-2 {
@@ -1026,8 +933,6 @@ body { background: #f4f0e9; }
 .MASTER-invitation .button:hover { background-color: #a91c29; }
 .MASTER-invitation .chapter-number { min-width: 33px; }
 .MASTER-invitation .photo-mount { overflow: hidden; }
-.MASTER-invitation .photo-baby-jpg, .MASTER-invitation .photo-dinner-jpg { object-fit: cover; }
-.MASTER-invitation .adaptive-quiz { column-gap: 0; }
 .MASTER-invitation .reveal { transition: opacity 650ms ease, translate 650ms ease; }
 .MASTER-invitation .reveal-hidden { opacity: 0; translate: 0 16px; }
 
@@ -1047,7 +952,6 @@ body { background: #f4f0e9; }
   .MASTER-invitation .element-header { padding: 22px 5%; }
   .MASTER-invitation .wordmark { font-size: 12px; line-height: 20.4px; }
   .MASTER-invitation .div-wrapper { padding-inline: 4%; }
-  .MASTER-invitation .element-hero-one-cake { height: 610px; }
   .MASTER-invitation .hero-typography { padding-inline: 2%; }
   .MASTER-invitation .title { width: 100%; height: auto; font-size: clamp(68px, 21.5vw, 110px); line-height: 1.45; }
   /* The supplied mobile reference has no visible childhood caption. */
@@ -1084,15 +988,7 @@ body { background: #f4f0e9; }
   .MASTER-invitation .reveal { transition: none; }
   .MASTER-invitation .reveal-hidden { opacity: 1; translate: none; }
 }
-/* Original uploaded photos, without the baked-in export rotation. */
-.MASTER-invitation .photo-baby-jpg, .MASTER-invitation .photo-dinner-jpg {
-  width: 100%; height: 100%; top: 0; left: 0; transform: none;
-}
 .MASTER-invitation .photo-birthday-png { object-position: 50% 56%; }
-.MASTER-invitation .bow-photograph, .MASTER-invitation .hat-photograph { background-size: cover; background-position: 50% 50%; }
 @media (max-width: 760px) {
   .MASTER-invitation .photo-birthday-png { object-position: 50% 55%; }
 }
-/* Keep the hair bow and the full hat visible, as in the supplied frames. */
-.MASTER-invitation .hat-photograph { background-position: 50% 10%; }
-.MASTER-invitation .bow-photograph { background-position: 50% 25%; }
