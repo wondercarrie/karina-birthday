@@ -44,7 +44,7 @@ async function open(width, query = '') {
   page.on('pageerror', e => meta.console.push(`${width}${query} pageerror: ${e.message}`));
   page.on('requestfailed', r => meta.failedRequests.push(`${width}${query} ${r.url().slice(0, 120)}`));
   page.on('response', r => { if (r.status() >= 400) meta.failedRequests.push(`${width}${query} ${r.status()} ${r.url()}`); });
-  await page.goto(BASE + query, { waitUntil: 'load' });
+  await page.goto(BASE + query, { waitUntil: 'networkidle' });
   await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important;caret-color:transparent!important}' });
   await page.evaluate(async () => {
     await document.fonts.ready;
