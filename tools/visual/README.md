@@ -18,6 +18,8 @@ node compare.mjs          # pixel diff of baseline vs current; diffs go to shots
   `meta.json` records console errors, failed requests and horizontal overflow per width.
   `WIDTHS=320,900 node shoot.mjs x` overrides the widths;
   `SITE_ROOT=/path/to/checkout` shoots another checkout (e.g. a `git worktree` of `main`).
+  The clock is frozen at 2026-10-14T18:46:00Z, so the countdown always shows the same numbers;
+  `SHOT_TIME=<ISO time>` shoots another moment.
 - `compare.mjs <a> <b>` pixel-compares two shot sets. Images of different heights are padded and still
   compared. Diff images and `summary.json` go to `shots/diff-<b>/`. Exits with 1 on any difference.
 - `report.mjs <a> <b> [title]` builds `compare.html` (git-ignored) from the last compare: per width and
