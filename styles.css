@@ -77,6 +77,8 @@
   --space-16: 64px;
   --space-20: 80px;
   --space-24: 96px;
+  --space-30: 120px;
+  --space-48: 192px;
 
   /* Vertical rhythm */
   --space-block: var(--space-7);
@@ -626,7 +628,7 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: var(--space-block);
-  padding: var(--space-12) 120px var(--space-16);
+  padding: var(--space-12) var(--space-30) var(--space-16);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -758,7 +760,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-16) 120px;
+  padding: var(--space-16) var(--space-30);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -812,7 +814,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-16) 192px;
+  padding: var(--space-16) var(--space-48);
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -983,7 +985,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-16) 120px;
+  padding: var(--space-16) var(--space-30);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
