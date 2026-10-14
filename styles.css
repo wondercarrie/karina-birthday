@@ -2,9 +2,12 @@
    Fonts
    ========================================================================== */
 
+/* Pinyon Script, Caveat, Inter and Luxurious Script are subset to the characters the page uses
+   (tools/fonts/subset.mjs); run its check after editing text set in them. */
+
 @font-face {
   font-family: "Pinyon Script-Regular";
-  src: url("assets/fonts/PinyonScript-Regular.ttf") format("truetype");
+  src: url("assets/fonts/PinyonScript-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,7 +15,7 @@
 
 @font-face {
   font-family: "Caveat-Regular";
-  src: url("assets/fonts/Caveat-Regular.ttf") format("truetype");
+  src: url("assets/fonts/Caveat-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,7 +23,7 @@
 
 @font-face {
   font-family: "Inter-Medium";
-  src: url("assets/fonts/Inter-Medium.ttf") format("truetype");
+  src: url("assets/fonts/Inter-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -28,7 +31,7 @@
 
 @font-face {
   font-family: "Luxurious Script-Regular";
-  src: url("assets/fonts/LuxuriousScript-Regular.ttf") format("truetype");
+  src: url("assets/fonts/LuxuriousScript-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
