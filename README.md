@@ -65,16 +65,20 @@ node compare.mjs          # baseline vs current; diff images go to shots/diff-cu
 ```
 
 `shoot.mjs` starts its own local server, waits for fonts and images, scrolls through the page and
-turns off animations. It then captures RU and EN full pages, the hover state of the first button
-and the keyboard focus on the language switcher at 375, 768 and 1440px. Console errors and failed
-requests are printed and saved to `shots/<name>/meta.json`.
+turns off animations. At 320, 375, 414, 768, 1024 and 1440px it captures RU and EN full pages, each page
+block (header, hero, intro, sections, footer) cropped from the full page, the hover and keyboard focus
+of the first button and the keyboard focus on the language switcher. Console errors, failed requests
+and horizontal overflow are printed and saved to `shots/<name>/meta.json`.
 
 Useful options:
 
 - `WIDTHS=320,900,1200 node shoot.mjs extra` uses other viewport widths.
 - `SITE_ROOT=/path/to/checkout node shoot.mjs main` shoots another checkout, e.g. a
   `git worktree` of `main`, so two versions can be compared.
-- `node computed.mjs <name>` dumps the computed styles of every element at 375/768/1440, and
+- `node compare.mjs <a> <b>` compares any two shot sets, also when the page height changed.
+- `node report.mjs <a> <b>` then builds `tools/visual/compare.html` with before / after / diff for
+  every width and state and a table of changed pixels per block, for review by eye.
+- `node computed.mjs <name>` dumps the computed styles of every element, and
   `node computed.mjs --diff <a> <b>` compares two dumps. This catches changes that are not
   visible in the default state.
 

@@ -1,6 +1,7 @@
 // Captures reference screenshots of the site served from the repo root.
 // Usage: node shoot.mjs <outDirName>   (e.g. baseline, current)
 import { chromium } from 'playwright';
+import { PNG } from 'pngjs';
 import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -10,11 +11,11 @@ import { fileURLToPath } from 'node:url';
 // SITE_ROOT lets you shoot another checkout (e.g. a worktree of main) with the same tool.
 const ROOT = process.env.SITE_ROOT ? path.resolve(process.env.SITE_ROOT) : path.resolve(fileURLToPath(import.meta.url), '../../..');
 const OUT = path.resolve(fileURLToPath(import.meta.url), '..', 'shots', process.argv[2] || 'current');
-const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [375, 768, 1440];
+const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [320, 375, 414, 768, 1024, 1440];
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml',
-  '.ttf': 'font/ttf', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json',
+  '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json',
 };
 
 const server = http.createServer(async (req, res) => {
@@ -35,7 +36,12 @@ const browser = await chromium.launch({
   // Deterministic software rasterisation: avoids ±1 colour noise on the large hero image.
   args: ['--disable-gpu', '--disable-partial-raster', '--force-color-profile=srgb', '--disable-skia-runtime-opts', '--num-raster-threads=1'],
 });
-const meta = { console: [], heroCurrentSrc: {}, failedRequests: [] };
+const meta = { console: [], heroCurrentSrc: {}, failedRequests: [], overflow: {} };
+// Page blocks, cropped from the full-page shot as full-width bands so a change can be attributed to one block.
+const BLOCKS = {
+  header: '.site-header', hero: '.hero', intro: '.intro', details: '.section-details',
+  dress: '.section-dress', programme: '.section-programme', gifts: '.section-gifts', footer: '.site-footer',
+};
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
 
@@ -86,7 +92,20 @@ for (const width of WIDTHS) {
       });
       meta.heroCurrentSrc[width].sha256 = hero;
     }
-    await page.screenshot({ path: path.join(OUT, `${width}-${lang}-full.png`), fullPage: true });
+    const full = await page.screenshot({ fullPage: true });
+    await fs.writeFile(path.join(OUT, `${width}-${lang}-full.png`), full);
+    const rects = await page.evaluate(blocks => Object.fromEntries(Object.entries(blocks).map(([name, sel]) => {
+      const r = document.querySelector(sel).getBoundingClientRect();
+      return [name, { top: Math.floor(r.top + scrollY), bottom: Math.ceil(r.bottom + scrollY) }];
+    })), BLOCKS);
+    const png = PNG.sync.read(full);
+    for (const [name, { top, bottom }] of Object.entries(rects)) {
+      const height = Math.min(bottom, png.height) - top;
+      const crop = new PNG({ width: png.width, height });
+      PNG.bitblt(png, crop, 0, top, png.width, height, 0, 0);
+      await fs.writeFile(path.join(OUT, `${width}-${lang}-block-${name}.png`), PNG.sync.write(crop));
+    }
+    meta.overflow[`${width}-${lang}`] = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     await page.close();
   }
 
@@ -98,6 +117,19 @@ for (const width of WIDTHS) {
     await btn.hover();
     await page.waitForTimeout(50);
     await page.screenshot({ path: path.join(OUT, `${width}-hover-cta.png`), clip: pad(await btn.boundingBox(), 24, width) });
+    await page.close();
+  }
+
+  // Keyboard focus on the first CTA button.
+  {
+    const page = await open(width);
+    const btn = page.locator('a[href="#details"]');
+    await page.keyboard.press('Tab');
+    await btn.focus();
+    // focus() may scroll the button to the viewport edge; centre it so the clip is not cut off.
+    await btn.evaluate(el => el.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    await page.waitForTimeout(50);
+    await page.screenshot({ path: path.join(OUT, `${width}-focus-cta.png`), clip: pad(await btn.boundingBox(), 24, width) });
     await page.close();
   }
 

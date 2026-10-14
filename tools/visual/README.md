@@ -11,11 +11,22 @@ node shoot.mjs current    # after the change
 node compare.mjs          # pixel diff of baseline vs current; diffs go to shots/diff-current/
 ```
 
-- `shoot.mjs <name>` serves the repo root over a local HTTP server and saves full-page screenshots
-  (RU and EN), the CTA hover state and the keyboard focus on the language switcher.
-  `WIDTHS=320,900 node shoot.mjs x` overrides the default 375/768/1440 widths;
+- `shoot.mjs <name>` serves the repo root over a local HTTP server and saves, at 320/375/414/768/1024/1440px:
+  full-page screenshots (RU and EN), each page block as a full-width band cropped from the full page
+  (`<width>-<lang>-block-<name>.png`: header, hero, intro, details, dress, programme, gifts, footer),
+  the CTA hover and keyboard-focus states and the keyboard focus on the language switcher.
+  `meta.json` records console errors, failed requests and horizontal overflow per width.
+  `WIDTHS=320,900 node shoot.mjs x` overrides the widths;
   `SITE_ROOT=/path/to/checkout` shoots another checkout (e.g. a `git worktree` of `main`).
-- `computed.mjs <name>` dumps `getComputedStyle` of every element at 375/768/1440;
-  `node computed.mjs --diff a b` compares two dumps.
+- `compare.mjs <a> <b>` pixel-compares two shot sets. Images of different heights are padded and still
+  compared. Diff images and `summary.json` go to `shots/diff-<b>/`. Exits with 1 on any difference.
+- `report.mjs <a> <b> [title]` builds `compare.html` (git-ignored) from the last compare: per width and
+  state, before / after / diff, plus a table of changed pixels per block. Open it in a browser from
+  this folder.
+- `computed.mjs <name>` dumps `getComputedStyle` of every element (same widths, `WIDTHS` and
+  `SITE_ROOT` work too); `node computed.mjs --diff a b` lists every changed property.
 
-`shots/` and `node_modules/` are git-ignored.
+Blocks make a diff attributable: a change in one block shifts everything below it on the full page,
+but the other blocks' bands stay identical.
+
+`shots/`, `compare.html` and `node_modules/` are git-ignored.
