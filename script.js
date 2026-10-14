@@ -1,5 +1,5 @@
 // Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation,
-// "Add to calendar" menu, countdown to the party, developing polaroids (shake, long press or click) and their tilt on scroll.
+// hand-written hero title, "Add to calendar" menu, countdown to the party, developing polaroids (shake, long press or click) and their tilt on scroll.
 (() => {
   'use strict';
 
@@ -198,6 +198,19 @@
     angle: 4, // deg
     shift: 0.375, // rem
     smoothing: 0.85, // 0 follows the scroll at once; closer to 1 catches up more slowly
+  };
+
+  // The hero title is written by hand once per page load: a mask with a soft edge, slanted like the
+  // script, sweeps over it from left to right. Then the caption fades in.
+  const HERO_WRITING = {
+    duration: 2200, // ms, writing the title
+    delay: 150, // ms after the font and the photo are ready
+    softness: 3, // rem, width of the mask edge
+    slant: 18, // deg from vertical, the angle of the mask edge
+    captionDelay: 200, // ms after the title is written
+    captionDuration: 900, // ms
+    easing: 'ease-in-out',
+    loadTimeout: 1500, // ms; if the font or the photo is not ready by then, both are shown at once
   };
 
   // Order of the countdown units; the leading ones that are zero are left out.
@@ -526,6 +539,104 @@
 
   // "Add to calendar": a disclosure button with two links. Esc, a click outside or focus leaving
   // the menu closes it; Esc returns the focus to the button. Without JavaScript it stays hidden.
+  // The title font and the hero photo must be ready first, so the title is not written over an empty
+  // block. The box of the title moves right with the mask on it while the title moves left by the same
+  // amount, so only the mask edge travels (transforms only). The animations live on the elements, so
+  // setLanguage() rewriting their innerHTML neither restarts nor breaks them. At the end the mask and
+  // the classes are removed, and the hero is exactly as without the animation.
+  function setUpHeroWriting() {
+    const hero = document.querySelector('.hero');
+    if (!hero.animate || !document.fonts || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const text = hero.querySelector('.hero-text');
+    const title = hero.querySelector('.hero-title');
+    const caption = hero.querySelector('.hero-caption');
+    const photo = hero.querySelector('.hero-img');
+    const fontFamily = getComputedStyle(title).fontFamily;
+    let animations = [];
+    let width = innerWidth;
+
+    function cleanUp() {
+      animations.forEach(animation => animation.cancel());
+      animations = [];
+      text.classList.remove('is-masked');
+      text.style.removeProperty('-webkit-mask-image');
+      text.style.removeProperty('mask-image');
+    }
+
+    // Ink bounds of the title: the swashes reach past its line box.
+    function measureInk() {
+      const fontSize = parseFloat(getComputedStyle(title).fontSize);
+      const context = document.createElement('canvas').getContext('2d');
+      context.font = `${fontSize}px ${fontFamily}`;
+      const metrics = context.measureText(title.textContent);
+      const range = document.createRange();
+      range.selectNodeContents(title);
+      const line = range.getBoundingClientRect();
+      const ascent = metrics.fontBoundingBoxAscent;
+      const baseline = line.top + line.height * ascent / (ascent + metrics.fontBoundingBoxDescent);
+      return {
+        left: line.left - metrics.actualBoundingBoxLeft,
+        right: line.left + metrics.actualBoundingBoxRight,
+        top: baseline - metrics.actualBoundingBoxAscent,
+        bottom: baseline + metrics.actualBoundingBoxDescent,
+      };
+    }
+
+    function animate(element, keyframes, options) {
+      animations.push(element.animate(keyframes, { fill: 'backwards', ...options }));
+    }
+
+    function play() {
+      const { duration, delay, easing, softness, slant } = HERO_WRITING;
+      text.classList.add('is-masked');
+      const box = text.getBoundingClientRect();
+      const ink = measureInk();
+      const soft = softness * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      // Position of a point along the gradient line, as CSS lays it out for this angle and box.
+      const angle = (90 + slant) * Math.PI / 180;
+      const sin = Math.sin(angle);
+      const cos = Math.cos(angle);
+      const length = Math.abs(box.width * sin) + Math.abs(box.height * cos);
+      const along = (x, y) => length / 2 + (x - box.left - box.width / 2) * sin - (y - box.top - box.height / 2) * cos;
+      const corners = [[ink.left, ink.top], [ink.right, ink.top], [ink.left, ink.bottom], [ink.right, ink.bottom]]
+        .map(([x, y]) => along(x, y));
+      // At the end the edge is just past the ink; at the start the box is this far to the left.
+      const edge = Math.max(...corners);
+      const shift = (edge + soft - Math.min(...corners)) / sin;
+      const mask = `linear-gradient(${90 + slant}deg, #000 ${edge}px, transparent ${edge + soft}px)`;
+      text.style.setProperty('-webkit-mask-image', mask);
+      text.style.setProperty('mask-image', mask);
+
+      animate(text, [{ transform: `translateX(${-shift}px)` }, { transform: 'none' }], { duration, delay, easing });
+      animate(title, [{ transform: `translateX(${shift}px)` }, { transform: 'none' }], { duration, delay, easing });
+      animate(caption, [{ opacity: 0 }, { opacity: 1 }], {
+        duration: HERO_WRITING.captionDuration,
+        delay: delay + duration + HERO_WRITING.captionDelay,
+        easing: 'ease',
+      });
+      hero.classList.remove('is-writing-pending');
+      Promise.all(animations.map(animation => animation.finished)).then(cleanUp, () => {});
+    }
+
+    // A new width moves the title, so the measured mask is stale: jump to the end.
+    window.addEventListener('resize', () => {
+      if (innerWidth === width) return;
+      width = innerWidth;
+      animations.forEach(animation => animation.finish());
+    });
+
+    hero.classList.add('is-writing-pending');
+    const ready = Promise.all([
+      document.fonts.load(`1em ${fontFamily}`).then(faces => {
+        if (!faces.length) throw new Error('The title font is not available');
+      }),
+      photo.decode(),
+    ]);
+    const timeout = new Promise((resolve, reject) => setTimeout(reject, HERO_WRITING.loadTimeout));
+    Promise.race([ready, timeout]).then(play, () => hero.classList.remove('is-writing-pending'));
+  }
+
   function setUpCalendar() {
     function setOpen(open) {
       calendarToggle.setAttribute('aria-expanded', String(open));
@@ -643,4 +754,5 @@
   setUpReveal();
   setUpDevelop();
   setUpTilt();
+  setUpHeroWriting();
 })();

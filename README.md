@@ -12,8 +12,8 @@ The page is in Russian by default and can be switched to English with the RU / E
 ```
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
-script.js               RU/EN copy, the event data (EVENT), the language switcher, the "Add to calendar"
-                        menu, the countdown, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
+script.js               RU/EN copy, the event data (EVENT), the language switcher, the hand-written hero
+                        title, the "Add to calendar" menu, the countdown, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos, the paw icon and the favicon.
@@ -44,6 +44,24 @@ npx serve .
 ```
 
 Then open <http://localhost:8000/>.
+
+## Hand-written title
+
+Once per page load "Nostalgia" in the hero is written as if by hand: a mask with a soft edge, slanted
+like the script, sweeps over it from left to right, then the caption "тут, мне, кстати, 2 года" fades
+in. The animation waits for the title font (`document.fonts`) and the hero photo, so the title is not
+written over an empty block; if they are not ready within 1.5 s, the title and the caption are shown at
+once. Switching the language does not restart it. Without JavaScript and with
+`prefers-reduced-motion: reduce` both are simply shown.
+
+Only `transform` and `opacity` are animated: the mask sits on `.hero-text`, which moves right while
+the title inside moves left by the same amount, so only the mask edge travels. During the animation
+`.hero-text` grows on every side (`.is-masked`) with the same content box, so the mask does not cut
+the swashes and the tail of the "g". At the end the mask and the classes are removed, and the hero is
+exactly the same as without the animation. Timings, the edge softness and angle and the easing are in
+`HERO_WRITING` in `script.js`.
+
+`tools/visual/hero-writing.mjs` checks it (see below).
 
 ## Developing polaroids
 
@@ -148,6 +166,11 @@ Useful options:
   centring and wrapping at all widths, the page without JavaScript. `node countdown.mjs shots` also
   saves the section in every state to `shots/countdown/`, `node countdown.mjs video` records a minute
   change at 375 and 1440px to `videos/`.
+- `node hero-writing.mjs` checks the hand-written title at all widths in both languages: hidden while
+  the font and the photo load, the end state equal to the static hero to the pixel, no overflow, a
+  language switch during and after the animation, the 1.5 s timeout for a late photo or font, reduced
+  motion and the page without JavaScript. `node hero-writing.mjs video` records it at 375 and 1440px in
+  both languages and with a language switch while writing to `videos/`.
 - `node computed.mjs <name>` dumps the computed styles of every element, and
   `node computed.mjs --diff <a> <b>` compares two dumps. This catches changes that are not
   visible in the default state.

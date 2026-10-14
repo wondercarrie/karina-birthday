@@ -836,9 +836,12 @@ a:focus-visible,
 }
 
 .hero-text {
+  /* Variables, so the writing animation can grow the box around the same content box. */
+  --hero-text-height: 15rem;
+  --hero-text-padding: var(--space-14);
   width: 100%;
-  height: 15rem;
-  padding: 0 var(--space-14);
+  height: var(--hero-text-height);
+  padding: 0 var(--hero-text-padding);
   position: absolute;
   left: 0;
   bottom: var(--space-1);
@@ -873,6 +876,27 @@ a:focus-visible,
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
+}
+
+/* Hand-written title (the classes and the mask are set by script.js).
+   Until the title font and the photo are ready the title and the caption are hidden. */
+.hero.is-writing-pending .hero-text,
+.hero.is-writing-pending .hero-caption {
+  opacity: 0;
+}
+
+/* A mask with a soft edge, slanted like the script, moves with the box while the title moves back.
+   The box grows on every side, so the mask never cuts the swashes; the content box stays the same. */
+.hero-text.is-masked {
+  --hero-writing-bleed-x: var(--space-48);
+  --hero-writing-bleed-y: var(--space-12);
+  left: calc(-1 * var(--hero-writing-bleed-x));
+  bottom: calc(var(--space-1) - var(--hero-writing-bleed-y));
+  width: calc(100% + 2 * var(--hero-writing-bleed-x));
+  height: calc(var(--hero-text-height) + 2 * var(--hero-writing-bleed-y));
+  padding: var(--hero-writing-bleed-y) calc(var(--hero-text-padding) + var(--hero-writing-bleed-x));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 /* ==========================================================================
@@ -1602,7 +1626,7 @@ a:focus-visible,
   }
 
   .hero-text {
-    padding-inline: 2%;
+    --hero-text-padding: 2%;
   }
 
   .hero-title {
@@ -1768,6 +1792,11 @@ a:focus-visible,
   .reveal-hidden {
     opacity: 1;
     translate: none;
+  }
+
+  .hero.is-writing-pending .hero-text,
+  .hero.is-writing-pending .hero-caption {
+    opacity: 1;
   }
 
   /* script.js leaves the polaroids developed; this only guards against stray motion. */
