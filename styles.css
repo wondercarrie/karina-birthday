@@ -1241,6 +1241,32 @@ a:focus-visible {
     flex: none;
   }
 
+  /* The desktop title is as tall as the baby polaroid next to it; stacked, it only needs its content. */
+  .programme-title {
+    height: auto;
+    gap: 0;
+  }
+
+  .section-programme .programme-intro {
+    margin-top: var(--space-4);
+  }
+
+  .section-programme .heading {
+    margin-top: var(--space-4);
+  }
+
+  .section-programme .quiz {
+    margin-top: var(--space-8);
+  }
+
+  .section-programme .programme-item + .programme-item {
+    margin-top: var(--space-6);
+  }
+
+  .section-programme .programme-note {
+    margin-bottom: var(--space-4);
+  }
+
   .programme-time {
     font-size: var(--text-4xl);
     line-height: 1.4;
