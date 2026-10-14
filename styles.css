@@ -506,9 +506,6 @@ a:focus-visible {
 }
 
 .polaroid--toast {
-  position: absolute;
-  left: var(--space-6);
-  bottom: 0;
   width: 14.5rem;
   height: 19.5rem;
   transform: rotate(10deg);
@@ -532,11 +529,33 @@ a:focus-visible {
 }
 
 .toast-photo {
+  position: relative;
   width: 13.5rem;
   height: 16.75rem;
+}
+
+.toast-img {
+  position: absolute;
+  inset: 0;
   background-image: url("assets/img/toast.jpg");
   background-size: cover;
   background-position: 50% 50%;
+}
+
+/* --- Polaroid development (classes and attributes are set by script.js) --- */
+
+/* Wraps a polaroid and its hint, so the hint stays under the photo. */
+.develop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.develop--toast {
+  position: absolute;
+  left: var(--space-6);
+  bottom: 0;
 }
 
 /* ==========================================================================
@@ -1126,7 +1145,7 @@ a:focus-visible {
   }
 
   /* No free corner for the toast polaroid next to the programme text: put it under the last slot. */
-  .polaroid--toast {
+  .develop--toast {
     position: relative;
     left: auto;
     bottom: auto;
@@ -1180,13 +1199,16 @@ a:focus-visible {
   }
 
   /* The toast polaroid goes under the last slot, at the size of the dinner one. */
-  .polaroid--toast {
+  .develop--toast {
     position: relative;
     left: auto;
     bottom: auto;
+    margin-top: var(--space-10);
+  }
+
+  .polaroid--toast {
     width: 11.5rem;
     height: auto;
-    margin-top: var(--space-10);
   }
 
   .toast-photo {
