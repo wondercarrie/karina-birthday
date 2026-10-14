@@ -1,0 +1,12 @@
+{
+  "name": "karina-birthday-images",
+  "private": true,
+  "description": "Builds the responsive AVIF, WebP and JPEG photos of the site from the originals (not part of the site).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.4"
+  }
+}
