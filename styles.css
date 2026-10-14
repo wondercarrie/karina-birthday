@@ -64,8 +64,8 @@
 
   /* Vertical rhythm */
   --space-block: 28px;
-  --space-text: 26px;
-  --space-paragraph: 17px;
+  --space-text: 24px;
+  --space-paragraph: 16px;
 }
 
 /* ==========================================================================
@@ -142,7 +142,7 @@ a {
 
 a:focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 5px;
+  outline-offset: 4px;
 }
 
 /* ==========================================================================
@@ -179,7 +179,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 60px;
+  padding: 20px 56px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -187,7 +187,6 @@ a:focus-visible {
 
 .wordmark {
   width: fit-content;
-  margin-top: -0.5px;
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
@@ -200,7 +199,6 @@ a:focus-visible {
 
 .language-navigation {
   width: fit-content;
-  margin-top: -1px;
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
@@ -227,7 +225,7 @@ a:focus-visible {
   /* Native focus ring, with a blue fallback where it is not supported. */
   outline: 2px solid #4a90e2;
   outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: 5px;
+  outline-offset: 4px;
 }
 
 /* ==========================================================================
@@ -240,7 +238,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 13px;
+  gap: 12px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -249,25 +247,29 @@ a:focus-visible {
 .chapter-number {
   position: relative;
   flex: 1;
-  min-width: 33px;
-  height: 33px;
+  min-width: 32px;
+  height: 32px;
 }
 
 .number-ring {
   position: absolute;
   top: 0;
   left: 0;
-  width: 33px;
-  height: 33px;
-  border-radius: 16.5px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   border: 1px solid var(--accent);
 }
 
 .number {
   position: absolute;
-  top: 7px;
+  top: 0;
   left: 0;
-  width: 33px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--accent);
@@ -333,11 +335,11 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 27px;
+  padding: 12px 28px;
   position: relative;
   flex: 0 0 auto;
   background-color: var(--color-red);
-  border-radius: 3px;
+  border-radius: 4px;
   border: 1px solid;
   cursor: pointer;
   text-decoration: none;
@@ -375,7 +377,7 @@ a:focus-visible {
   width: 180px;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 16px;
   flex: 0 0 auto;
 }
 
@@ -387,7 +389,6 @@ a:focus-visible {
 
 .flourish-star {
   flex: 1;
-  margin-top: -1px;
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
@@ -412,7 +413,7 @@ a:focus-visible {
   position: absolute;
   left: calc(50% - 175px);
   bottom: -40px;
-  width: 342px;
+  width: 344px;
   transform: rotate(-6deg);
   -webkit-text-stroke: 4px var(--color-cream);
   paint-order: stroke fill;
@@ -428,7 +429,7 @@ a:focus-visible {
 
 .photo-caption--hat {
   left: calc(50% - 160px);
-  bottom: -39px;
+  bottom: -40px;
   width: 312px;
 }
 
@@ -438,30 +439,30 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 8px 27px;
+  padding: 8px 8px 28px;
   position: relative;
   background-color: var(--color-cream);
   box-shadow: var(--shadow-polaroid);
 }
 
 .polaroid--baby {
-  width: 244.19px;
-  height: 331.78px;
+  width: 244px;
+  height: 332px;
   transform: rotate(-12deg);
 }
 
 .polaroid--dinner {
-  width: 183.79px;
-  height: 249.72px;
+  width: 184px;
+  height: 248px;
   transform: rotate(9deg);
 }
 
 .polaroid--toast {
   position: absolute;
-  left: 26px;
+  left: 24px;
   bottom: 0;
-  width: 231px;
-  height: 314px;
+  width: 232px;
+  height: 312px;
   transform: rotate(10deg);
 }
 
@@ -483,8 +484,8 @@ a:focus-visible {
 }
 
 .toast-photo {
-  width: 214.17px;
-  height: 267.72px;
+  width: 216px;
+  height: 268px;
   background-image: url("assets/img/toast.jpg");
   background-size: cover;
   background-position: 50% 50%;
@@ -498,7 +499,7 @@ a:focus-visible {
   position: relative;
   align-self: stretch;
   width: 100%;
-  height: 610px;
+  height: 608px;
   overflow: hidden;
 }
 
@@ -548,16 +549,16 @@ a:focus-visible {
 .hero-text {
   width: 100%;
   height: 240px;
-  padding: 0 55.2px;
+  padding: 0 56px;
   position: absolute;
   left: 0;
-  bottom: 3px;
+  bottom: 4px;
 }
 
 .hero-title {
   width: 756px;
   max-width: 100%;
-  height: 287px;
+  height: 288px;
   margin: 0 auto;
   font-family: var(--font-script);
   font-weight: 400;
@@ -572,7 +573,7 @@ a:focus-visible {
 .hero-caption {
   position: absolute;
   top: 260px;
-  left: 746px;
+  left: 744px;
   width: 220px;
   transform: rotate(-6deg);
   font-family: var(--font-hand);
@@ -593,7 +594,7 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: var(--space-block);
-  padding: 52px 120px 65px;
+  padding: 48px 120px 64px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -608,7 +609,7 @@ a:focus-visible {
   flex-direction: column;
   max-width: 1008px;
   align-items: center;
-  padding: 45px 60px 50px;
+  padding: 48px 56px 48px;
   width: 100%;
   flex: 0 0 auto;
   border-block: 1px solid;
@@ -620,7 +621,7 @@ a:focus-visible {
 }
 
 .section-details .date-and-venue {
-  margin-top: 30px;
+  margin-top: 28px;
 }
 
 .section-details .button {
@@ -632,7 +633,7 @@ a:focus-visible {
 }
 
 .section-details .small-text {
-  margin-top: 13px;
+  margin-top: 12px;
 }
 
 .date-and-venue {
@@ -640,7 +641,7 @@ a:focus-visible {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 27px 30px;
+  gap: 28px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -649,14 +650,13 @@ a:focus-visible {
 .fact {
   display: flex;
   flex-direction: column;
-  min-width: 250px;
+  min-width: 248px;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   flex: 1;
 }
 
 .fact-label {
-  margin-top: -1px;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
@@ -688,15 +688,15 @@ a:focus-visible {
 
 .pet-friendly-badge {
   position: relative;
-  width: 131.31px;
-  height: 43px;
+  width: 132px;
+  height: 44px;
   transform: rotate(-7deg);
   opacity: 0.55;
 }
 
 .pet-friendly-text {
   position: absolute;
-  top: 9px;
+  top: 8px;
   left: 0;
   width: 172px;
   font-family: var(--font-narrow);
@@ -714,7 +714,7 @@ a:focus-visible {
   top: 4px;
   left: 12px;
   width: 24px;
-  height: 30px;
+  height: 28px;
   transform: rotate(7deg);
 }
 
@@ -726,7 +726,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 62px 120px;
+  padding: 64px 120px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -737,7 +737,7 @@ a:focus-visible {
 }
 
 .section-dress .heading {
-  margin-top: 45px;
+  margin-top: 48px;
 }
 
 .section-dress .heading + .body-text {
@@ -749,13 +749,13 @@ a:focus-visible {
 }
 
 .section-dress .dress-code-note {
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .photo-bow {
   position: relative;
-  width: 285px;
-  height: 356.25px;
+  width: 284px;
+  height: 356px;
   background-image: url("assets/img/bow.jpg");
   background-size: cover;
   /* Keep the hair bow visible. */
@@ -780,7 +780,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 62px 192px;
+  padding: 64px 192px;
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -796,12 +796,12 @@ a:focus-visible {
 }
 
 .section-programme .programme-intro {
-  margin-top: 36px;
+  margin-top: 32px;
 }
 
-/* The block gap plus the extra 56px flex gap the old spacer added inside .programme-title. */
+/* Larger gap between the chapter marker and the heading, as in the original layout. */
 .section-programme .heading {
-  margin-top: calc(var(--space-block) + 56px);
+  margin-top: 80px;
 }
 
 .section-programme .programme-item + .programme-item {
@@ -810,7 +810,7 @@ a:focus-visible {
 
 .section-programme .quiz,
 .section-programme .divider + .programme-time {
-  margin-top: 25px;
+  margin-top: 24px;
 }
 
 .section-programme .programme-activity {
@@ -819,12 +819,12 @@ a:focus-visible {
 
 .section-programme .quiz + .programme-text,
 .section-programme .programme-activity + .programme-text {
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 .section-programme .programme-note {
   margin-top: var(--space-paragraph);
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 }
 
 .section-programme .divider + .programme-caption {
@@ -832,7 +832,7 @@ a:focus-visible {
 }
 
 .section-programme .programme-caption + .programme-text {
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 /* Baby polaroid next to the section title. */
@@ -852,8 +852,8 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   min-width: 240px;
-  max-width: 550px;
-  height: 375px;
+  max-width: 548px;
+  height: 376px;
   gap: 56px;
   flex: 1;
 }
@@ -899,7 +899,6 @@ a:focus-visible {
 }
 
 .quiz-title .programme-time {
-  margin-top: -1px;
 }
 
 .programme-activity {
@@ -952,7 +951,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 70px 120px 62px;
+  padding: 64px 120px 64px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -964,7 +963,7 @@ a:focus-visible {
 }
 
 .section-gifts .heading {
-  margin-top: 44px;
+  margin-top: 48px;
 }
 
 .section-gifts .body-text {
@@ -974,7 +973,7 @@ a:focus-visible {
 .photo-hat {
   position: relative;
   width: 260px;
-  height: 325px;
+  height: 324px;
   background-image: url("assets/img/hat.jpg");
   background-size: cover;
   /* Keep the whole hat visible. */
@@ -990,7 +989,7 @@ a:focus-visible {
   flex-direction: column;
   max-width: 1008px;
   align-items: center;
-  padding: 25px 60px 38px;
+  padding: 24px 56px 40px;
   width: 100%;
   flex: 0 0 auto;
   border-top: 1px solid;
@@ -1089,7 +1088,7 @@ a:focus-visible {
 @media (max-width: 760px) {
   /* Layout */
   .site-header {
-    padding: 22px 5%;
+    padding: 20px 5%;
   }
 
   .wordmark {
@@ -1105,7 +1104,7 @@ a:focus-visible {
   .chapter-label {
     font-size: 12px;
     letter-spacing: 0.96px;
-    max-width: calc(100% - 46px);
+    max-width: calc(100% - 44px);
     white-space: normal;
     text-align: right;
   }
@@ -1158,20 +1157,20 @@ a:focus-visible {
 
   /* Intro */
   .intro {
-    padding: 35px 9% 43px;
+    padding: 32px 9% 40px;
   }
 
   /* 01 · When & where */
   .section-details {
     width: 82%;
     max-width: none;
-    padding: 35px 3% 40px;
+    padding: 32px 3% 40px;
   }
 
   .date-and-venue {
     flex-direction: column;
     align-items: stretch;
-    gap: 27px;
+    gap: 28px;
   }
 
   .fact {
@@ -1185,7 +1184,7 @@ a:focus-visible {
   /* 02 · Dress code, 04 · Gifts */
   .section-dress,
   .section-gifts {
-    padding: 42px 9%;
+    padding: 40px 9%;
   }
 
   .photo-bow,
@@ -1201,7 +1200,7 @@ a:focus-visible {
 
   /* 03 · Programme */
   .section-programme {
-    padding: 34px 9% 44px;
+    padding: 32px 9% 40px;
   }
 
   .programme-intro,
