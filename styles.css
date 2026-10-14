@@ -34,12 +34,13 @@
   font-display: swap;
 }
 
-/* System font, not bundled. */
+/* Static 400 instance of the variable font, subset to Latin and Cyrillic (incl. Serbian). */
 @font-face {
-  font-family: "Arial Narrow-Regular";
-  src: local("Arial Narrow"), local("ArialNarrow"), local("Arial Narrow Regular");
+  font-family: "Roboto Condensed";
+  src: url("assets/fonts/RobotoCondensed-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 /* ==========================================================================
@@ -56,8 +57,7 @@
 
   /* Font stacks (family names match the @font-face rules above) */
   --font-sans: "Inter-Medium", Helvetica;
-  --font-narrow: "Arial Narrow-Regular", Helvetica;
-  --font-button: "Arial Narrow", Helvetica;
+  --font-narrow: "Roboto Condensed", Arial, sans-serif;
   --font-script: "Pinyon Script-Regular", Helvetica;
   --font-hand: "Caveat-Regular", Helvetica;
   --font-luxurious: "Luxurious Script-Regular", Helvetica;
@@ -392,7 +392,7 @@ a:focus-visible {
 .button-label {
   display: block;
   width: fit-content;
-  font-family: var(--font-button);
+  font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
   font-size: var(--text-base);
@@ -829,7 +829,7 @@ a:focus-visible {
   --accent: var(--color-cream);
 }
 
-/* In this section the chapter label is set in Inter rather than Arial Narrow. */
+/* In this section the chapter label is set in Inter rather than Roboto Condensed. */
 .section-programme .chapter-label {
   font-family: var(--font-sans);
   font-weight: 500;
