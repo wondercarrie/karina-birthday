@@ -361,6 +361,14 @@ a:focus-visible {
   line-height: 1.7;
 }
 
+/* Up arrow after "Back to top": cap height of the text, sitting on the baseline. */
+.icon-arrow-up {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.72em;
+  vertical-align: baseline;
+}
+
 /* --- Button ------------------------------------------------------------- */
 
 .button {

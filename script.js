@@ -53,7 +53,7 @@
       "copy-45": "✦",
       "copy-46": "До\u00A0встречи, Карина",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Наверх\u00A0<span aria-hidden=\"true\">↑</span>"
+      "copy-48": "Наверх\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
     },
     "en": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -104,7 +104,7 @@
       "copy-45": "✦",
       "copy-46": "See you there, Karina",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Back to top\u00A0<span aria-hidden=\"true\">↑</span>"
+      "copy-48": "Back to top\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
     }
   };
 
