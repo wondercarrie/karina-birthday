@@ -1,5 +1,5 @@
-// Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation and
-// developing polaroids (shake, long press or click).
+// Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation,
+// developing polaroids (shake, long press or click) and their tilt on scroll.
 (() => {
   'use strict';
 
@@ -150,6 +150,13 @@
     peakGap: 80, // ms, one peak is counted once
     cooldown: 450, // ms after a counted shake
     step: 0.35, // share of the development per shake
+  };
+  // Touch screens: while a polaroid crosses the viewport its angle goes from base − angle (entering
+  // at the bottom) to base + angle (leaving at the top) and it shifts from −shift to +shift.
+  const TILT = {
+    angle: 4, // deg
+    shift: 0.375, // rem
+    smoothing: 0.85, // 0 follows the scroll at once; closer to 1 catches up more slowly
   };
 
   const copyNodes = [...document.querySelectorAll('[data-copy]')];
@@ -381,10 +388,73 @@
     }
   }
 
+  // Scroll tilt of the polaroids on touch screens (the hover lift on desktop is pure CSS). Only
+  // polaroids near the viewport are measured, once per frame, and the values go to custom
+  // properties that the polaroid transform reads.
+  function setUpTilt() {
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!matchMedia('(pointer: coarse)').matches) return;
+
+    const items = [...document.querySelectorAll('.polaroid')].map(el => ({ el, near: false, fresh: true, t: 0, shiftPx: 0 }));
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    let frame = 0;
+    let lastTime = 0;
+
+    function measure(item) {
+      const rect = item.el.getBoundingClientRect();
+      const height = item.el.offsetHeight;
+      // The rotated box keeps its centre, so only the current shift has to be taken out.
+      const centre = (rect.top + rect.bottom) / 2 - item.shiftPx;
+      const t = (innerHeight / 2 - centre) / ((innerHeight + height) / 2);
+      return Math.max(-1, Math.min(1, t));
+    }
+
+    function update(time) {
+      frame = 0;
+      const dt = lastTime ? Math.min(100, time - lastTime) : 16.7;
+      lastTime = time;
+      const active = items.filter(item => item.near);
+      const targets = active.map(measure);
+      const keep = TILT.smoothing ** (dt / 16.7);
+      let moving = false;
+      active.forEach((item, i) => {
+        const target = targets[i];
+        item.t = item.fresh ? target : target + (item.t - target) * keep;
+        item.fresh = false;
+        if (Math.abs(item.t - target) > 0.001) moving = true;
+        else item.t = target;
+        item.shiftPx = item.t * TILT.shift * rem;
+        item.el.style.setProperty('--polaroid-tilt', `${(item.t * TILT.angle).toFixed(3)}deg`);
+        item.el.style.setProperty('--polaroid-shift', `${(item.t * TILT.shift).toFixed(4)}rem`);
+      });
+      if (moving) schedule();
+      else lastTime = 0;
+    }
+
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+
+    // A polaroid that comes near the viewport jumps to its position instead of easing in.
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const item = items.find(it => it.el === entry.target);
+        if (entry.isIntersecting && !item.near) item.fresh = true;
+        item.near = entry.isIntersecting;
+      });
+      schedule();
+    }, { rootMargin: '25% 0px' });
+
+    items.forEach(item => observer.observe(item.el));
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+  }
+
   languageButtons.forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language, true));
   });
   setLanguage(new URLSearchParams(location.search).get('lang') || DEFAULT_LANGUAGE, false);
   setUpReveal();
   setUpDevelop();
+  setUpTilt();
 })();
