@@ -1,0 +1,12 @@
+{
+  "name": "karina-birthday-fonts",
+  "private": true,
+  "description": "Subsets the bundled fonts to the characters the page uses (not part of the site).",
+  "type": "module",
+  "scripts": {
+    "build": "node subset.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.2"
+  }
+}

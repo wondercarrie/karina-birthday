@@ -17,7 +17,7 @@ const SHOT_TIME = new Date(process.env.SHOT_TIME || '2026-10-14T18:46:00Z');
 const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [320, 375, 414, 768, 1024, 1440];
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.avif': 'image/avif', '.webp': 'image/webp', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml',
   '.ttf': 'font/ttf', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json', '.ics': 'text/calendar; charset=utf-8',
 };
 

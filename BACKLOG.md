@@ -2,7 +2,9 @@
 
 Known issues and ideas. Items 1–5 and 14 of the first version (button outline, mobile programme gap,
 photo caption overflow, hidden hero caption and toast polaroid, Arial Narrow, fractional Figma sizes)
-were fixed on `fix/spacing-and-mobile`. Class names refer to the current `styles.css`.
+were fixed on `fix/spacing-and-mobile`. Items 6–8 (the 3 MB hero PNG, TTF fonts, preloading the
+first-screen fonts) were fixed on `perf/images-and-fonts`: the page went from 4.6 MB to about 0.5 MB on
+a phone, see the README sections Photos and Fonts. Class names refer to the current `styles.css`.
 
 ## Layout
 
@@ -27,22 +29,23 @@ were fixed on `fix/spacing-and-mobile`. Class names refer to the current `styles
 
 ## Fonts and page weight
 
-6. **The hero image is a 3 MB PNG.** `assets/img/hero.png` is 942×2048 RGBA PNG (3,002 KB) for a
-   photo. As JPEG or WebP, with `srcset` for mobile and desktop sizes, it would be about
-   200–300 KB. The hand-written title waits for this photo for at most 1.5 s, so on a slow mobile
-   connection it is often shown without the animation; a lighter photo would fix that too.
-
-7. **Script fonts are TTF and not subset.** Roboto Condensed is now a 38 KB subset WOFF2, but Pinyon
-   Script, Caveat, Inter and Luxurious Script are still full TTFs (1.1 MB together). Converting them the
-   same way (WOFF2, Latin + Cyrillic subset, see README) would cut this 3–5×. Luxurious Script alone is
-   388 KB and is used for four short strings.
-
-8. **Only Roboto Condensed is preloaded.** Pinyon Script (hero title) and Inter (header) are also above
-   the fold and can briefly render in the fallback font. Preload them once they are WOFF2.
-
 9. **Fallbacks of the other font stacks.** `--font-narrow` falls back to `Arial, sans-serif`, the other
    stacks (`--font-sans`, `--font-script`, `--font-hand`, `--font-luxurious`) still fall back to
    `Helvetica` only. Add a generic family (`sans-serif`, `cursive`) to each.
+
+16. **Inter subset renders slightly differently at small sizes.** In Chromium on macOS the subset
+    `Inter-Medium.woff2` is anti-aliased about 1px differently on glyph edges at 12–14px than the full
+    font (same outlines and positions; pyftsubset and hb-subset alike, any subset). Invisible by eye
+    and accepted; the full font as WOFF2 would be 111 KB instead of 3.7 KB.
+
+17. **Bow and hat photos are scaled by a different filter.** They moved from CSS backgrounds to
+    `<img>`, which Chromium downsamples with another filter, so the film grain differs pixel by pixel
+    (up to 80–140 of 255 per channel on single pixels, p99 under 40) even with the same file.
+
+18. **Script loads later on slow connections.** The hero and three font preloads share the bandwidth
+    with `script.js`, which arrives about 0.4 s later on emulated Slow 4G than before (2.4 s instead of
+    2.0 s). The title is still written, so nothing to do now; `defer` on the script or a smaller
+    first-screen font set would bring it forward.
 
 ## Accessibility
 
