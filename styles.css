@@ -62,10 +62,42 @@
   --font-hand: "Caveat-Regular", Helvetica;
   --font-luxurious: "Luxurious Script-Regular", Helvetica;
 
+  /* Spacing scale: --space-N = N × 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
   /* Vertical rhythm */
-  --space-block: 28px;
-  --space-text: 24px;
-  --space-paragraph: 16px;
+  --space-block: var(--space-7);
+  --space-text: var(--space-6);
+  --space-paragraph: var(--space-4);
+
+  /* Type scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+  --text-8xl: 96px;
+  /* Display size of the hero title, outside the scale. */
+  --text-display: 184px;
 }
 
 /* ==========================================================================
@@ -167,7 +199,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 48px;
+  padding: 0 var(--space-12);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -179,7 +211,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 56px;
+  padding: var(--space-5) var(--space-14);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -190,7 +222,7 @@ a:focus-visible {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0.04em;
   line-height: 1.7;
@@ -202,7 +234,7 @@ a:focus-visible {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
@@ -238,7 +270,7 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: var(--space-3);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -273,7 +305,7 @@ a:focus-visible {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--accent);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.6;
@@ -285,7 +317,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--accent);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0.08em;
   line-height: 1.6;
@@ -299,7 +331,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--accent);
-  font-size: 48px;
+  font-size: var(--text-5xl);
   text-align: center;
   letter-spacing: -0.04em;
   line-height: 1.3;
@@ -311,7 +343,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 18px;
+  font-size: var(--text-lg);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
@@ -321,7 +353,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
@@ -335,7 +367,7 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  padding: var(--space-3) var(--space-7);
   position: relative;
   flex: 0 0 auto;
   background-color: var(--color-red);
@@ -355,7 +387,7 @@ a:focus-visible {
   font-family: var(--font-button);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 16px;
+  font-size: var(--text-base);
   letter-spacing: 0;
   line-height: 1.55;
   white-space: nowrap;
@@ -377,7 +409,7 @@ a:focus-visible {
   width: 180px;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: var(--space-4);
   flex: 0 0 auto;
 }
 
@@ -392,7 +424,7 @@ a:focus-visible {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
-  font-size: 18px;
+  font-size: var(--text-lg);
   text-align: center;
   letter-spacing: 0;
   line-height: 1;
@@ -404,8 +436,8 @@ a:focus-visible {
   position: absolute;
   width: calc(100% - 16px);
   height: calc(100% - 16px);
-  top: 8px;
-  left: 8px;
+  top: var(--space-2);
+  left: var(--space-2);
   border: 1px solid var(--color-cream);
 }
 
@@ -421,7 +453,7 @@ a:focus-visible {
   font-family: var(--font-script);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 96px;
+  font-size: var(--text-8xl);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -439,7 +471,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 8px 8px 28px;
+  padding: var(--space-2) var(--space-2) var(--space-7);
   position: relative;
   background-color: var(--color-cream);
   box-shadow: var(--shadow-polaroid);
@@ -459,7 +491,7 @@ a:focus-visible {
 
 .polaroid--toast {
   position: absolute;
-  left: 24px;
+  left: var(--space-6);
   bottom: 0;
   width: 232px;
   height: 312px;
@@ -549,10 +581,10 @@ a:focus-visible {
 .hero-text {
   width: 100%;
   height: 240px;
-  padding: 0 56px;
+  padding: 0 var(--space-14);
   position: absolute;
   left: 0;
-  bottom: 4px;
+  bottom: var(--space-1);
 }
 
 .hero-title {
@@ -563,7 +595,7 @@ a:focus-visible {
   font-family: var(--font-script);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 184px;
+  font-size: var(--text-display);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.512;
@@ -579,7 +611,7 @@ a:focus-visible {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 30px;
+  font-size: var(--text-3xl);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -594,7 +626,7 @@ a:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: var(--space-block);
-  padding: 48px 120px 64px;
+  padding: var(--space-12) 120px var(--space-16);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -609,7 +641,7 @@ a:focus-visible {
   flex-direction: column;
   max-width: 1008px;
   align-items: center;
-  padding: 48px 56px 48px;
+  padding: var(--space-12) var(--space-14) var(--space-12);
   width: 100%;
   flex: 0 0 auto;
   border-block: 1px solid;
@@ -621,7 +653,7 @@ a:focus-visible {
 }
 
 .section-details .date-and-venue {
-  margin-top: 28px;
+  margin-top: var(--space-7);
 }
 
 .section-details .button {
@@ -633,7 +665,7 @@ a:focus-visible {
 }
 
 .section-details .small-text {
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 .date-and-venue {
@@ -641,7 +673,7 @@ a:focus-visible {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
-  gap: 28px;
+  gap: var(--space-7);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -652,7 +684,7 @@ a:focus-visible {
   flex-direction: column;
   min-width: 248px;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex: 1;
 }
 
@@ -660,7 +692,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0.08em;
   line-height: 1.6;
@@ -670,7 +702,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 24px;
+  font-size: var(--text-2xl);
   text-align: center;
   letter-spacing: -0.025em;
   line-height: 1.5;
@@ -680,7 +712,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-ink);
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
@@ -696,13 +728,13 @@ a:focus-visible {
 
 .pet-friendly-text {
   position: absolute;
-  top: 8px;
+  top: var(--space-2);
   left: 0;
   width: 172px;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 18px;
+  font-size: var(--text-lg);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -711,8 +743,8 @@ a:focus-visible {
 
 .pet-friendly-paw {
   position: absolute;
-  top: 4px;
-  left: 12px;
+  top: var(--space-1);
+  left: var(--space-3);
   width: 24px;
   height: 28px;
   transform: rotate(7deg);
@@ -726,7 +758,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 120px;
+  padding: var(--space-16) 120px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -737,7 +769,7 @@ a:focus-visible {
 }
 
 .section-dress .heading {
-  margin-top: 48px;
+  margin-top: var(--space-12);
 }
 
 .section-dress .heading + .body-text {
@@ -749,7 +781,7 @@ a:focus-visible {
 }
 
 .section-dress .dress-code-note {
-  margin-top: 24px;
+  margin-top: var(--space-6);
 }
 
 .photo-bow {
@@ -766,7 +798,7 @@ a:focus-visible {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 30px;
+  font-size: var(--text-3xl);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -780,7 +812,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 192px;
+  padding: var(--space-16) 192px;
   position: relative;
   align-self: stretch;
   width: 100%;
@@ -796,35 +828,35 @@ a:focus-visible {
 }
 
 .section-programme .programme-intro {
-  margin-top: 32px;
+  margin-top: var(--space-8);
 }
 
 /* Larger gap between the chapter marker and the heading, as in the original layout. */
 .section-programme .heading {
-  margin-top: 80px;
+  margin-top: var(--space-20);
 }
 
 .section-programme .programme-item + .programme-item {
-  margin-top: 32px;
+  margin-top: var(--space-8);
 }
 
 .section-programme .quiz,
 .section-programme .divider + .programme-time {
-  margin-top: 24px;
+  margin-top: var(--space-6);
 }
 
 .section-programme .programme-activity {
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 
 .section-programme .quiz + .programme-text,
 .section-programme .programme-activity + .programme-text {
-  margin-top: 16px;
+  margin-top: var(--space-4);
 }
 
 .section-programme .programme-note {
   margin-top: var(--space-paragraph);
-  margin-bottom: 24px;
+  margin-bottom: var(--space-6);
 }
 
 .section-programme .divider + .programme-caption {
@@ -832,7 +864,7 @@ a:focus-visible {
 }
 
 .section-programme .programme-caption + .programme-text {
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 /* Baby polaroid next to the section title. */
@@ -841,7 +873,7 @@ a:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: var(--space-6);
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -854,7 +886,7 @@ a:focus-visible {
   min-width: 240px;
   max-width: 548px;
   height: 376px;
-  gap: 56px;
+  gap: var(--space-14);
   flex: 1;
 }
 
@@ -892,7 +924,7 @@ a:focus-visible {
   font-family: var(--font-luxurious);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 96px;
+  font-size: var(--text-8xl);
   text-align: center;
   letter-spacing: -0.04em;
   line-height: 0.6125;
@@ -905,7 +937,7 @@ a:focus-visible {
   font-family: var(--font-luxurious);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 60px;
+  font-size: var(--text-6xl);
   text-align: center;
   letter-spacing: -0.02em;
   line-height: 0.6125;
@@ -917,7 +949,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 18px;
+  font-size: var(--text-lg);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
@@ -927,7 +959,7 @@ a:focus-visible {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 30px;
+  font-size: var(--text-3xl);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -937,7 +969,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0.08em;
   line-height: 1.6;
@@ -951,7 +983,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 64px 120px 64px;
+  padding: var(--space-16) 120px;
   align-self: stretch;
   width: 100%;
   flex: 0 0 auto;
@@ -963,7 +995,7 @@ a:focus-visible {
 }
 
 .section-gifts .heading {
-  margin-top: 48px;
+  margin-top: var(--space-12);
 }
 
 .section-gifts .body-text {
@@ -989,7 +1021,7 @@ a:focus-visible {
   flex-direction: column;
   max-width: 1008px;
   align-items: center;
-  padding: 24px 56px 40px;
+  padding: var(--space-6) var(--space-14) var(--space-10);
   width: 100%;
   flex: 0 0 auto;
   border-top: 1px solid;
@@ -1001,18 +1033,18 @@ a:focus-visible {
 }
 
 .site-footer .footer-date {
-  margin-top: 16px;
+  margin-top: var(--space-4);
 }
 
 .site-footer .small-text {
-  margin-top: 12px;
+  margin-top: var(--space-3);
 }
 
 .sign-off {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 36px;
+  font-size: var(--text-4xl);
   text-align: center;
   letter-spacing: 0;
   line-height: 1.3;
@@ -1022,7 +1054,7 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 12px;
+  font-size: var(--text-xs);
   text-align: center;
   letter-spacing: 0.07em;
   line-height: 1.7;
@@ -1088,7 +1120,7 @@ a:focus-visible {
 @media (max-width: 760px) {
   /* Layout */
   .site-header {
-    padding: 20px 5%;
+    padding: var(--space-5) 5%;
   }
 
   .inset {
@@ -1103,12 +1135,12 @@ a:focus-visible {
   }
 
   .heading {
-    font-size: 30px;
+    font-size: var(--text-3xl);
   }
 
   .body-text {
     width: 100%;
-    font-size: 16px;
+    font-size: var(--text-base);
   }
 
   .photo-caption {
@@ -1147,20 +1179,20 @@ a:focus-visible {
 
   /* Intro */
   .intro {
-    padding: 32px 9% 40px;
+    padding: var(--space-8) 9% var(--space-10);
   }
 
   /* 01 · When & where */
   .section-details {
     width: 82%;
     max-width: none;
-    padding: 32px 3% 40px;
+    padding: var(--space-8) 3% var(--space-10);
   }
 
   .date-and-venue {
     flex-direction: column;
     align-items: stretch;
-    gap: 28px;
+    gap: var(--space-7);
   }
 
   .fact {
@@ -1170,7 +1202,7 @@ a:focus-visible {
   /* 02 · Dress code, 04 · Gifts */
   .section-dress,
   .section-gifts {
-    padding: 40px 9%;
+    padding: var(--space-10) 9%;
   }
 
   .photo-bow,
@@ -1184,14 +1216,14 @@ a:focus-visible {
 
   /* 03 · Programme */
   .section-programme {
-    padding: 32px 9% 40px;
+    padding: var(--space-8) 9% var(--space-10);
   }
 
   .programme-intro,
   .quiz {
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 24px;
+    gap: var(--space-6);
   }
 
   .programme-title,
@@ -1202,17 +1234,17 @@ a:focus-visible {
   }
 
   .programme-time {
-    font-size: 36px;
+    font-size: var(--text-4xl);
     line-height: 1.4;
   }
 
   .programme-activity {
-    font-size: 24px;
+    font-size: var(--text-2xl);
     line-height: 1.4;
   }
 
   .programme-text {
-    font-size: 16px;
+    font-size: var(--text-base);
   }
 
   .programme-note {
@@ -1227,7 +1259,7 @@ a:focus-visible {
   }
 
   .sign-off {
-    font-size: 30px;
+    font-size: var(--text-3xl);
   }
 }
 
