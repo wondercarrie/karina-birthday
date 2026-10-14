@@ -20,6 +20,10 @@ node compare.mjs          # pixel diff of baseline vs current; diffs go to shots
   `SITE_ROOT=/path/to/checkout` shoots another checkout (e.g. a `git worktree` of `main`).
   The clock is frozen at 2026-10-14T18:46:00Z, so the countdown always shows the same numbers;
   `SHOT_TIME=<ISO time>` shoots another moment.
+- `countdown.mjs` checks the countdown with Playwright's fake clock (texts, plural forms, the 19:00 and
+  23:00 boundaries, time zones, updates on the minute and on `visibilitychange`, layout at every width,
+  no JavaScript) and exits with 1 on a failure. `countdown.mjs shots` saves the section in every state
+  to `shots/countdown/`; `countdown.mjs video` records a minute change at 375 and 1440px to `videos/`.
 - `compare.mjs <a> <b>` pixel-compares two shot sets. Images of different heights are padded and still
   compared. Diff images and `summary.json` go to `shots/diff-<b>/`. Exits with 1 on any difference.
 - `report.mjs <a> <b> [title]` builds `compare.html` (git-ignored) from the last compare: per width and
