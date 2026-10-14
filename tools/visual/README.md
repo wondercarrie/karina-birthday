@@ -24,6 +24,10 @@ node compare.mjs          # pixel diff of baseline vs current; diffs go to shots
   23:00 boundaries, time zones, updates on the minute and on `visibilitychange`, layout at every width,
   no JavaScript) and exits with 1 on a failure. `countdown.mjs shots` saves the section in every state
   to `shots/countdown/`; `countdown.mjs video` records a minute change at 375 and 1440px to `videos/`.
+- `hero-writing.mjs` checks the hand-written hero title (hidden until the font and the photo are ready,
+  the end state equal to the static hero to the pixel, language switches during and after it, the
+  1.5 s load timeout, reduced motion, no JavaScript) and exits with 1 on a failure.
+  `hero-writing.mjs video` records it at 375 and 1440px, RU, EN and with a language switch, to `videos/`.
 - `compare.mjs <a> <b>` pixel-compares two shot sets. Images of different heights are padded and still
   compared. Diff images and `summary.json` go to `shots/diff-<b>/`. Exits with 1 on any difference.
 - `report.mjs <a> <b> [title]` builds `compare.html` (git-ignored) from the last compare: per width and
