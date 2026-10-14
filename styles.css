@@ -54,6 +54,8 @@
   --color-cream: #f4f0e9;
   --color-ink: #26231f;
   --shadow-polaroid: 0px 6px 15px #62121d30;
+  /* Deeper shadow of a polaroid lifted under the cursor. */
+  --shadow-polaroid-lifted: 0 var(--space-4) var(--space-10) #62121d40;
   /* Cold grey-blue of a fresh instant photo before it develops. */
   --color-undeveloped: #4a5868;
 
@@ -86,6 +88,11 @@
   --space-block: var(--space-7);
   --space-text: var(--space-6);
   --space-paragraph: var(--space-4);
+
+  /* Polaroid on hover (desktop): share of the base angle left, lift and duration */
+  --polaroid-hover-tilt: 0.25;
+  --polaroid-hover-lift: var(--space-2);
+  --polaroid-hover-duration: 350ms;
 
   /* Type scale */
   --text-xs: 0.75rem;
@@ -493,8 +500,10 @@ a:focus-visible {
   position: relative;
   background-color: var(--color-cream);
   box-shadow: var(--shadow-polaroid);
-  /* The nudge animates the separate rotate property, so it adds to the base angle. */
-  transform: rotate(var(--polaroid-rotate));
+  /* The base angle plus the scroll tilt and shift set by script.js on touch screens; the
+     nudge animates the separate rotate property, so both add up. */
+  transform: rotate(calc(var(--polaroid-rotate) + var(--polaroid-tilt, 0deg)));
+  translate: 0 var(--polaroid-shift, 0rem);
 }
 
 .polaroid--baby {
@@ -513,6 +522,36 @@ a:focus-visible {
   --polaroid-rotate: 10deg;
   width: 14.5rem;
   height: 19.5rem;
+}
+
+/* Desktop: a hovered or focused polaroid straightens up and lifts off the table. The deeper
+   shadow is a pseudo-element that fades in, so only opacity is animated. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .polaroid {
+    transition: transform var(--polaroid-hover-duration) ease, translate var(--polaroid-hover-duration) ease;
+  }
+
+  .polaroid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    box-shadow: var(--shadow-polaroid-lifted);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--polaroid-hover-duration) ease;
+  }
+
+  .polaroid:hover,
+  .polaroid:focus-visible {
+    transform: rotate(calc(var(--polaroid-rotate) * var(--polaroid-hover-tilt)));
+    translate: 0 calc(-1 * var(--polaroid-hover-lift));
+  }
+
+  .polaroid:hover::after,
+  .polaroid:focus-visible::after {
+    opacity: 1;
+  }
 }
 
 .polaroid-photo {
