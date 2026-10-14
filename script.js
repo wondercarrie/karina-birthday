@@ -53,7 +53,7 @@
       "copy-45": "✦",
       "copy-46": "До\u00A0встречи, Карина",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Наверх"
+      "copy-48": "Наверх\u00A0<span aria-hidden=\"true\">↑</span>"
     },
     "en": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -104,7 +104,7 @@
       "copy-45": "✦",
       "copy-46": "See you there, Karina",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Back to top"
+      "copy-48": "Back to top\u00A0<span aria-hidden=\"true\">↑</span>"
     }
   };
 
