@@ -190,10 +190,10 @@ a:focus-visible {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-red);
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  letter-spacing: 0.52px;
-  line-height: 22.1px;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
   white-space: nowrap;
 }
 
@@ -205,7 +205,7 @@ a:focus-visible {
   font-size: 14px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 23.8px;
+  line-height: 1.7;
   white-space: nowrap;
 }
 
@@ -276,7 +276,7 @@ a:focus-visible {
   font-size: 12px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 19.2px;
+  line-height: 1.6;
   white-space: nowrap;
 }
 
@@ -285,10 +285,10 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--accent);
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  letter-spacing: 1.04px;
-  line-height: 20.8px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
   white-space: nowrap;
 }
 
@@ -301,8 +301,8 @@ a:focus-visible {
   color: var(--accent);
   font-size: 48px;
   text-align: center;
-  letter-spacing: -1.92px;
-  line-height: 62.4px;
+  letter-spacing: -0.04em;
+  line-height: 1.3;
 }
 
 .body-text {
@@ -311,10 +311,10 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 17px;
+  font-size: 18px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 28.9px;
+  line-height: 1.7;
 }
 
 .small-text {
@@ -324,7 +324,7 @@ a:focus-visible {
   font-size: 14px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 23.8px;
+  line-height: 1.7;
 }
 
 /* --- Button ------------------------------------------------------------- */
@@ -355,9 +355,9 @@ a:focus-visible {
   font-family: var(--font-button);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: 0;
-  line-height: 23.25px;
+  line-height: 1.55;
   white-space: nowrap;
   font-style: normal;
 }
@@ -395,7 +395,7 @@ a:focus-visible {
   font-size: 18px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 18px;
+  line-height: 1;
 }
 
 /* --- Framed photo with a handwritten caption (dress code, gifts) -------- */
@@ -421,10 +421,10 @@ a:focus-visible {
   font-family: var(--font-script);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 90px;
+  font-size: 96px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 117px;
+  line-height: 1.3;
 }
 
 .photo-caption--hat {
@@ -566,7 +566,7 @@ a:focus-visible {
   font-size: 184px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 278.2px;
+  line-height: 1.512;
   white-space: nowrap;
 }
 
@@ -579,10 +579,10 @@ a:focus-visible {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 28px;
+  font-size: 30px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 36.4px;
+  line-height: 1.3;
 }
 
 /* ==========================================================================
@@ -660,20 +660,20 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  letter-spacing: 1.04px;
-  line-height: 20.8px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
 }
 
 .fact-value {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
-  font-size: 25px;
+  font-size: 24px;
   text-align: center;
-  letter-spacing: -0.62px;
-  line-height: 37.5px;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
 }
 
 .fact-note {
@@ -683,7 +683,7 @@ a:focus-visible {
   font-size: 14px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 23.8px;
+  line-height: 1.7;
 }
 
 .pet-friendly-badge {
@@ -705,7 +705,7 @@ a:focus-visible {
   font-size: 18px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 23.4px;
+  line-height: 1.3;
   white-space: nowrap;
 }
 
@@ -769,7 +769,7 @@ a:focus-visible {
   font-size: 30px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 39px;
+  line-height: 1.3;
 }
 
 /* ==========================================================================
@@ -894,8 +894,8 @@ a:focus-visible {
   color: var(--color-cream);
   font-size: 96px;
   text-align: center;
-  letter-spacing: -3.84px;
-  line-height: 58.8px;
+  letter-spacing: -0.04em;
+  line-height: 0.6125;
 }
 
 .quiz-title .programme-time {
@@ -905,10 +905,10 @@ a:focus-visible {
   font-family: var(--font-luxurious);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 64px;
+  font-size: 60px;
   text-align: center;
-  letter-spacing: -1.28px;
-  line-height: 39.2px;
+  letter-spacing: -0.02em;
+  line-height: 0.6125;
 }
 
 .programme-text {
@@ -917,30 +917,30 @@ a:focus-visible {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 27.2px;
+  line-height: 1.7;
 }
 
 .programme-note {
   font-family: var(--font-hand);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 27px;
+  font-size: 30px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 35.1px;
+  line-height: 1.3;
 }
 
 .programme-caption {
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-cream);
-  font-size: 13px;
+  font-size: 12px;
   text-align: center;
-  letter-spacing: 1.04px;
-  line-height: 20.8px;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -1015,7 +1015,7 @@ a:focus-visible {
   font-size: 36px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 46.8px;
+  line-height: 1.3;
 }
 
 .footer-date {
@@ -1024,8 +1024,8 @@ a:focus-visible {
   color: var(--color-red);
   font-size: 12px;
   text-align: center;
-  letter-spacing: 0.84px;
-  line-height: 20.4px;
+  letter-spacing: 0.07em;
+  line-height: 1.7;
 }
 
 /* ==========================================================================
@@ -1091,39 +1091,29 @@ a:focus-visible {
     padding: 20px 5%;
   }
 
-  .wordmark {
-    font-size: 12px;
-    line-height: 20.4px;
-  }
-
   .inset {
     padding-inline: 4%;
   }
 
   /* Shared components */
   .chapter-label {
-    font-size: 12px;
-    letter-spacing: 0.96px;
     max-width: calc(100% - 44px);
     white-space: normal;
     text-align: right;
   }
 
   .heading {
-    font-size: 32px;
-    line-height: 1.3;
-    letter-spacing: -1.28px;
+    font-size: 30px;
   }
 
   .body-text {
     width: 100%;
     font-size: 16px;
-    line-height: 27.2px;
   }
 
   .photo-caption {
-    width: calc(100% + 36px);
-    left: -18px;
+    width: calc(100% + 32px);
+    left: -16px;
   }
 
   .polaroid--baby {
@@ -1146,7 +1136,7 @@ a:focus-visible {
   .hero-title {
     width: 100%;
     height: auto;
-    font-size: clamp(68px, 21.5vw, 110px);
+    font-size: clamp(68px, 21.5vw, 112px);
     line-height: 1.45;
   }
 
@@ -1177,10 +1167,6 @@ a:focus-visible {
     min-width: 0;
   }
 
-  .pet-friendly-text {
-    font-size: 17px;
-  }
-
   /* 02 · Dress code, 04 · Gifts */
   .section-dress,
   .section-gifts {
@@ -1194,8 +1180,6 @@ a:focus-visible {
 
   .dress-code-note {
     width: 100%;
-    font-size: 28px;
-    line-height: 36.4px;
   }
 
   /* 03 · Programme */
@@ -1218,24 +1202,21 @@ a:focus-visible {
   }
 
   .programme-time {
-    font-size: 39px;
-    line-height: 54.6px;
-    letter-spacing: -1.56px;
+    font-size: 36px;
+    line-height: 1.4;
   }
 
   .programme-activity {
-    font-size: 26px;
-    line-height: 36.4px;
-    letter-spacing: -0.52px;
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .programme-text {
+    font-size: 16px;
   }
 
   .programme-note {
     max-width: 100%;
-  }
-
-  .programme-caption {
-    font-size: 12px;
-    line-height: 19.2px;
   }
 
   /* Footer */
@@ -1246,8 +1227,7 @@ a:focus-visible {
   }
 
   .sign-off {
-    font-size: 32px;
-    line-height: 41.6px;
+    font-size: 30px;
   }
 }
 
