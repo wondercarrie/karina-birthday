@@ -914,6 +914,10 @@ a:focus-visible,
   margin-top: var(--space-7);
 }
 
+.section-details .countdown {
+  margin-top: var(--space-block);
+}
+
 .section-details .details-actions {
   margin-top: var(--space-block);
 }
@@ -1054,6 +1058,54 @@ a:focus-visible,
 
 .calendar-menu a:focus-visible {
   outline-offset: calc(-1 * var(--space-1));
+}
+
+/* --- Countdown (filled in by script.js) ---------------------------------- */
+
+/* A phrase: the lead text in ink, the time left in red with larger tabular numbers, so the line
+   does not shift when a digit changes. */
+.countdown {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The time left wraps only as a whole, after the lead text. */
+.countdown-time {
+  white-space: nowrap;
+}
+
+.countdown-part,
+.countdown-message {
+  color: var(--color-red);
+}
+
+.countdown-number,
+.countdown-message {
+  font-size: var(--text-3xl);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.countdown-number {
+  display: inline-block;
+}
+
+/* A new value drops in when the minute changes. */
+.countdown-number.is-changed {
+  animation: countdown-change 450ms ease-out;
+}
+
+@keyframes countdown-change {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--space-2)));
+  }
 }
 
 .pet-friendly-badge {
@@ -1603,6 +1655,13 @@ a:focus-visible,
     width: 100%;
   }
 
+  /* The lead text ("До вечера осталось") always takes its own line above the numbers, a whole
+     number of pixels high, so the content below does not move by a fraction of a pixel. */
+  .countdown-lead {
+    display: block;
+    line-height: var(--space-6);
+  }
+
   /* 02 · Dress code, 04 · Gifts */
   .section-dress,
   .section-gifts {
@@ -1713,6 +1772,10 @@ a:focus-visible,
 
   /* script.js leaves the polaroids developed; this only guards against stray motion. */
   .is-nudged {
+    animation: none;
+  }
+
+  .countdown-number.is-changed {
     animation: none;
   }
 

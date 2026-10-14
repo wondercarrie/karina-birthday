@@ -1,9 +1,9 @@
 // Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation,
-// "Add to calendar" menu, developing polaroids (shake, long press or click) and their tilt on scroll.
+// "Add to calendar" menu, countdown to the party, developing polaroids (shake, long press or click) and their tilt on scroll.
 (() => {
   'use strict';
 
-  // Text for every element with a data-copy attribute. Values are HTML.
+  // Text for every element with a data-copy attribute, plus the countdown phrases. Values are HTML.
   const COPY = {
     "ru": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -62,7 +62,15 @@
       "copy-53": "или\u00A0зажми снимок",
       "copy-54": "Добавить в\u00A0календарь",
       "copy-55": "Apple, Outlook и\u00A0другие",
-      "copy-56": "Google Календарь"
+      "copy-56": "Google Календарь",
+      // Countdown phrases (not data-copy elements): {time} is replaced with the time left, and the
+      // unit words are picked with Intl.PluralRules.
+      "countdown-before": "До\u00A0вечера осталось {time}",
+      "countdown-during": "Мы уже празднуем!",
+      "countdown-after": "Спасибо, что\u00A0были!",
+      "countdown-day": { "one": "день", "few": "дня", "many": "дней", "other": "дня" },
+      "countdown-hour": { "one": "час", "few": "часа", "many": "часов", "other": "часа" },
+      "countdown-minute": { "one": "минута", "few": "минуты", "many": "минут", "other": "минуты" }
     },
     "en": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -121,7 +129,13 @@
       "copy-53": "or press and hold",
       "copy-54": "Add to calendar",
       "copy-55": "Apple, Outlook and others",
-      "copy-56": "Google Calendar"
+      "copy-56": "Google Calendar",
+      "countdown-before": "{time} to\u00A0go",
+      "countdown-during": "The party is on!",
+      "countdown-after": "Thank you for coming!",
+      "countdown-day": { "one": "day", "other": "days" },
+      "countdown-hour": { "one": "hour", "other": "hours" },
+      "countdown-minute": { "one": "minute", "other": "minutes" }
     }
   };
 
@@ -186,6 +200,14 @@
     smoothing: 0.85, // 0 follows the scroll at once; closer to 1 catches up more slowly
   };
 
+  // Order of the countdown units; the leading ones that are zero are left out.
+  const COUNTDOWN_UNITS = [
+    { name: 'day', minutes: 1440 },
+    { name: 'hour', minutes: 60 },
+    { name: 'minute', minutes: 1 },
+  ];
+  const MINUTE = 60000; // ms
+
   const copyNodes = [...document.querySelectorAll('[data-copy]')];
   const languageButtons = [...document.querySelectorAll('[data-language]')];
   const languageNav = document.querySelector('.language-navigation');
@@ -194,6 +216,8 @@
   const calendarMenu = calendar.querySelector('.calendar-menu');
   const calendarICS = calendar.querySelector('[data-calendar="ics"]');
   const calendarGoogle = calendar.querySelector('[data-calendar="google"]');
+  const countdown = document.querySelector('.countdown');
+  let renderCountdown = () => {};
 
   // 2026-11-28T18:00:00Z → 20261128T180000Z
   const compactTime = iso => iso.replace(/[-:]/g, '').replace(/\.\d+/, '');
@@ -229,6 +253,7 @@
     });
     calendarICS.href = `assets/calendar/karina-birthday-${language}.ics`;
     calendarGoogle.href = googleCalendarURL(language);
+    renderCountdown(false);
 
     if (updateURL) {
       const url = new URL(location.href);
@@ -525,11 +550,96 @@
     calendar.hidden = false;
   }
 
+  // Countdown to the party in "When & where". It counts from the UTC times in EVENT, so it is right in
+  // any time zone, and shows the minutes left rounded up: it never reads "0 minutes" before the start.
+  // It updates exactly when the minute changes and again when the tab comes back, because phones
+  // freeze timers in background tabs. Without JavaScript it stays hidden.
+  function setUpCountdown() {
+    const start = Date.parse(EVENT.start);
+    const end = Date.parse(EVENT.end);
+    let layout = '';
+    let timer = 0;
+
+    function state(time) {
+      if (time >= end) return 'after';
+      if (time >= start) return 'during';
+      return 'before';
+    }
+
+    function timeLeft(time) {
+      let minutes = Math.ceil((start - time) / MINUTE);
+      const units = COUNTDOWN_UNITS.map(unit => {
+        const value = Math.floor(minutes / unit.minutes);
+        minutes -= value * unit.minutes;
+        return { name: unit.name, value };
+      });
+      return units.slice(units.findIndex(unit => unit.value > 0));
+    }
+
+    // Rebuilds the text when the state, the language or the set of units changes; otherwise only
+    // swaps the numbers and unit words, and with animate a changed number fades in.
+    renderCountdown = animate => {
+      const time = Date.now();
+      const current = state(time);
+      const language = document.documentElement.lang;
+      const copy = COPY[language];
+      const units = current === 'before' ? timeLeft(time) : [];
+      const next = [current, language, ...units.map(unit => unit.name)].join(' ');
+
+      if (next !== layout) {
+        layout = next;
+        if (current !== 'before') {
+          countdown.innerHTML = `<span class="countdown-message">${copy[`countdown-${current}`]}</span>`;
+          return;
+        }
+        const parts = units.map(unit => `<span class="countdown-part" data-unit="${unit.name}">` +
+          '<span class="countdown-number"></span>\u00A0<span class="countdown-unit"></span></span>').join(' ');
+        const [lead, tail] = copy['countdown-before'].split('{time}').map(text => text.trim());
+        countdown.innerHTML = [
+          lead && `<span class="countdown-text countdown-lead">${lead}</span>`,
+          `<span class="countdown-time">${parts}</span>`,
+          tail && `<span class="countdown-text">${tail}</span>`,
+        ].filter(Boolean).join(' ');
+        animate = false;
+      }
+
+      const plural = new Intl.PluralRules(language);
+      units.forEach(unit => {
+        const part = countdown.querySelector(`[data-unit="${unit.name}"]`);
+        const number = part.querySelector('.countdown-number');
+        const value = String(unit.value);
+        part.querySelector('.countdown-unit').textContent = copy[`countdown-${unit.name}`][plural.select(unit.value)];
+        if (number.textContent === value) return;
+        number.textContent = value;
+        if (animate) {
+          number.classList.remove('is-changed');
+          void number.offsetWidth; // restarts the animation
+          number.classList.add('is-changed');
+        }
+      });
+    };
+
+    function tick() {
+      clearTimeout(timer);
+      renderCountdown(true);
+      // Minute boundaries of the clock are also minute boundaries of the countdown (EVENT is on a whole minute).
+      if (state(Date.now()) !== 'after') timer = setTimeout(tick, MINUTE - (Date.now() % MINUTE));
+    }
+
+    countdown.addEventListener('animationend', event => event.target.classList.remove('is-changed'));
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') tick();
+    });
+    tick();
+    countdown.hidden = false;
+  }
+
   languageButtons.forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language, true));
   });
   setLanguage(new URLSearchParams(location.search).get('lang') || DEFAULT_LANGUAGE, false);
   setUpCalendar();
+  setUpCountdown();
   setUpReveal();
   setUpDevelop();
   setUpTilt();
