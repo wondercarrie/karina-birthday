@@ -16,11 +16,14 @@ script.js               RU/EN copy, the event data (EVENT), the language switche
                         title, the "Add to calendar" menu, the countdown, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
-  img/                  Photos, the paw icon and the favicon.
-  fonts/                Bundled fonts (TTF, Roboto Condensed as WOFF2) and their SIL Open Font Licences (OFL-*.txt).
+  img/                  Photos as AVIF, WebP and JPEG in three widths each (built by tools/images/), the paw icon
+                        and the favicon.
+  fonts/                Bundled fonts as subset WOFF2 and their SIL Open Font Licences (OFL-*.txt).
   calendar/             The event as .ics files (RU and EN), built from EVENT in script.js.
 tools/visual/           Visual regression tooling (not part of the site, see below).
 tools/calendar/         Builds and checks the .ics files (not part of the site, see below).
+tools/images/           Builds the responsive photos from the originals (not part of the site, see below).
+tools/fonts/            Subsets the fonts to the characters the page uses (not part of the site, see below).
 BACKLOG.md              Known issues and improvement ideas.
 ```
 
@@ -51,7 +54,8 @@ Once per page load "Nostalgia" in the hero is written as if by hand: a mask with
 like the script, sweeps over it from left to right, then the caption "тут, мне, кстати, 2 года" fades
 in. The animation waits for the title font (`document.fonts`) and the hero photo, so the title is not
 written over an empty block; if they are not ready within 1.5 s, the title and the caption are shown at
-once. Switching the language does not restart it. Without JavaScript and with
+once. On emulated Slow 4G the photo and the font arrive about 0.1 s after the script runs, so the
+title is written there too. Switching the language does not restart it. Without JavaScript and with
 `prefers-reduced-motion: reduce` both are simply shown.
 
 Only `transform` and `opacity` are animated: the mask sits on `.hero-text`, which moves right while
@@ -169,14 +173,66 @@ Useful options:
 - `node hero-writing.mjs` checks the hand-written title at all widths in both languages: hidden while
   the font and the photo load, the end state equal to the static hero to the pixel, no overflow, a
   language switch during and after the animation, the 1.5 s timeout for a late photo or font, reduced
-  motion and the page without JavaScript. `node hero-writing.mjs video` records it at 375 and 1440px in
-  both languages and with a language switch while writing to `videos/`.
+  motion and the page without JavaScript. `node hero-writing.mjs slow` loads the page on emulated
+  DevTools "Slow 4G" (fresh cache, 375px at 3× and 2×, 1440px) and reports whether the title is written
+  or shown at once after the timeout; `SITE_ROOT=<checkout>` runs it on another version.
+  `node hero-writing.mjs video` records it at 375 and 1440px in both languages and with a language
+  switch while writing to `videos/`.
 - `node computed.mjs <name>` dumps the computed styles of every element, and
   `node computed.mjs --diff <a> <b>` compares two dumps. This catches changes that are not
   visible in the default state.
 
 `compare.mjs` exits with code 1 when any screenshot differs. Expect 0 px of difference for
 refactoring-only changes.
+
+## Photos
+
+Every photo is a `<picture>` with AVIF and WebP sources and a JPEG fallback, each in 1×, 2× and 3× of
+the largest width the photo is shown at (capped at the width of the original), with `sizes` matching
+the layout. The hero is preloaded with `fetchpriority="high"`; the other photos have
+`loading="lazy"` and `decoding="async"`. `width` and `height` on every `<img>` give the browser the
+aspect ratio before the file arrives. The bow and hat photos are `<img>` with `object-fit: cover`
+and `object-position` (they used to be CSS backgrounds), so they can be lazy and responsive too.
+
+`tools/images/build.mjs` writes all the files with sharp. The originals are not kept in the
+repository; they are in its history:
+
+```sh
+git archive 03b543a assets/img | tar -x -C /tmp/originals
+cd tools/images
+npm install
+node build.mjs /tmp/originals/assets/img
+```
+
+The widths and qualities are at the top of the script. After changing a width there, update the
+`srcset` and `sizes` in `index.html` (and the hero preload in `<head>`). `share-preview.jpg` is not
+built by it: messengers cache the link preview, so it stays as it is.
+
+## Fonts
+
+Only fonts of the first screen are preloaded: Roboto Condensed (intro), Inter (header), Pinyon Script
+(hero title) and Caveat (hero caption); Luxurious Script is only used in the programme.
+
+Pinyon Script, Caveat, Inter and Luxurious Script are subset WOFF2 files with only the characters the
+page renders with them in Russian and English (Luxurious Script has 20 characters for its four short
+strings). `tools/fonts/subset.mjs` collects the characters in Chromium from the rendered page in both
+languages, per computed font family and with `text-transform` applied, including the hidden develop
+hints, and runs the fontTools subsetter. The original TTFs are in the repository history:
+
+```sh
+pip install fonttools brotli          # PYTHON=<path> picks another interpreter
+git archive 03b543a assets/fonts | tar -x -C /tmp/originals
+cd tools/fonts
+npm install
+node subset.mjs check                 # after editing any text set in these fonts
+node subset.mjs build /tmp/originals/assets/fonts
+```
+
+`check` fails when the page uses a character a subset does not have (it would be drawn in a fallback
+font); then run `build`. The glyphs render exactly as with the TTFs, except Inter at 12–14px, where
+Chromium on macOS anti-aliases a subset of Inter slightly differently (about 1px on glyph edges; the
+glyph outlines and the positions are the same). "✦" is not in Inter and has always been drawn in a
+fallback font.
 
 ## Licences
 
