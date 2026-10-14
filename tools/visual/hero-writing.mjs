@@ -1,5 +1,7 @@
 // Checks the hand-written hero title. Exits with 1 on a failure.
 // Usage: node hero-writing.mjs          checks
+//        node hero-writing.mjs slow     loads the page on emulated Slow 4G and reports whether the title is
+//                                       written or shown at once after the 1.5 s timeout (RUNS=5 per size)
 //        node hero-writing.mjs video    records the animation to videos/ (375 and 1440px, RU and EN,
 //                                       and a language switch while the title is being written)
 import { chromium } from 'playwright';
@@ -14,15 +16,16 @@ const ROOT = process.env.SITE_ROOT ? path.resolve(process.env.SITE_ROOT) : path.
 const VIDEOS = path.resolve(fileURLToPath(import.meta.url), '..', 'videos');
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
-  '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.woff2': 'font/woff2',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.avif': 'image/avif', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.woff2': 'font/woff2',
 };
-// Paths whose response is held back, to test the load timeout.
+// Path prefixes whose responses are held back, to test the load timeout.
 const slow = new Map();
 
 const server = http.createServer(async (req, res) => {
   const urlPath = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   const file = path.join(ROOT, urlPath.endsWith('/') ? urlPath + 'index.html' : urlPath);
-  if (slow.has(urlPath)) await new Promise(r => setTimeout(r, slow.get(urlPath)));
+  const delay = [...slow].find(([prefix]) => urlPath.startsWith(prefix))?.[1];
+  if (delay) await new Promise(r => setTimeout(r, delay));
   try {
     const body = await fs.readFile(file);
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
@@ -99,7 +102,49 @@ async function reference(width, lang) {
   return shot;
 }
 
-if (process.argv[2] === 'video') {
+// DevTools "Slow 4G" preset (1.6 Mbit/s down, 750 kbit/s up, 562.5 ms latency, incl. its 0.9 factor).
+const SLOW_4G = { offline: false, latency: 562.5, downloadThroughput: 1.6e6 / 8 * 0.9, uploadThroughput: 750e3 / 8 * 0.9 };
+
+if (process.argv[2] === 'slow') {
+  // Does the title still get written on a slow mobile connection, or does the 1.5 s timeout win?
+  // Each run is a fresh context, so nothing is cached. The local server does not gzip, unlike
+  // GitHub Pages, so HTML, CSS and JS arrive a little later here than in reality.
+  const RUNS = Number(process.env.RUNS || 5);
+  for (const [width, dpr] of [[375, 3], [375, 2], [1440, 1]]) {
+    const results = [];
+    for (let run = 0; run < RUNS; run++) {
+      const context = await browser.newContext({ viewport: { width, height: 800 }, deviceScaleFactor: dpr, isMobile: width < 760, hasTouch: width < 760 });
+      const page = await context.newPage();
+      page.setDefaultTimeout(60000);
+      const cdp = await context.newCDPSession(page);
+      await cdp.send('Network.enable');
+      await cdp.send('Network.emulateNetworkConditions', SLOW_4G);
+      // script.js runs at the end of <body>, so the race of the photo and the font against the
+      // timeout has started by DOMContentLoaded. Written: animations appear once the hero is no
+      // longer pending. Timeout: pending is removed without any animation.
+      await page.goto(BASE, { waitUntil: 'domcontentloaded' });
+      const outcome = await (await page.waitForFunction(() => {
+        const hero = document.querySelector('.hero');
+        if (!hero || hero.classList.contains('is-writing-pending')) return false;
+        return hero.getAnimations({ subtree: true }).length ? 'written' : 'timeout';
+      }, null, { polling: 'raf' })).jsonValue();
+      const at = await page.evaluate(() => Math.round(performance.now()));
+      await page.waitForLoadState('load');
+      const timing = await page.evaluate(() => {
+        const photo = document.querySelector('.hero-img');
+        const entry = performance.getEntriesByName(photo.currentSrc)[0];
+        const script = performance.getEntriesByType('resource').find(e => e.name.endsWith('script.js'));
+        const dcl = performance.getEntriesByType('navigation')[0].domContentLoadedEventStart;
+        return { photo: photo.currentSrc.split('/').pop(), photoEnd: Math.round(entry?.responseEnd ?? -1), scriptEnd: Math.round(script?.responseEnd ?? -1), dcl: Math.round(dcl) };
+      });
+      results.push({ outcome, at, ...timing });
+      await context.close();
+    }
+    const written = results.filter(r => r.outcome === 'written').length;
+    console.log(`${width}px @${dpr}x  written ${written}/${RUNS}  (${results[0].photo})`);
+    for (const r of results) console.log(`  ${r.outcome.padEnd(7)} at ${r.at} ms · script.js ${r.scriptEnd} ms · DOMContentLoaded ${r.dcl} ms · photo ${r.photoEnd} ms`);
+  }
+} else if (process.argv[2] === 'video') {
   await fs.mkdir(VIDEOS, { recursive: true });
   const record = async (name, width, query, during) => {
     const page = await open(width, { query, video: true });
@@ -184,7 +229,8 @@ if (process.argv[2] === 'video') {
   }
 
   // Load timeout: if the photo or the font is late, everything is shown at once after 1.5 s.
-  for (const late of ['/assets/img/hero.png', '/assets/fonts/PinyonScript-Regular.ttf']) {
+  // Every hero size and format (the page picks one by width and browser support).
+  for (const late of ['/assets/img/hero-', '/assets/fonts/PinyonScript-Regular.woff2']) {
     slow.set(late, 3000);
     const page = await open(375, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1000);
