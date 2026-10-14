@@ -29,7 +29,8 @@ were fixed on `fix/spacing-and-mobile`. Class names refer to the current `styles
 
 6. **The hero image is a 3 MB PNG.** `assets/img/hero.png` is 942×2048 RGBA PNG (3,002 KB) for a
    photo. As JPEG or WebP, with `srcset` for mobile and desktop sizes, it would be about
-   200–300 KB.
+   200–300 KB. The hand-written title waits for this photo for at most 1.5 s, so on a slow mobile
+   connection it is often shown without the animation; a lighter photo would fix that too.
 
 7. **Script fonts are TTF and not subset.** Roboto Condensed is now a 38 KB subset WOFF2, but Pinyon
    Script, Caveat, Inter and Luxurious Script are still full TTFs (1.1 MB together). Converting them the
