@@ -134,6 +134,19 @@
     brightness: 0.45,
     saturate: 0.15,
     contrast: 0.75,
+  // The party, for the "Add to calendar" menu. Times are UTC: 19:00–23:00 in Belgrade (CET, UTC+1).
+  // The static .ics files in assets/calendar/ are built from this object by tools/calendar/ics.mjs:
+  // after changing it, run `node tools/calendar/ics.mjs build`.
+  const EVENT = {
+    start: '2026-11-28T18:00:00Z',
+    end: '2026-11-28T22:00:00Z',
+    timeZone: 'Europe/Belgrade',
+    location: 'Auditoria Belgrade, Vojvode Dobrnjca 48, Beograd',
+    url: { ru: 'https://wondercarrie.github.io/karina-birthday/', en: 'https://wondercarrie.github.io/karina-birthday/?lang=en' },
+    title: { ru: 'День рождения Карины · Nostalgia', en: 'Karina’s Birthday · Nostalgia' },
+    description: { ru: 'Квиз, караоке и бар. Все детали:', en: 'A quiz, karaoke and drinks. All the details:' },
+    reminder: '-P1D', // ISO 8601 duration before the start
+  };
     tintOpacity: 0.65,
     duration: 3500, // ms, from undeveloped to developed
     tintShare: 0.8, // the tint is gone after this share of the duration
