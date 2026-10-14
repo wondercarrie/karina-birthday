@@ -1,4 +1,4 @@
-// Dumps computed styles of every element (and ::before/::after) at 375/768/1440 to shots/<name>/computed.json.
+// Dumps computed styles of every element (and ::before/::after) at 320/375/414/768/1024/1440 (WIDTHS overrides) to shots/<name>/computed.json.
 // Usage: node computed.mjs <name>; diff two dumps with: node computed.mjs --diff <a> <b>
 import { chromium } from 'playwright';
 import http from 'node:http';
@@ -12,14 +12,15 @@ if (process.argv[2] === '--diff') {
   let n = 0;
   for (const key of Object.keys(a)) {
     for (const prop of new Set([...Object.keys(a[key] || {}), ...Object.keys(b[key] || {})])) {
-      if (a[key]?.[prop] !== b[key]?.[prop]) { if (n++ < 40) console.log(`${key} ${prop}: ${a[key]?.[prop]} -> ${b[key]?.[prop]}`); }
+      if (a[key]?.[prop] !== b[key]?.[prop]) { n++; console.log(`${key} ${prop}: ${a[key]?.[prop]} -> ${b[key]?.[prop]}`); }
     }
   }
   console.log(n ? `COMPUTED: ${n} differences` : 'COMPUTED: IDENTICAL');
   process.exit(n ? 1 : 0);
 }
 
-const ROOT = path.resolve(HERE, '../..');
+const ROOT = process.env.SITE_ROOT ? path.resolve(process.env.SITE_ROOT) : path.resolve(HERE, '../..');
+const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [320, 375, 414, 768, 1024, 1440];
 const server = http.createServer(async (req, res) => {
   const p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   try { res.end(await fs.readFile(path.join(ROOT, p.endsWith('/') ? p + 'index.html' : p))); } catch { res.writeHead(404); res.end(); }
@@ -27,7 +28,7 @@ const server = http.createServer(async (req, res) => {
 await new Promise(r => server.listen(0, '127.0.0.1', r));
 const browser = await chromium.launch();
 const out = {};
-for (const width of [375, 768, 1440]) {
+for (const width of WIDTHS) {
   const page = await browser.newPage({ viewport: { width, height: 900 } });
   await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: 'networkidle' });
   await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important}' });
