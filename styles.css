@@ -621,7 +621,8 @@ a:focus-visible {
 .hero-caption {
   position: absolute;
   top: 16.25rem;
-  left: 46.5rem;
+  /* Keeps the caption inside the hero just above the 1050px breakpoint. */
+  left: min(46.5rem, 100% - 15rem);
   width: 13.75rem;
   transform: rotate(-6deg);
   font-family: var(--font-hand);
