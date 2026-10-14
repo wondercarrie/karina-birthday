@@ -1,0 +1,13 @@
+{
+  "name": "karina-birthday-calendar",
+  "private": true,
+  "description": "Builds and checks the static .ics files of the Add to calendar menu (not part of the site).",
+  "type": "module",
+  "scripts": {
+    "build": "node ics.mjs build",
+    "check": "node ics.mjs check"
+  },
+  "devDependencies": {
+    "ical.js": "^2.1.0"
+  }
+}

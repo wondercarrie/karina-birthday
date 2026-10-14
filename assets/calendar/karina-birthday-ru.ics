@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//wondercarrie//karina-birthday//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:karina-birthday-2026-nostalgia@wondercarrie.github.io
+DTSTAMP:20261014T164240Z
+DTSTART:20261128T180000Z
+DTEND:20261128T220000Z
+SUMMARY:День рождения Карины · Nostalgia
+LOCATION:Auditoria Belgrade\, Vojvode Dobrnjca 48\, Beograd
+DESCRIPTION:Квиз\, караоке и бар. Адрес: Auditoria Bel
+ grade\, Vojvode Dobrnjca 48\, Beograd. Все детали: https://wonder
+ carrie.github.io/karina-birthday/
+URL:https://wondercarrie.github.io/karina-birthday/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:День рождения Карины · Nostalgia
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

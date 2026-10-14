@@ -53,6 +53,9 @@
   --color-red-hover: #a91c29;
   --color-cream: #f4f0e9;
   --color-ink: #26231f;
+  /* Translucent red for dividers and hover backgrounds on cream. */
+  --color-red-line: #c0223033;
+  --color-red-tint: #c0223014;
   --shadow-polaroid: 0px 6px 15px #62121d30;
   /* Deeper shadow of a polaroid lifted under the cursor. */
   --shadow-polaroid-lifted: 0 var(--space-4) var(--space-10) #62121d40;
@@ -183,7 +186,8 @@ a {
   text-decoration: none;
 }
 
-a:focus-visible {
+a:focus-visible,
+.button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 0.25rem;
 }
@@ -417,6 +421,27 @@ a:focus-visible {
   line-height: 1.55;
   white-space: nowrap;
   font-style: normal;
+}
+
+/* Secondary button: red outline on cream, filled on hover. */
+.button--outline,
+.button--outline:hover {
+  background-color: transparent;
+}
+
+.button--outline .button-label {
+  color: var(--color-red);
+}
+
+/* Only with a real pointer: on touch screens :hover sticks after a tap. */
+@media (hover: hover) {
+  .button--outline:hover {
+    background-color: var(--color-red);
+  }
+
+  .button--outline:hover .button-label {
+    color: var(--color-cream);
+  }
 }
 
 /* --- Rules -------------------------------------------------------------- */
@@ -889,7 +914,7 @@ a:focus-visible {
   margin-top: var(--space-7);
 }
 
-.section-details .button {
+.section-details .details-actions {
   margin-top: var(--space-block);
 }
 
@@ -949,6 +974,86 @@ a:focus-visible {
   text-align: center;
   letter-spacing: 0;
   line-height: 1.7;
+}
+
+/* Map and calendar buttons side by side. */
+.details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* --- Add to calendar ---------------------------------------------------- */
+
+.calendar {
+  position: relative;
+}
+
+.calendar-toggle .button-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.calendar-chevron {
+  width: 0.625rem;
+  height: 0.625rem;
+  transition: transform 200ms ease;
+}
+
+.calendar.is-open .calendar-chevron {
+  transform: rotate(180deg);
+}
+
+/* Drops down under the button, at least as wide as it, centred. */
+.calendar-menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 50%;
+  z-index: 5;
+  min-width: 100%;
+  padding: var(--space-1) 0;
+  background-color: var(--color-cream);
+  border: 1px solid var(--color-red);
+  border-radius: 0.25rem;
+  box-shadow: var(--shadow-polaroid);
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, calc(-1 * var(--space-1)));
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s 200ms;
+}
+
+.calendar.is-open .calendar-menu {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.calendar-menu a {
+  display: block;
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: var(--text-base);
+  text-align: left;
+  letter-spacing: 0;
+  line-height: 1.55;
+  white-space: nowrap;
+}
+
+.calendar-menu a + a {
+  border-top: 1px solid var(--color-red-line);
+}
+
+.calendar-menu a:hover {
+  background-color: var(--color-red-tint);
+}
+
+.calendar-menu a:focus-visible {
+  outline-offset: calc(-1 * var(--space-1));
 }
 
 .pet-friendly-badge {
@@ -1488,6 +1593,16 @@ a:focus-visible {
     min-width: 0;
   }
 
+  .details-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .calendar-toggle {
+    width: 100%;
+  }
+
   /* 02 · Dress code, 04 · Gifts */
   .section-dress,
   .section-gifts {
@@ -1602,7 +1717,10 @@ a:focus-visible {
   }
 
   .develop-hint,
-  .develop-hold {
+  .develop-hold,
+  .calendar-chevron,
+  .calendar-menu,
+  .calendar.is-open .calendar-menu {
     transition: none;
   }
 }

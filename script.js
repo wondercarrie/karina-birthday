@@ -1,5 +1,5 @@
 // Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation,
-// developing polaroids (shake, long press or click) and their tilt on scroll.
+// "Add to calendar" menu, developing polaroids (shake, long press or click) and their tilt on scroll.
 (() => {
   'use strict';
 
@@ -59,7 +59,10 @@
       "copy-50": "встряхни телефон",
       "copy-51": "зажми, чтобы проявить",
       "copy-52": "нажми",
-      "copy-53": "или\u00A0зажми снимок"
+      "copy-53": "или\u00A0зажми снимок",
+      "copy-54": "Добавить в\u00A0календарь",
+      "copy-55": "Apple, Outlook и\u00A0другие",
+      "copy-56": "Google Календарь"
     },
     "en": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -115,7 +118,10 @@
       "copy-50": "shake your phone",
       "copy-51": "press and hold to develop",
       "copy-52": "click",
-      "copy-53": "or press and hold"
+      "copy-53": "or press and hold",
+      "copy-54": "Add to calendar",
+      "copy-55": "Apple, Outlook and others",
+      "copy-56": "Google Calendar"
     }
   };
 
@@ -128,6 +134,27 @@
   const PHOTO_ALT = { ru: 'Детская фотография Карины', en: 'A childhood photograph of Karina' };
   const REVEAL_SELECTOR = '.section-details, .section-dress, .section-programme, .section-gifts';
   const DEVELOP_LABEL = { ru: 'Проявить снимок', en: 'Develop the photo' };
+  // The party, for the "Add to calendar" menu. Times are UTC: 19:00–23:00 in Belgrade (CET, UTC+1).
+  // The static .ics files in assets/calendar/ are built from this object by tools/calendar/ics.mjs:
+  // after changing it, run `node tools/calendar/ics.mjs build`.
+  const EVENT = {
+    start: '2026-11-28T18:00:00Z',
+    end: '2026-11-28T22:00:00Z',
+    timeZone: 'Europe/Belgrade',
+    location: 'Auditoria Belgrade, Vojvode Dobrnjca 48, Beograd',
+    url: { ru: 'https://wondercarrie.github.io/karina-birthday/', en: 'https://wondercarrie.github.io/karina-birthday/?lang=en' },
+    title: { ru: 'День рождения Карины · Nostalgia', en: 'Karina’s Birthday · Nostalgia' },
+    description: { ru: 'Квиз, караоке и\u00A0бар.', en: 'A\u00A0quiz, karaoke and drinks.' },
+    addressLabel: { ru: 'Адрес:', en: 'Address:' },
+    detailsLabel: { ru: 'Все детали:', en: 'All the details:' },
+    reminder: '-P1D', // ISO 8601 duration before the start
+    // Full description for Google Calendar and the .ics files. It repeats the address because the
+    // Google Calendar app on iPhone leaves the location of a template link empty.
+    details(language) {
+      return `${this.description[language]} ${this.addressLabel[language]} ${this.location}. ` +
+        `${this.detailsLabel[language]} ${this.url[language]}`;
+    },
+  };
   // Values approved in the prototype. The undeveloped look is interpolated to the normal photo.
   const DEVELOP = {
     blur: 0.5, // rem
@@ -162,6 +189,26 @@
   const copyNodes = [...document.querySelectorAll('[data-copy]')];
   const languageButtons = [...document.querySelectorAll('[data-language]')];
   const languageNav = document.querySelector('.language-navigation');
+  const calendar = document.querySelector('.calendar');
+  const calendarToggle = calendar.querySelector('.calendar-toggle');
+  const calendarMenu = calendar.querySelector('.calendar-menu');
+  const calendarICS = calendar.querySelector('[data-calendar="ics"]');
+  const calendarGoogle = calendar.querySelector('[data-calendar="google"]');
+
+  // 2026-11-28T18:00:00Z → 20261128T180000Z
+  const compactTime = iso => iso.replace(/[-:]/g, '').replace(/\.\d+/, '');
+
+  function googleCalendarURL(language) {
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: EVENT.title[language],
+      dates: `${compactTime(EVENT.start)}/${compactTime(EVENT.end)}`,
+      ctz: EVENT.timeZone,
+      location: EVENT.location,
+      details: EVENT.details(language),
+    });
+    return `https://calendar.google.com/calendar/render?${params}`;
+  }
 
   function setLanguage(language, updateURL) {
     if (!COPY[language]) language = DEFAULT_LANGUAGE;
@@ -180,6 +227,8 @@
     document.querySelectorAll('.polaroid[role="button"]').forEach(polaroid => {
       polaroid.setAttribute('aria-label', DEVELOP_LABEL[language]);
     });
+    calendarICS.href = `assets/calendar/karina-birthday-${language}.ics`;
+    calendarGoogle.href = googleCalendarURL(language);
 
     if (updateURL) {
       const url = new URL(location.href);
@@ -450,10 +499,37 @@
     window.addEventListener('resize', schedule, { passive: true });
   }
 
+  // "Add to calendar": a disclosure button with two links. Esc, a click outside or focus leaving
+  // the menu closes it; Esc returns the focus to the button. Without JavaScript it stays hidden.
+  function setUpCalendar() {
+    function setOpen(open) {
+      calendarToggle.setAttribute('aria-expanded', String(open));
+      calendar.classList.toggle('is-open', open);
+    }
+
+    calendarToggle.addEventListener('click', () => setOpen(calendarToggle.getAttribute('aria-expanded') !== 'true'));
+    calendarMenu.addEventListener('click', event => {
+      if (event.target.closest('a')) setOpen(false);
+    });
+    calendar.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || calendarToggle.getAttribute('aria-expanded') !== 'true') return;
+      setOpen(false);
+      calendarToggle.focus();
+    });
+    calendar.addEventListener('focusout', event => {
+      if (event.relatedTarget && !calendar.contains(event.relatedTarget)) setOpen(false);
+    });
+    document.addEventListener('click', event => {
+      if (!calendar.contains(event.target)) setOpen(false);
+    });
+    calendar.hidden = false;
+  }
+
   languageButtons.forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language, true));
   });
   setLanguage(new URLSearchParams(location.search).get('lang') || DEFAULT_LANGUAGE, false);
+  setUpCalendar();
   setUpReveal();
   setUpDevelop();
   setUpTilt();

@@ -12,13 +12,15 @@ The page is in Russian by default and can be switched to English with the RU / E
 ```
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
-script.js               RU/EN copy, the language switcher, the reveal-on-scroll animation, the
-                        developing polaroids and their tilt on scroll.
+script.js               RU/EN copy, the event data (EVENT), the language switcher, the "Add to calendar"
+                        menu, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos, the paw icon and the favicon.
   fonts/                Bundled fonts (TTF, Roboto Condensed as WOFF2) and their SIL Open Font Licences (OFL-*.txt).
+  calendar/             The event as .ics files (RU and EN), built from EVENT in script.js.
 tools/visual/           Visual regression tooling (not part of the site, see below).
+tools/calendar/         Builds and checks the .ics files (not part of the site, see below).
 BACKLOG.md              Known issues and improvement ideas.
 ```
 
@@ -61,6 +63,29 @@ near the viewport are measured, once per animation frame). On desktop (`hover: h
 `--polaroid-rotate`, the tilt in `transform`, the shift and lift in `translate`, and the tap nudge
 animates `rotate`, so the effects add up instead of overriding each other. With reduced motion the
 photos stay in their base position.
+
+## Add to calendar
+
+Next to "Open the map" an outlined "Add to calendar" button opens a small menu with two links:
+"Apple, Outlook and others" downloads a static `.ics` file, "Google Calendar" opens Google Calendar
+with the event filled in. Both links follow the page language. The menu closes on Esc (the focus
+returns to the button), on a click outside and when the focus leaves it. Without JavaScript the
+button is hidden.
+
+Everything about the event (UTC start and end, location, title, description, link, reminder) lives
+in `EVENT` in `script.js`. The Google link is built from it at runtime; the `.ics` files in
+`assets/calendar/` are static, because iPhones open a calendar file from a server more reliably than
+one generated in the page. After changing `EVENT`, rebuild and check them:
+
+```sh
+cd tools/calendar
+npm install
+node ics.mjs build   # writes assets/calendar/karina-birthday-{ru,en}.ics
+node ics.mjs check   # parses them with ical.js and checks them against EVENT and RFC 5545
+```
+
+Google Calendar links cannot carry a reminder, so the one-day reminder is only in the `.ics` files.
+Servers must send the files as `text/calendar` (GitHub Pages and `python3 -m http.server` do).
 
 ## Editing text
 
