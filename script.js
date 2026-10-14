@@ -1,4 +1,5 @@
-// Language switcher (RU / EN, remembered in ?lang=) and reveal-on-scroll animation.
+// Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation and
+// developing polaroids (shake, long press or click).
 (() => {
   'use strict';
 
@@ -53,7 +54,12 @@
       "copy-45": "✦",
       "copy-46": "До\u00A0встречи, Карина",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Наверх\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+      "copy-48": "Наверх\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+      "copy-49": "нажми, чтобы включить встряхивание",
+      "copy-50": "встряхни телефон",
+      "copy-51": "зажми, чтобы проявить",
+      "copy-52": "нажми",
+      "copy-53": "или\u00A0зажми снимок"
     },
     "en": {
       "copy-0": "KARINA'S BIRTHDAY",
@@ -104,7 +110,12 @@
       "copy-45": "✦",
       "copy-46": "See you there, Karina",
       "copy-47": "28\u00A0NOVEMBER\u00A02026 · BELGRADE",
-      "copy-48": "Back to top\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+      "copy-48": "Back to top\u00A0<svg class=\"icon-arrow-up\" viewBox=\"0 0 10 12\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 11V1.5M1.5 5 5 1.5 8.5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>",
+      "copy-49": "tap to enable shaking",
+      "copy-50": "shake your phone",
+      "copy-51": "press and hold to develop",
+      "copy-52": "click",
+      "copy-53": "or press and hold"
     }
   };
 
@@ -116,6 +127,30 @@
   const NAV_LABEL = { ru: 'Язык', en: 'Language' };
   const PHOTO_ALT = { ru: 'Детская фотография Карины', en: 'A childhood photograph of Karina' };
   const REVEAL_SELECTOR = '.section-details, .section-dress, .section-programme, .section-gifts';
+  const DEVELOP_LABEL = { ru: 'Проявить снимок', en: 'Develop the photo' };
+  // Values approved in the prototype. The undeveloped look is interpolated to the normal photo.
+  const DEVELOP = {
+    blur: 0.5, // rem
+    brightness: 0.45,
+    saturate: 0.15,
+    contrast: 0.75,
+    tintOpacity: 0.65,
+    duration: 3500, // ms, from undeveloped to developed
+    tintShare: 0.8, // the tint is gone after this share of the duration
+    easing: 'ease-in-out',
+    holdDuration: 1000, // ms of long press that develop a photo on touch screens
+    sensorTimeout: 1500, // ms to wait for motion data where no permission is needed
+  };
+  // A shake is SHAKE.peaks peaks of linear acceleration above SHAKE.threshold within
+  // SHAKE.window; walking and scrolling stay well below that.
+  const SHAKE = {
+    threshold: 15, // m/s²
+    peaks: 2,
+    window: 700, // ms
+    peakGap: 80, // ms, one peak is counted once
+    cooldown: 450, // ms after a counted shake
+    step: 0.35, // share of the development per shake
+  };
 
   const copyNodes = [...document.querySelectorAll('[data-copy]')];
   const languageButtons = [...document.querySelectorAll('[data-language]')];
@@ -134,6 +169,9 @@
     // Photos have a non-empty alt; decorative images keep alt="".
     document.querySelectorAll('img[alt]').forEach(img => {
       if (img.alt) img.alt = PHOTO_ALT[language];
+    });
+    document.querySelectorAll('.polaroid[role="button"]').forEach(polaroid => {
+      polaroid.setAttribute('aria-label', DEVELOP_LABEL[language]);
     });
 
     if (updateURL) {
@@ -159,9 +197,194 @@
     });
   }
 
+  // Polaroids start undeveloped. Desktop: click, Enter or Space develops a photo. Touch screens:
+  // a long press develops it; a shake develops the most visible one step by step once motion
+  // data is available (on iOS after a tap grants the permission); a plain tap never develops.
+  // The interaction mode goes to <html data-develop-mode> and picks the hint text in CSS.
+  function setUpDevelop() {
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const root = document.documentElement;
+    const isTouch = matchMedia('(pointer: coarse)').matches;
+    const hasMotion = typeof DeviceMotionEvent !== 'undefined';
+    const needsPermission = hasMotion && typeof DeviceMotionEvent.requestPermission === 'function';
+    const shots = [...document.querySelectorAll('.develop')].map(wrap => ({
+      polaroid: wrap.querySelector('.polaroid'),
+      target: wrap.querySelector('.develop-target'),
+      tint: wrap.querySelector('.develop-tint'),
+      hint: wrap.querySelector('.develop-hint'),
+      progress: 0,
+      ratio: 0,
+    }));
+    let mode = '';
+
+    const lerp = (from, to, t) => from + (to - from) * t;
+
+    function render(shot, ms) {
+      const { polaroid, target, tint, hint, progress: p } = shot;
+      target.style.transition = ms ? `filter ${ms}ms ${DEVELOP.easing}` : 'none';
+      tint.style.transition = ms ? `opacity ${Math.round(ms * DEVELOP.tintShare)}ms ${DEVELOP.easing}` : 'none';
+      target.style.filter = p >= 1 ? 'none'
+        : `blur(${(DEVELOP.blur * (1 - p)).toFixed(3)}rem) brightness(${lerp(DEVELOP.brightness, 1, p).toFixed(3)}) ` +
+          `saturate(${lerp(DEVELOP.saturate, 1, p).toFixed(3)}) contrast(${lerp(DEVELOP.contrast, 1, p).toFixed(3)})`;
+      tint.style.opacity = ((1 - p) * DEVELOP.tintOpacity).toFixed(3);
+      hint.classList.toggle('is-shown', mode !== 'pending' && p === 0);
+      if (p >= 1) {
+        ['role', 'tabindex', 'aria-label'].forEach(name => polaroid.removeAttribute(name));
+      }
+    }
+
+    function advance(shot, by) {
+      if (shot.progress >= 1) return;
+      const next = Math.min(1, shot.progress + by);
+      const ms = Math.round(DEVELOP.duration * (next - shot.progress));
+      shot.progress = next;
+      render(shot, ms);
+    }
+
+    function setMode(next) {
+      mode = next;
+      root.dataset.developMode = next;
+      shots.forEach(shot => shot.hint.classList.toggle('is-shown', mode !== 'pending' && shot.progress === 0));
+    }
+
+    // iOS: must be called synchronously inside the tap. The permission covers the whole page.
+    let asking = false;
+    function askPermission() {
+      if (asking) return;
+      asking = true;
+      DeviceMotionEvent.requestPermission()
+        .then(state => setMode(state === 'granted' ? 'shake' : 'hold'))
+        .catch(() => setMode('hold'))
+        .finally(() => { asking = false; });
+    }
+
+    function nudge(polaroid) {
+      polaroid.classList.remove('is-nudged');
+      void polaroid.offsetWidth; // restarts the animation
+      polaroid.classList.add('is-nudged');
+    }
+
+    shots.forEach(shot => {
+      const { polaroid } = shot;
+      let hold = null;
+      let pointerType = '';
+      let skipClick = false;
+
+      polaroid.setAttribute('role', 'button');
+      polaroid.tabIndex = 0;
+      polaroid.setAttribute('aria-label', DEVELOP_LABEL[root.lang] || DEVELOP_LABEL[DEFAULT_LANGUAGE]);
+      polaroid.style.setProperty('--develop-hold-duration', `${DEVELOP.holdDuration}ms`);
+      render(shot, 0);
+
+      function cancelHold() {
+        if (!hold) return;
+        clearTimeout(hold.timer);
+        hold = null;
+        polaroid.classList.remove('is-holding');
+      }
+
+      polaroid.addEventListener('pointerdown', event => {
+        pointerType = event.pointerType;
+        skipClick = false;
+        if (event.pointerType === 'mouse' || shot.progress >= 1) return;
+        cancelHold();
+        hold = {
+          id: event.pointerId,
+          x: event.clientX,
+          y: event.clientY,
+          timer: setTimeout(() => {
+            hold = null;
+            polaroid.classList.remove('is-holding');
+            skipClick = true;
+            advance(shot, 1);
+          }, DEVELOP.holdDuration),
+        };
+        polaroid.classList.add('is-holding');
+      });
+      // Moving the finger (scrolling) cancels the long press.
+      polaroid.addEventListener('pointermove', event => {
+        if (hold && event.pointerId === hold.id && Math.hypot(event.clientX - hold.x, event.clientY - hold.y) > 10) cancelHold();
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => polaroid.addEventListener(type, cancelHold));
+      polaroid.addEventListener('contextmenu', event => {
+        if (shot.progress < 1) event.preventDefault();
+      });
+
+      polaroid.addEventListener('click', () => {
+        const touch = pointerType === 'touch' || pointerType === 'pen';
+        pointerType = '';
+        if (skipClick) { skipClick = false; return; }
+        if (shot.progress >= 1) return;
+        // Mouse clicks and clicks without a pointer (assistive technology) develop at once.
+        if (!touch) advance(shot, 1);
+        else if (mode === 'ask') askPermission();
+        else nudge(polaroid);
+      });
+      polaroid.addEventListener('animationend', () => polaroid.classList.remove('is-nudged'));
+      polaroid.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        advance(shot, 1);
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      shots.find(shot => shot.polaroid === entry.target).ratio = entry.isIntersecting ? entry.intersectionRatio : 0;
+    }), { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] });
+    shots.forEach(shot => observer.observe(shot.polaroid));
+
+    let gravity = null;
+    let peaks = [];
+    let lastPeak = 0;
+    let lastShake = 0;
+    function onMotion(event) {
+      let x, y, z;
+      const linear = event.acceleration;
+      if (linear && linear.x != null) {
+        ({ x, y, z } = linear);
+      } else {
+        const g = event.accelerationIncludingGravity;
+        if (!g || g.x == null) return;
+        // No linear acceleration: subtract a low-pass estimate of gravity.
+        gravity = gravity
+          ? { x: lerp(gravity.x, g.x, 0.2), y: lerp(gravity.y, g.y, 0.2), z: lerp(gravity.z, g.z, 0.2) }
+          : { x: g.x, y: g.y, z: g.z };
+        x = g.x - gravity.x; y = g.y - gravity.y; z = g.z - gravity.z;
+      }
+      // Real data arrived, so shaking works (also when the permission was granted earlier).
+      if (mode === 'pending' || mode === 'ask') setMode('shake');
+
+      const now = performance.now();
+      if (Math.hypot(x, y, z) > SHAKE.threshold && now - lastPeak > SHAKE.peakGap) {
+        peaks.push(now);
+        lastPeak = now;
+      }
+      peaks = peaks.filter(time => now - time < SHAKE.window);
+      if (peaks.length < SHAKE.peaks || now - lastShake < SHAKE.cooldown) return;
+      lastShake = now;
+      peaks = [];
+      const visible = shots.filter(shot => shot.progress < 1 && shot.ratio > 0).sort((a, b) => b.ratio - a.ratio);
+      if (visible.length) advance(visible[0], SHAKE.step);
+    }
+
+    if (!isTouch) setMode('click');
+    else if (!hasMotion) setMode('hold');
+    else {
+      window.addEventListener('devicemotion', onMotion);
+      if (needsPermission) setMode('ask');
+      else {
+        // Android and others: no permission, but without data there is no usable sensor.
+        setMode('pending');
+        setTimeout(() => { if (mode === 'pending') setMode('hold'); }, DEVELOP.sensorTimeout);
+      }
+    }
+  }
+
   languageButtons.forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language, true));
   });
   setLanguage(new URLSearchParams(location.search).get('lang') || DEFAULT_LANGUAGE, false);
   setUpReveal();
+  setUpDevelop();
 })();

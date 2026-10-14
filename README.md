@@ -12,7 +12,8 @@ The page is in Russian by default and can be switched to English with the RU / E
 ```
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
-script.js               RU/EN copy, the language switcher and the reveal-on-scroll animation.
+script.js               RU/EN copy, the language switcher, the reveal-on-scroll animation and the
+                        developing polaroids.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos, the paw icon and the favicon.
@@ -41,6 +42,16 @@ npx serve .
 ```
 
 Then open <http://localhost:8000/>.
+
+## Developing polaroids
+
+The three polaroids in the programme section start "undeveloped" (dark, blurred, cold tint) and
+develop over 3.5 s. On desktop a click, Enter or Space develops a photo. On touch screens a plain
+tap never develops: shaking the phone develops the most visible polaroid step by step (on iOS the
+first tap only asks for the motion sensor permission), and a 1 s long press works everywhere.
+The hint under each photo follows the mode (`data-develop-mode` on `<html>`). With
+`prefers-reduced-motion: reduce` or without JavaScript the photos are simply shown developed.
+The filter values, timings and the shake threshold are in `DEVELOP` and `SHAKE` in `script.js`.
 
 ## Editing text
 

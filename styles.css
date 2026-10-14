@@ -54,6 +54,8 @@
   --color-cream: #f4f0e9;
   --color-ink: #26231f;
   --shadow-polaroid: 0px 6px 15px #62121d30;
+  /* Cold grey-blue of a fresh instant photo before it develops. */
+  --color-undeveloped: #4a5868;
 
   /* Font stacks (family names match the @font-face rules above) */
   --font-sans: "Inter-Medium", Helvetica;
@@ -556,6 +558,160 @@ a:focus-visible {
   position: absolute;
   left: var(--space-6);
   bottom: 0;
+}
+
+/* script.js sets data-develop-mode on <html> (ask, shake, hold, click or pending) unless
+   reduced motion is on; without it the photos stay developed and no hint is shown. */
+[data-develop-mode] .polaroid-photo,
+[data-develop-mode] .toast-photo {
+  /* Blurred edges fade into this colour instead of the white frame. */
+  overflow: hidden;
+  background-color: var(--color-undeveloped);
+}
+
+.develop-tint {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-undeveloped);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* An undeveloped polaroid is a button. */
+.polaroid[role="button"] {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* A long press must not select text or open the image callout or context menu. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.polaroid[role="button"] img {
+  -webkit-user-drag: none;
+}
+
+.polaroid[role="button"]:focus-visible {
+  outline: 2px solid var(--color-cream);
+  outline-offset: var(--space-2);
+}
+
+/* Long-press progress: a thin bar in the bottom margin of the frame. */
+.develop-hold {
+  position: absolute;
+  left: var(--space-2);
+  right: var(--space-2);
+  bottom: var(--space-3);
+  height: var(--space-1);
+  border-radius: var(--space-1);
+  background-color: var(--color-red);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.is-holding .develop-hold {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: opacity 150ms ease-out, transform var(--develop-hold-duration) linear;
+}
+
+/* A tap that does not develop the photo only nudges it. */
+.is-nudged {
+  animation: develop-nudge 500ms ease-in-out;
+}
+
+@keyframes develop-nudge {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+
+  20% {
+    rotate: 4deg;
+  }
+
+  45% {
+    rotate: -3deg;
+  }
+
+  70% {
+    rotate: 1.5deg;
+  }
+}
+
+/* Handwritten hint under the photo: the main action and, smaller, the fallback. At most as
+   wide as the narrowest polaroid column (241px at 320px). */
+.develop-hint {
+  display: none;
+  position: relative;
+  max-width: 15rem;
+  margin: var(--space-12) 0 var(--space-4);
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--color-cream);
+  text-align: center;
+  line-height: 1.1;
+  transform: rotate(-4deg);
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+[data-develop-mode] .develop-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.develop-hint.is-shown {
+  opacity: 1;
+}
+
+/* The arrow sits in the gap above the text, pointing at the photo. */
+.develop-hint-arrow {
+  position: absolute;
+  bottom: 100%;
+  left: calc(-1 * var(--space-1));
+  width: var(--space-7);
+  height: var(--space-7);
+}
+
+.develop-hint-main,
+.develop-hint-alt {
+  display: none;
+  text-wrap: balance;
+}
+
+.develop-hint-main {
+  font-size: var(--text-2xl);
+}
+
+.develop-hint-alt {
+  font-size: var(--text-xl);
+}
+
+/* Until the sensor check is done, the hint keeps the space of the shake variant. */
+[data-develop-mode="ask"] .develop-hint [data-mode~="ask"],
+[data-develop-mode="shake"] .develop-hint [data-mode~="shake"],
+[data-develop-mode="pending"] .develop-hint [data-mode~="shake"],
+[data-develop-mode="hold"] .develop-hint [data-mode~="hold"],
+[data-develop-mode="click"] .develop-hint [data-mode~="click"] {
+  display: block;
+}
+
+/* The toast polaroid sits at the bottom of the section: its hint goes above it. */
+.develop--toast .develop-hint {
+  position: absolute;
+  bottom: 100%;
+  margin: 0 0 var(--space-12);
+}
+
+.develop--toast .develop-hint-arrow {
+  top: 100%;
+  bottom: auto;
+  transform: scaleY(-1);
 }
 
 /* ==========================================================================
@@ -1151,6 +1307,19 @@ a:focus-visible {
     bottom: auto;
     margin-top: var(--space-10);
   }
+
+  /* Under the last slot the toast hint goes under the photo, like the others. */
+  .develop--toast .develop-hint {
+    position: relative;
+    bottom: auto;
+    margin: var(--space-12) 0 0;
+  }
+
+  .develop--toast .develop-hint-arrow {
+    top: auto;
+    bottom: 100%;
+    transform: none;
+  }
 }
 
 /* ==========================================================================
@@ -1204,6 +1373,18 @@ a:focus-visible {
     left: auto;
     bottom: auto;
     margin-top: var(--space-10);
+  }
+
+  .develop--toast .develop-hint {
+    position: relative;
+    bottom: auto;
+    margin: var(--space-12) 0 0;
+  }
+
+  .develop--toast .develop-hint-arrow {
+    top: auto;
+    bottom: 100%;
+    transform: none;
   }
 
   .polaroid--toast {
@@ -1372,5 +1553,15 @@ a:focus-visible {
   .reveal-hidden {
     opacity: 1;
     translate: none;
+  }
+
+  /* script.js leaves the polaroids developed; this only guards against stray motion. */
+  .is-nudged {
+    animation: none;
+  }
+
+  .develop-hint,
+  .develop-hold {
+    transition: none;
   }
 }
