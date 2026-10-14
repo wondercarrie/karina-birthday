@@ -12,8 +12,8 @@ The page is in Russian by default and can be switched to English with the RU / E
 ```
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
-script.js               RU/EN copy, the language switcher, the reveal-on-scroll animation and the
-                        developing polaroids.
+script.js               RU/EN copy, the language switcher, the reveal-on-scroll animation, the
+                        developing polaroids and their tilt on scroll.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos, the paw icon and the favicon.
@@ -52,6 +52,15 @@ first tap only asks for the motion sensor permission), and a 1 s long press work
 The hint under each photo follows the mode (`data-develop-mode` on `<html>`). With
 `prefers-reduced-motion: reduce` or without JavaScript the photos are simply shown developed.
 The filter values, timings and the shake threshold are in `DEVELOP` and `SHAKE` in `script.js`.
+
+The polaroids also behave like snapshots lying on a table. On touch screens each one tilts by up to
+±4° and shifts by a few pixels while it crosses the viewport (`TILT` in `script.js`; only polaroids
+near the viewport are measured, once per animation frame). On desktop (`hover: hover` and
+`pointer: fine`) a hovered or focused polaroid straightens up, lifts and casts a deeper shadow
+(`--polaroid-hover-*` and `--shadow-polaroid-lifted` in `styles.css`). The base angle lives in
+`--polaroid-rotate`, the tilt in `transform`, the shift and lift in `translate`, and the tap nudge
+animates `rotate`, so the effects add up instead of overriding each other. With reduced motion the
+photos stay in their base position.
 
 ## Editing text
 
