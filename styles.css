@@ -374,13 +374,19 @@ a:focus-visible {
   flex: 0 0 auto;
   background-color: var(--color-red);
   border-radius: 0.25rem;
-  border: 1px solid;
+  border: 1px solid var(--color-red);
   cursor: pointer;
   text-decoration: none;
 }
 
 .button:hover {
   background-color: var(--color-red-hover);
+  border-color: var(--color-red-hover);
+}
+
+/* After all: unset currentColor is black; keep the focus ring in the button colour. */
+.button:focus-visible {
+  outline-color: var(--color-red);
 }
 
 .button-label {
