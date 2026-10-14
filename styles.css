@@ -493,24 +493,26 @@ a:focus-visible {
   position: relative;
   background-color: var(--color-cream);
   box-shadow: var(--shadow-polaroid);
+  /* The nudge animates the separate rotate property, so it adds to the base angle. */
+  transform: rotate(var(--polaroid-rotate));
 }
 
 .polaroid--baby {
+  --polaroid-rotate: -12deg;
   width: 15.25rem;
   height: 20.75rem;
-  transform: rotate(-12deg);
 }
 
 .polaroid--dinner {
+  --polaroid-rotate: 9deg;
   width: 11.5rem;
   height: 15.5rem;
-  transform: rotate(9deg);
 }
 
 .polaroid--toast {
+  --polaroid-rotate: 10deg;
   width: 14.5rem;
   height: 19.5rem;
-  transform: rotate(10deg);
 }
 
 .polaroid-photo {
