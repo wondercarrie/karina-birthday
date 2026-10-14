@@ -56,7 +56,7 @@ function buildICS(event, language, stamp) {
     `DTEND:${icsTime(event.end)}`,
     `SUMMARY:${escapeText(event.title[language])}`,
     `LOCATION:${escapeText(event.location)}`,
-    `DESCRIPTION:${escapeText(`${event.description[language]} ${event.url[language]}`)}`,
+    `DESCRIPTION:${escapeText(event.details(language))}`,
     `URL:${event.url[language]}`,
     'BEGIN:VALARM',
     'ACTION:DISPLAY',
@@ -107,7 +107,7 @@ async function check(event) {
     expect('DTSTART is UTC', e.startDate.zone === ICAL.Timezone.utcTimezone, true);
     expect('SUMMARY', e.summary, event.title[language]);
     expect('LOCATION', e.location, event.location);
-    expect('DESCRIPTION', e.description, `${event.description[language]} ${event.url[language]}`);
+    expect('DESCRIPTION', e.description, event.details(language));
     expect('URL', vevent.getFirstPropertyValue('url'), event.url[language]);
     expect('DTSTAMP present', Boolean(vevent.getFirstPropertyValue('dtstamp')), true);
     const alarm = vevent.getFirstSubcomponent('valarm');

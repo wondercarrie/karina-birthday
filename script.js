@@ -144,8 +144,16 @@
     location: 'Auditoria Belgrade, Vojvode Dobrnjca 48, Beograd',
     url: { ru: 'https://wondercarrie.github.io/karina-birthday/', en: 'https://wondercarrie.github.io/karina-birthday/?lang=en' },
     title: { ru: 'День рождения Карины · Nostalgia', en: 'Karina’s Birthday · Nostalgia' },
-    description: { ru: 'Квиз, караоке и бар. Все детали:', en: 'A quiz, karaoke and drinks. All the details:' },
+    description: { ru: 'Квиз, караоке и\u00A0бар.', en: 'A\u00A0quiz, karaoke and drinks.' },
+    addressLabel: { ru: 'Адрес:', en: 'Address:' },
+    detailsLabel: { ru: 'Все детали:', en: 'All the details:' },
     reminder: '-P1D', // ISO 8601 duration before the start
+    // Full description for Google Calendar and the .ics files. It repeats the address because the
+    // Google Calendar app on iPhone leaves the location of a template link empty.
+    details(language) {
+      return `${this.description[language]} ${this.addressLabel[language]} ${this.location}. ` +
+        `${this.detailsLabel[language]} ${this.url[language]}`;
+    },
   };
   // Values approved in the prototype. The undeveloped look is interpolated to the normal photo.
   const DEVELOP = {
@@ -197,7 +205,7 @@
       dates: `${compactTime(EVENT.start)}/${compactTime(EVENT.end)}`,
       ctz: EVENT.timeZone,
       location: EVENT.location,
-      details: `${EVENT.description[language]} ${EVENT.url[language]}`,
+      details: EVENT.details(language),
     });
     return `https://calendar.google.com/calendar/render?${params}`;
   }
