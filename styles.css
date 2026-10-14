@@ -1155,9 +1155,15 @@ a:focus-visible {
     font-size: var(--text-base);
   }
 
+  /* Caption as wide as the photo, on one line, scaled down on narrow screens so it never
+     reaches the screen edge; a slightly longer word may overhang the photo evenly. */
   .photo-caption {
-    width: calc(100% + 2rem);
-    left: -1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    left: 0;
+    white-space: nowrap;
+    font-size: clamp(var(--text-5xl), 25vw, var(--text-8xl));
   }
 
   .polaroid--baby {
