@@ -62,23 +62,23 @@
   --font-hand: "Caveat-Regular", Helvetica;
   --font-luxurious: "Luxurious Script-Regular", Helvetica;
 
-  /* Spacing scale: --space-N = N × 4px */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 28px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-14: 56px;
-  --space-16: 64px;
-  --space-20: 80px;
-  --space-24: 96px;
-  --space-30: 120px;
-  --space-48: 192px;
+  /* Spacing scale: --space-N = N × 0.25rem */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-30: 7.5rem;
+  --space-48: 12rem;
 
   /* Vertical rhythm */
   --space-block: var(--space-7);
@@ -86,20 +86,20 @@
   --space-paragraph: var(--space-4);
 
   /* Type scale */
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
-  --text-4xl: 36px;
-  --text-5xl: 48px;
-  --text-6xl: 60px;
-  --text-7xl: 72px;
-  --text-8xl: 96px;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
   /* Display size of the hero title, outside the scale. */
-  --text-display: 184px;
+  --text-display: 11.5rem;
 }
 
 /* ==========================================================================
@@ -176,7 +176,7 @@ a {
 
 a:focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 4px;
+  outline-offset: 0.25rem;
 }
 
 /* ==========================================================================
@@ -187,7 +187,7 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
   align-items: center;
   position: relative;
@@ -252,14 +252,14 @@ a:focus-visible {
 
 .language-navigation button[aria-pressed="true"] {
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 0.25rem;
 }
 
 .language-navigation button:focus-visible {
   /* Native focus ring, with a blue fallback where it is not supported. */
   outline: 2px solid #4a90e2;
   outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: 4px;
+  outline-offset: 0.25rem;
 }
 
 /* ==========================================================================
@@ -281,16 +281,16 @@ a:focus-visible {
 .chapter-number {
   position: relative;
   flex: 1;
-  min-width: 32px;
-  height: 32px;
+  min-width: 2rem;
+  height: 2rem;
 }
 
 .number-ring {
   position: absolute;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: 1px solid var(--accent);
 }
@@ -299,8 +299,8 @@ a:focus-visible {
   position: absolute;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -340,7 +340,7 @@ a:focus-visible {
 }
 
 .body-text {
-  width: 620px;
+  width: 38.75rem;
   max-width: 100%;
   font-family: var(--font-narrow);
   font-weight: 400;
@@ -373,7 +373,7 @@ a:focus-visible {
   position: relative;
   flex: 0 0 auto;
   background-color: var(--color-red);
-  border-radius: 4px;
+  border-radius: 0.25rem;
   border: 1px solid;
   cursor: pointer;
   text-decoration: none;
@@ -408,7 +408,7 @@ a:focus-visible {
 /* Short line – star – short line ornament. */
 .flourish {
   display: flex;
-  width: 180px;
+  width: 11.25rem;
   align-items: center;
   justify-content: center;
   gap: var(--space-4);
@@ -436,8 +436,8 @@ a:focus-visible {
 
 .photo-border {
   position: absolute;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
   top: var(--space-2);
   left: var(--space-2);
   border: 1px solid var(--color-cream);
@@ -445,11 +445,11 @@ a:focus-visible {
 
 .photo-caption {
   position: absolute;
-  left: calc(50% - 175px);
-  bottom: -40px;
-  width: 344px;
+  left: calc(50% - 10.9375rem);
+  bottom: -2.5rem;
+  width: 21.5rem;
   transform: rotate(-6deg);
-  -webkit-text-stroke: 4px var(--color-cream);
+  -webkit-text-stroke: 0.25rem var(--color-cream);
   paint-order: stroke fill;
   -webkit-text-fill-color: var(--color-red);
   font-family: var(--font-script);
@@ -462,9 +462,9 @@ a:focus-visible {
 }
 
 .photo-caption--hat {
-  left: calc(50% - 160px);
-  bottom: -40px;
-  width: 312px;
+  left: calc(50% - 10rem);
+  bottom: -2.5rem;
+  width: 19.5rem;
 }
 
 /* --- Polaroid (programme section) --------------------------------------- */
@@ -480,14 +480,14 @@ a:focus-visible {
 }
 
 .polaroid--baby {
-  width: 244px;
-  height: 332px;
+  width: 15.25rem;
+  height: 20.75rem;
   transform: rotate(-12deg);
 }
 
 .polaroid--dinner {
-  width: 184px;
-  height: 248px;
+  width: 11.5rem;
+  height: 15.5rem;
   transform: rotate(9deg);
 }
 
@@ -495,8 +495,8 @@ a:focus-visible {
   position: absolute;
   left: var(--space-6);
   bottom: 0;
-  width: 232px;
-  height: 312px;
+  width: 14.5rem;
+  height: 19.5rem;
   transform: rotate(10deg);
 }
 
@@ -518,8 +518,8 @@ a:focus-visible {
 }
 
 .toast-photo {
-  width: 216px;
-  height: 268px;
+  width: 13.5rem;
+  height: 16.75rem;
   background-image: url("assets/img/toast.jpg");
   background-size: cover;
   background-position: 50% 50%;
@@ -533,7 +533,7 @@ a:focus-visible {
   position: relative;
   align-self: stretch;
   width: 100%;
-  height: 608px;
+  height: 38rem;
   overflow: hidden;
 }
 
@@ -582,7 +582,7 @@ a:focus-visible {
 
 .hero-text {
   width: 100%;
-  height: 240px;
+  height: 15rem;
   padding: 0 var(--space-14);
   position: absolute;
   left: 0;
@@ -590,9 +590,9 @@ a:focus-visible {
 }
 
 .hero-title {
-  width: 756px;
+  width: 47.25rem;
   max-width: 100%;
-  height: 288px;
+  height: 18rem;
   margin: 0 auto;
   font-family: var(--font-script);
   font-weight: 400;
@@ -606,9 +606,9 @@ a:focus-visible {
 
 .hero-caption {
   position: absolute;
-  top: 260px;
-  left: 744px;
-  width: 220px;
+  top: 16.25rem;
+  left: 46.5rem;
+  width: 13.75rem;
   transform: rotate(-6deg);
   font-family: var(--font-hand);
   font-weight: 400;
@@ -641,7 +641,7 @@ a:focus-visible {
 .section-details {
   display: flex;
   flex-direction: column;
-  max-width: 1008px;
+  max-width: 63rem;
   align-items: center;
   padding: var(--space-12) var(--space-14) var(--space-12);
   width: 100%;
@@ -684,7 +684,7 @@ a:focus-visible {
 .fact {
   display: flex;
   flex-direction: column;
-  min-width: 248px;
+  min-width: 15.5rem;
   align-items: center;
   gap: var(--space-2);
   flex: 1;
@@ -722,8 +722,8 @@ a:focus-visible {
 
 .pet-friendly-badge {
   position: relative;
-  width: 132px;
-  height: 44px;
+  width: 8.25rem;
+  height: 2.75rem;
   transform: rotate(-7deg);
   opacity: 0.55;
 }
@@ -732,7 +732,7 @@ a:focus-visible {
   position: absolute;
   top: var(--space-2);
   left: 0;
-  width: 172px;
+  width: 10.75rem;
   font-family: var(--font-narrow);
   font-weight: 400;
   color: var(--color-red);
@@ -747,8 +747,8 @@ a:focus-visible {
   position: absolute;
   top: var(--space-1);
   left: var(--space-3);
-  width: 24px;
-  height: 28px;
+  width: 1.5rem;
+  height: 1.75rem;
   transform: rotate(7deg);
 }
 
@@ -788,8 +788,8 @@ a:focus-visible {
 
 .photo-bow {
   position: relative;
-  width: 284px;
-  height: 356px;
+  width: 17.75rem;
+  height: 22.25rem;
   background-image: url("assets/img/bow.jpg");
   background-size: cover;
   /* Keep the hair bow visible. */
@@ -885,9 +885,9 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 240px;
-  max-width: 548px;
-  height: 376px;
+  min-width: 15rem;
+  max-width: 34.25rem;
+  height: 23.5rem;
   gap: var(--space-14);
   flex: 1;
 }
@@ -896,7 +896,7 @@ a:focus-visible {
 .programme-item {
   display: flex;
   flex-direction: column;
-  max-width: 560px;
+  max-width: 35rem;
   align-items: center;
   width: 100%;
   flex: 0 0 auto;
@@ -917,8 +917,8 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 160px;
-  max-width: 360px;
+  min-width: 10rem;
+  max-width: 22.5rem;
   flex: 1;
 }
 
@@ -1006,8 +1006,8 @@ a:focus-visible {
 
 .photo-hat {
   position: relative;
-  width: 260px;
-  height: 324px;
+  width: 16.25rem;
+  height: 20.25rem;
   background-image: url("assets/img/hat.jpg");
   background-size: cover;
   /* Keep the whole hat visible. */
@@ -1021,7 +1021,7 @@ a:focus-visible {
 .site-footer {
   display: flex;
   flex-direction: column;
-  max-width: 1008px;
+  max-width: 63rem;
   align-items: center;
   padding: var(--space-6) var(--space-14) var(--space-10);
   width: 100%;
@@ -1072,11 +1072,11 @@ a:focus-visible {
 
 .reveal-hidden {
   opacity: 0;
-  translate: 0 16px;
+  translate: 0 1rem;
 }
 
 /* ==========================================================================
-   Tablet: 761–1050px
+   Tablet: 761–65.625rem
    ========================================================================== */
 
 @media (min-width: 761px) and (max-width: 1050px) {
@@ -1089,7 +1089,7 @@ a:focus-visible {
   }
 
   .hero-title {
-    font-size: clamp(116px, 15.333vw, 184px);
+    font-size: clamp(7.25rem, 15.333vw, 11.5rem);
   }
 
   .hero-caption {
@@ -1116,7 +1116,7 @@ a:focus-visible {
 }
 
 /* ==========================================================================
-   Mobile: up to 760px
+   Mobile: up to 47.5rem
    ========================================================================== */
 
 @media (max-width: 760px) {
@@ -1131,7 +1131,7 @@ a:focus-visible {
 
   /* Shared components */
   .chapter-label {
-    max-width: calc(100% - 44px);
+    max-width: calc(100% - 2.75rem);
     white-space: normal;
     text-align: right;
   }
@@ -1146,8 +1146,8 @@ a:focus-visible {
   }
 
   .photo-caption {
-    width: calc(100% + 32px);
-    left: -16px;
+    width: calc(100% + 2rem);
+    left: -1rem;
   }
 
   .polaroid--baby {
@@ -1170,7 +1170,7 @@ a:focus-visible {
   .hero-title {
     width: 100%;
     height: auto;
-    font-size: clamp(68px, 21.5vw, 112px);
+    font-size: clamp(4.25rem, 21.5vw, 7rem);
     line-height: 1.45;
   }
 
