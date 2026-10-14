@@ -1,0 +1,1272 @@
+/* ==========================================================================
+   Fonts
+   ========================================================================== */
+
+@font-face {
+  font-family: "Pinyon Script-Regular";
+  src: url("assets/fonts/PinyonScript-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Caveat-Regular";
+  src: url("assets/fonts/Caveat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter-Medium";
+  src: url("assets/fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Luxurious Script-Regular";
+  src: url("assets/fonts/LuxuriousScript-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* System font, not bundled. */
+@font-face {
+  font-family: "Arial Narrow-Regular";
+  src: local("Arial Narrow"), local("ArialNarrow"), local("Arial Narrow Regular");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
+:root {
+  /* Colours */
+  --color-red: #c02230;
+  --color-red-hover: #a91c29;
+  --color-cream: #f4f0e9;
+  --color-ink: #26231f;
+  --shadow-polaroid: 0px 6px 15px #62121d30;
+
+  /* Font stacks (family names match the @font-face rules above) */
+  --font-sans: "Inter-Medium", Helvetica;
+  --font-narrow: "Arial Narrow-Regular", Helvetica;
+  --font-button: "Arial Narrow", Helvetica;
+  --font-script: "Pinyon Script-Regular", Helvetica;
+  --font-hand: "Caveat-Regular", Helvetica;
+  --font-luxurious: "Luxurious Script-Regular", Helvetica;
+
+  /* Vertical rhythm */
+  --space-block: 28px;
+  --space-text: 26px;
+  --space-paragraph: 17px;
+}
+
+/* ==========================================================================
+   Reset & base (based on Eric Meyer's reset v2.0)
+   ========================================================================== */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strong, sub, sup, var, b, u, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote::before, blockquote::after,
+q::before, q::after {
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-cream);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+
+/* ==========================================================================
+   Page layout
+   ========================================================================== */
+
+.invitation {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  position: relative;
+  background-color: var(--color-cream);
+  /* Colour of chapter markers, headings and dividers; inverted in the red section. */
+  --accent: var(--color-red);
+}
+
+/* Horizontal inset around the hero and the programme section. */
+.inset {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 48px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+/* --- Header ------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 60px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.wordmark {
+  width: fit-content;
+  margin-top: -0.5px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-red);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 0.52px;
+  line-height: 22.1px;
+  white-space: nowrap;
+}
+
+.language-navigation {
+  width: fit-content;
+  margin-top: -1px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-red);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 23.8px;
+  white-space: nowrap;
+}
+
+.language-navigation button {
+  all: unset;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.language-navigation button[aria-pressed="true"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.language-navigation button:focus-visible {
+  /* Native focus ring, with a blue fallback where it is not supported. */
+  outline: 2px solid #4a90e2;
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: 5px;
+}
+
+/* ==========================================================================
+   Shared components
+   ========================================================================== */
+
+/* --- Chapter marker: numbered ring + label ------------------------------ */
+
+.chapter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.chapter-number {
+  position: relative;
+  flex: 1;
+  min-width: 33px;
+  height: 33px;
+}
+
+.number-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33px;
+  height: 33px;
+  border-radius: 16.5px;
+  border: 1px solid var(--accent);
+}
+
+.number {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 33px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--accent);
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 19.2px;
+  white-space: nowrap;
+}
+
+.chapter-label {
+  width: fit-content;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 1.04px;
+  line-height: 20.8px;
+  white-space: nowrap;
+}
+
+/* --- Text --------------------------------------------------------------- */
+
+.heading {
+  max-width: 100%;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 48px;
+  text-align: center;
+  letter-spacing: -1.92px;
+  line-height: 62.4px;
+}
+
+.body-text {
+  width: 620px;
+  max-width: 100%;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 17px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 28.9px;
+}
+
+.small-text {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 23.8px;
+}
+
+/* --- Button ------------------------------------------------------------- */
+
+.button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 27px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: var(--color-red);
+  border-radius: 3px;
+  border: 1px solid;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: var(--color-red-hover);
+}
+
+.button-label {
+  display: block;
+  width: fit-content;
+  font-family: var(--font-button);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 23.25px;
+  white-space: nowrap;
+  font-style: normal;
+}
+
+/* --- Rules -------------------------------------------------------------- */
+
+.divider {
+  align-self: stretch;
+  width: 100%;
+  height: 1px;
+  background-color: var(--accent);
+}
+
+/* Short line – star – short line ornament. */
+.flourish {
+  display: flex;
+  width: 180px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex: 0 0 auto;
+}
+
+.flourish-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-red);
+}
+
+.flourish-star {
+  flex: 1;
+  margin-top: -1px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-red);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+/* --- Framed photo with a handwritten caption (dress code, gifts) -------- */
+
+.photo-border {
+  position: absolute;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  top: 8px;
+  left: 8px;
+  border: 1px solid var(--color-cream);
+}
+
+.photo-caption {
+  position: absolute;
+  left: calc(50% - 175px);
+  bottom: -40px;
+  width: 342px;
+  transform: rotate(-6deg);
+  -webkit-text-stroke: 4px var(--color-cream);
+  paint-order: stroke fill;
+  -webkit-text-fill-color: var(--color-red);
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 90px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 117px;
+}
+
+.photo-caption--hat {
+  left: calc(50% - 160px);
+  bottom: -39px;
+  width: 312px;
+}
+
+/* --- Polaroid (programme section) --------------------------------------- */
+
+.polaroid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 8px 27px;
+  position: relative;
+  background-color: var(--color-cream);
+  box-shadow: var(--shadow-polaroid);
+}
+
+.polaroid--baby {
+  width: 244.19px;
+  height: 331.78px;
+  transform: rotate(-12deg);
+}
+
+.polaroid--dinner {
+  width: 183.79px;
+  height: 249.72px;
+  transform: rotate(9deg);
+}
+
+.polaroid--toast {
+  position: absolute;
+  left: 26px;
+  bottom: 0;
+  width: 231px;
+  height: 314px;
+  transform: rotate(10deg);
+}
+
+.polaroid-photo {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  aspect-ratio: 0.8;
+  overflow: hidden;
+}
+
+.polaroid-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.toast-photo {
+  width: 214.17px;
+  height: 267.72px;
+  background-image: url("assets/img/toast.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  height: 610px;
+  overflow: hidden;
+}
+
+.hero-photo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  background-color: #ffffff;
+}
+
+.hero-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 56%;
+}
+
+.hero-shade {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(32, 20, 14, 0.02) 0%,
+      rgba(32, 20, 14, 0.52) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(31, 21, 11, 0.08) 0%,
+      rgba(31, 21, 11, 0.08) 100%
+    );
+}
+
+.hero-text {
+  width: 100%;
+  height: 240px;
+  padding: 0 55.2px;
+  position: absolute;
+  left: 0;
+  bottom: 3px;
+}
+
+.hero-title {
+  width: 756px;
+  max-width: 100%;
+  height: 287px;
+  margin: 0 auto;
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 184px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 278.2px;
+  white-space: nowrap;
+}
+
+.hero-caption {
+  position: absolute;
+  top: 260px;
+  left: 746px;
+  width: 220px;
+  transform: rotate(-6deg);
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 28px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 36.4px;
+}
+
+/* ==========================================================================
+   Intro
+   ========================================================================== */
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-block);
+  padding: 52px 120px 65px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   01 · When & where
+   ========================================================================== */
+
+.section-details {
+  display: flex;
+  flex-direction: column;
+  max-width: 1008px;
+  align-items: center;
+  padding: 45px 60px 50px;
+  width: 100%;
+  flex: 0 0 auto;
+  border-block: 1px solid;
+  border-color: var(--color-red);
+}
+
+.section-details .heading {
+  margin-top: var(--space-block);
+}
+
+.section-details .date-and-venue {
+  margin-top: 30px;
+}
+
+.section-details .button {
+  margin-top: var(--space-block);
+}
+
+.section-details .pet-friendly-badge {
+  margin-top: var(--space-text);
+}
+
+.section-details .small-text {
+  margin-top: 13px;
+}
+
+.date-and-venue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 27px 30px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+}
+
+.fact-label {
+  margin-top: -1px;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 1.04px;
+  line-height: 20.8px;
+}
+
+.fact-value {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 25px;
+  text-align: center;
+  letter-spacing: -0.62px;
+  line-height: 37.5px;
+}
+
+.fact-note {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-ink);
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 23.8px;
+}
+
+.pet-friendly-badge {
+  position: relative;
+  width: 131.31px;
+  height: 43px;
+  transform: rotate(-7deg);
+  opacity: 0.55;
+}
+
+.pet-friendly-text {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 172px;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 23.4px;
+  white-space: nowrap;
+}
+
+.pet-friendly-paw {
+  position: absolute;
+  top: 4px;
+  left: 12px;
+  width: 24px;
+  height: 30px;
+  transform: rotate(7deg);
+}
+
+/* ==========================================================================
+   02 · Dress code
+   ========================================================================== */
+
+.section-dress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 62px 120px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.section-dress .photo-bow {
+  margin-top: var(--space-block);
+}
+
+.section-dress .heading {
+  margin-top: 45px;
+}
+
+.section-dress .heading + .body-text {
+  margin-top: var(--space-text);
+}
+
+.section-dress .body-text + .body-text {
+  margin-top: var(--space-paragraph);
+}
+
+.section-dress .dress-code-note {
+  margin-top: 25px;
+}
+
+.photo-bow {
+  position: relative;
+  width: 285px;
+  height: 356.25px;
+  background-image: url("assets/img/bow.jpg");
+  background-size: cover;
+  /* Keep the hair bow visible. */
+  background-position: 50% 25%;
+}
+
+.dress-code-note {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 39px;
+}
+
+/* ==========================================================================
+   03 · Evening programme (red section)
+   ========================================================================== */
+
+.section-programme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 62px 192px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+  background-color: var(--color-red);
+  --accent: var(--color-cream);
+}
+
+/* In this section the chapter label is set in Inter rather than Arial Narrow. */
+.section-programme .chapter-label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.section-programme .programme-intro {
+  margin-top: 36px;
+}
+
+/* The block gap plus the extra 56px flex gap the old spacer added inside .programme-title. */
+.section-programme .heading {
+  margin-top: calc(var(--space-block) + 56px);
+}
+
+.section-programme .programme-item + .programme-item {
+  margin-top: 32px;
+}
+
+.section-programme .quiz,
+.section-programme .divider + .programme-time {
+  margin-top: 25px;
+}
+
+.section-programme .programme-activity {
+  margin-top: 8px;
+}
+
+.section-programme .quiz + .programme-text,
+.section-programme .programme-activity + .programme-text {
+  margin-top: 15px;
+}
+
+.section-programme .programme-note {
+  margin-top: var(--space-paragraph);
+  margin-bottom: 25px;
+}
+
+.section-programme .divider + .programme-caption {
+  margin-top: var(--space-block);
+}
+
+.section-programme .programme-caption + .programme-text {
+  margin-top: 14px;
+}
+
+/* Baby polaroid next to the section title. */
+.programme-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.programme-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 240px;
+  max-width: 550px;
+  height: 375px;
+  gap: 56px;
+  flex: 1;
+}
+
+/* One programme slot: quiz, karaoke, snacks & bar. */
+.programme-item {
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+  align-items: center;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+/* Quiz time and title next to the dinner polaroid. */
+.quiz {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.quiz-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 160px;
+  max-width: 360px;
+  flex: 1;
+}
+
+.programme-time {
+  font-family: var(--font-luxurious);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 96px;
+  text-align: center;
+  letter-spacing: -3.84px;
+  line-height: 58.8px;
+}
+
+.quiz-title .programme-time {
+  margin-top: -1px;
+}
+
+.programme-activity {
+  font-family: var(--font-luxurious);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 64px;
+  text-align: center;
+  letter-spacing: -1.28px;
+  line-height: 39.2px;
+}
+
+.programme-text {
+  /* Keeps the text painted above the overlapping rotated polaroid shadow. */
+  position: relative;
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 27.2px;
+}
+
+.programme-note {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 27px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 35.1px;
+}
+
+.programme-caption {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-cream);
+  font-size: 13px;
+  text-align: center;
+  letter-spacing: 1.04px;
+  line-height: 20.8px;
+}
+
+/* ==========================================================================
+   04 · Gifts
+   ========================================================================== */
+
+.section-gifts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 120px 62px;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.section-gifts .photo-hat,
+.section-gifts .button {
+  margin-top: var(--space-block);
+}
+
+.section-gifts .heading {
+  margin-top: 44px;
+}
+
+.section-gifts .body-text {
+  margin-top: var(--space-text);
+}
+
+.photo-hat {
+  position: relative;
+  width: 260px;
+  height: 325px;
+  background-image: url("assets/img/hat.jpg");
+  background-size: cover;
+  /* Keep the whole hat visible. */
+  background-position: 50% 10%;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  max-width: 1008px;
+  align-items: center;
+  padding: 25px 60px 38px;
+  width: 100%;
+  flex: 0 0 auto;
+  border-top: 1px solid;
+  border-color: var(--color-red);
+}
+
+.site-footer .sign-off {
+  margin-top: var(--space-block);
+}
+
+.site-footer .footer-date {
+  margin-top: 16px;
+}
+
+.site-footer .small-text {
+  margin-top: 12px;
+}
+
+.sign-off {
+  font-family: var(--font-hand);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 36px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 46.8px;
+}
+
+.footer-date {
+  font-family: var(--font-narrow);
+  font-weight: 400;
+  color: var(--color-red);
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0.84px;
+  line-height: 20.4px;
+}
+
+/* ==========================================================================
+   Reveal-on-scroll (classes are added by script.js)
+   ========================================================================== */
+
+.reveal {
+  transition: opacity 650ms ease, translate 650ms ease;
+}
+
+.reveal-hidden {
+  opacity: 0;
+  translate: 0 16px;
+}
+
+/* ==========================================================================
+   Tablet: 761–1050px
+   ========================================================================== */
+
+@media (min-width: 761px) and (max-width: 1050px) {
+  .inset {
+    padding-inline: 4%;
+  }
+
+  .site-header {
+    padding-inline: 5%;
+  }
+
+  .hero-title {
+    font-size: clamp(116px, 15.333vw, 184px);
+  }
+
+  .hero-caption {
+    left: auto;
+    right: 8%;
+  }
+
+  .intro,
+  .section-dress,
+  .section-programme,
+  .section-gifts {
+    padding-inline: 8%;
+  }
+
+  .section-details,
+  .site-footer {
+    width: 84%;
+    padding-inline: 5%;
+  }
+
+  .polaroid--toast {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Mobile: up to 760px
+   ========================================================================== */
+
+@media (max-width: 760px) {
+  /* Layout */
+  .site-header {
+    padding: 22px 5%;
+  }
+
+  .wordmark {
+    font-size: 12px;
+    line-height: 20.4px;
+  }
+
+  .inset {
+    padding-inline: 4%;
+  }
+
+  /* Shared components */
+  .chapter-label {
+    font-size: 12px;
+    letter-spacing: 0.96px;
+    max-width: calc(100% - 46px);
+    white-space: normal;
+    text-align: right;
+  }
+
+  .heading {
+    font-size: 32px;
+    line-height: 1.3;
+    letter-spacing: -1.28px;
+  }
+
+  .body-text {
+    width: 100%;
+    font-size: 16px;
+    line-height: 27.2px;
+  }
+
+  .photo-caption {
+    width: calc(100% + 36px);
+    left: -18px;
+  }
+
+  .polaroid--baby {
+    max-width: 100%;
+  }
+
+  .polaroid--toast {
+    display: none;
+  }
+
+  /* Hero */
+  .hero-img {
+    object-position: 50% 55%;
+  }
+
+  .hero-text {
+    padding-inline: 2%;
+  }
+
+  .hero-title {
+    width: 100%;
+    height: auto;
+    font-size: clamp(68px, 21.5vw, 110px);
+    line-height: 1.45;
+  }
+
+  /* The supplied mobile reference has no visible childhood caption. */
+  .hero-caption {
+    display: none;
+  }
+
+  /* Intro */
+  .intro {
+    padding: 35px 9% 43px;
+  }
+
+  /* 01 · When & where */
+  .section-details {
+    width: 82%;
+    max-width: none;
+    padding: 35px 3% 40px;
+  }
+
+  .date-and-venue {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 27px;
+  }
+
+  .fact {
+    min-width: 0;
+  }
+
+  .pet-friendly-text {
+    font-size: 17px;
+  }
+
+  /* 02 · Dress code, 04 · Gifts */
+  .section-dress,
+  .section-gifts {
+    padding: 42px 9%;
+  }
+
+  .photo-bow,
+  .photo-hat {
+    max-width: 100%;
+  }
+
+  .dress-code-note {
+    width: 100%;
+    font-size: 28px;
+    line-height: 36.4px;
+  }
+
+  /* 03 · Programme */
+  .section-programme {
+    padding: 34px 9% 44px;
+  }
+
+  .programme-intro,
+  .quiz {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 24px;
+  }
+
+  .programme-title,
+  .quiz-title {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+  }
+
+  .programme-time {
+    font-size: 39px;
+    line-height: 54.6px;
+    letter-spacing: -1.56px;
+  }
+
+  .programme-activity {
+    font-size: 26px;
+    line-height: 36.4px;
+    letter-spacing: -0.52px;
+  }
+
+  .programme-note {
+    max-width: 100%;
+  }
+
+  .programme-caption {
+    font-size: 12px;
+    line-height: 19.2px;
+  }
+
+  /* Footer */
+  .site-footer {
+    width: 82%;
+    max-width: none;
+    padding-inline: 5%;
+  }
+
+  .sign-off {
+    font-size: 32px;
+    line-height: 41.6px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    transition: none;
+  }
+
+  .reveal-hidden {
+    opacity: 1;
+    translate: none;
+  }
+}

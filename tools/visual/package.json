@@ -1,0 +1,14 @@
+{
+  "name": "karina-birthday-visual-tests",
+  "private": true,
+  "description": "Visual regression screenshots for the static site (not part of the site).",
+  "scripts": {
+    "shoot": "node shoot.mjs",
+    "compare": "node compare.mjs"
+  },
+  "devDependencies": {
+    "pixelmatch": "^6.0.0",
+    "playwright": "^1.48.2",
+    "pngjs": "^7.0.0"
+  }
+}
