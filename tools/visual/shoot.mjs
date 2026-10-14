@@ -46,7 +46,9 @@ await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
 
 async function open(width, query = '') {
-  const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+  // Shoot with reduced motion so animations cannot disturb the comparison;
+  // the style tag below still switches off anything the media query misses.
+  const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion: 'reduce' });
   // Software rasterisation of the 3 MB hero is slow on a busy machine.
   page.setDefaultTimeout(120000);
   page.on('console', m => { if (['error', 'warning'].includes(m.type())) meta.console.push(`${width}${query} ${m.type()}: ${m.text()}`); });
