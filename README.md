@@ -18,6 +18,7 @@ assets/
   img/                  Photos, the paw icon and the favicon.
   fonts/                Bundled fonts (TTF) and their SIL Open Font Licences (OFL-*.txt).
 tools/visual/           Visual regression tooling (not part of the site, see below).
+BACKLOG.md              Known issues and improvement ideas.
 ```
 
 `styles.css` is ordered top to bottom as fonts → design tokens (`:root`) → reset and base → page layout →
