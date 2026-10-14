@@ -836,9 +836,11 @@ a:focus-visible,
 }
 
 .hero-text {
+  --hero-text-height: 15rem;
+  --hero-text-padding: var(--space-14);
   width: 100%;
-  height: 15rem;
-  padding: 0 var(--space-14);
+  height: var(--hero-text-height);
+  padding: 0 var(--hero-text-padding);
   position: absolute;
   left: 0;
   bottom: var(--space-1);
@@ -1602,7 +1604,7 @@ a:focus-visible,
   }
 
   .hero-text {
-    padding-inline: 2%;
+    --hero-text-padding: 2%;
   }
 
   .hero-title {
