@@ -11,6 +11,9 @@ import { fileURLToPath } from 'node:url';
 // SITE_ROOT lets you shoot another checkout (e.g. a worktree of main) with the same tool.
 const ROOT = process.env.SITE_ROOT ? path.resolve(process.env.SITE_ROOT) : path.resolve(fileURLToPath(import.meta.url), '../../..');
 const OUT = path.resolve(fileURLToPath(import.meta.url), '..', 'shots', process.argv[2] || 'current');
+// The countdown in "When & where" depends on the time, so every shot is taken at the same moment
+// (44 days 23 hours 14 minutes before the start). SHOT_TIME=<ISO time> shoots another moment.
+const SHOT_TIME = new Date(process.env.SHOT_TIME || '2026-10-14T18:46:00Z');
 const WIDTHS = process.env.WIDTHS ? process.env.WIDTHS.split(',').map(Number) : [320, 375, 414, 768, 1024, 1440];
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -51,6 +54,8 @@ async function open(width, query = '') {
   const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion: 'reduce' });
   // Software rasterisation of the 3 MB hero is slow on a busy machine.
   page.setDefaultTimeout(120000);
+  // Date is frozen; timers still run, so the page loads as usual.
+  await page.clock.setFixedTime(SHOT_TIME);
   page.on('console', m => { if (['error', 'warning'].includes(m.type())) meta.console.push(`${width}${query} ${m.type()}: ${m.text()}`); });
   page.on('pageerror', e => meta.console.push(`${width}${query} pageerror: ${e.message}`));
   page.on('requestfailed', r => meta.failedRequests.push(`${width}${query} ${r.url().slice(0, 120)}`));
@@ -65,8 +70,8 @@ async function open(width, query = '') {
       await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
     }
     await Promise.all([...document.images].map(img => img.decode().catch(() => {})));
-    const start = Date.now();
-    while (document.querySelector('.reveal-hidden') && Date.now() - start < 5000) await new Promise(r => setTimeout(r, 50));
+    // Date is frozen, so wait by counting steps rather than by the clock.
+    for (let i = 0; i < 100 && document.querySelector('.reveal-hidden'); i++) await new Promise(r => setTimeout(r, 50));
     window.scrollTo({ top: 0, behavior: 'instant' });
     await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
   });

@@ -13,7 +13,7 @@ The page is in Russian by default and can be switched to English with the RU / E
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
 script.js               RU/EN copy, the event data (EVENT), the language switcher, the "Add to calendar"
-                        menu, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
+                        menu, the countdown, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos, the paw icon and the favicon.
@@ -87,6 +87,24 @@ node ics.mjs check   # parses them with ical.js and checks them against EVENT an
 Google Calendar links cannot carry a reminder, so the one-day reminder is only in the `.ics` files.
 Servers must send the files as `text/calendar` (GitHub Pages and `python3 -m http.server` do).
 
+## Countdown
+
+Between the date and venue and the buttons, "When & where" counts down to the start:
+"До вечера осталось 44 дня 23 часа 14 минут" / "44 days 23 hours 14 minutes to go". Leading units that
+are zero are left out, the others stay ("3 часа 0 минут"), and the minutes are rounded up, so the last
+value before the start is "1 минута". From 19:00 to 23:00 Belgrade time it reads "Мы уже празднуем!" /
+"The party is on!", afterwards "Спасибо, что были!" / "Thank you for coming!".
+
+The times come from `EVENT` (UTC), so the countdown is right in any time zone. It updates exactly on
+the minute (one `setTimeout` to the next minute, not an interval) and again on `visibilitychange`,
+because phones freeze timers in background tabs. The phrases and unit words are in `COPY`
+(`countdown-*`); the plural forms are picked with `Intl.PluralRules`. The numbers are tabular, a changed
+number fades in (not with reduced motion), and the element is a `role="timer"`, which screen readers do
+not announce on every change. On phones the lead text takes its own line above the numbers; the numbers
+never wrap. Without JavaScript the countdown is hidden.
+
+`tools/visual/countdown.mjs` checks it with Playwright's fake clock (see below).
+
 ## Editing text
 
 Text for both languages lives in the `COPY` object at the top of `script.js`, keyed by the
@@ -123,6 +141,13 @@ Useful options:
 - `node compare.mjs <a> <b>` compares any two shot sets, also when the page height changed.
 - `node report.mjs <a> <b>` then builds `tools/visual/compare.html` with before / after / diff for
   every width and state and a table of changed pixels per block, for review by eye.
+- `shoot.mjs` freezes the clock at 14 October 2026, 18:46 UTC, so the countdown always shows the same
+  numbers; `SHOT_TIME=<ISO time>` shoots another moment.
+- `node countdown.mjs` checks the countdown with a fake clock: texts and plural forms in both languages,
+  the 19:00 and 23:00 boundaries, time zones, the update on the minute and on `visibilitychange`,
+  centring and wrapping at all widths, the page without JavaScript. `node countdown.mjs shots` also
+  saves the section in every state to `shots/countdown/`, `node countdown.mjs video` records a minute
+  change at 375 and 1440px to `videos/`.
 - `node computed.mjs <name>` dumps the computed styles of every element, and
   `node computed.mjs --diff <a> <b>` compares two dumps. This catches changes that are not
   visible in the default state.
