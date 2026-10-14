@@ -22,6 +22,7 @@
   <meta name="twitter:image" content="https://wondercarrie.github.io/karina-birthday/share-preview.jpg">
 
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="preload" as="image" type="image/avif" imagesrcset="assets/img/hero-480.avif 480w, assets/img/hero-720.avif 720w, assets/img/hero-942.avif 942w" imagesizes="(max-width: 1050px) 92vw, min(100vw - 6rem, 69rem)" fetchpriority="high">
   <link rel="preload" href="assets/fonts/RobotoCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -37,7 +38,9 @@
       <div class="hero">
         <div class="hero-photo">
           <picture class="hero-picture">
-            <img class="hero-img" src="assets/img/hero.png" alt="Детская фотография Карины">
+            <source type="image/avif" srcset="assets/img/hero-480.avif 480w, assets/img/hero-720.avif 720w, assets/img/hero-942.avif 942w" sizes="(max-width: 1050px) 92vw, min(100vw - 6rem, 69rem)">
+            <source type="image/webp" srcset="assets/img/hero-480.webp 480w, assets/img/hero-720.webp 720w, assets/img/hero-942.webp 942w" sizes="(max-width: 1050px) 92vw, min(100vw - 6rem, 69rem)">
+            <img class="hero-img" src="assets/img/hero-942.jpg" srcset="assets/img/hero-480.jpg 480w, assets/img/hero-720.jpg 720w, assets/img/hero-942.jpg 942w" sizes="(max-width: 1050px) 92vw, min(100vw - 6rem, 69rem)" width="942" height="2048" alt="Детская фотография Карины" fetchpriority="high">
           </picture>
         </div>
         <div class="hero-shade"></div>
@@ -110,6 +113,11 @@
         <div class="chapter-label" data-copy="copy-19">ДРЕСС-КОД</div>
       </div>
       <div class="photo-bow">
+        <picture>
+          <source type="image/avif" srcset="assets/img/bow-300.avif 300w, assets/img/bow-600.avif 600w, assets/img/bow-720.avif 720w" sizes="17.75rem">
+          <source type="image/webp" srcset="assets/img/bow-300.webp 300w, assets/img/bow-600.webp 600w, assets/img/bow-720.webp 720w" sizes="17.75rem">
+          <img class="photo-img" src="assets/img/bow-720.jpg" srcset="assets/img/bow-300.jpg 300w, assets/img/bow-600.jpg 600w, assets/img/bow-720.jpg 720w" sizes="17.75rem" width="720" height="1280" alt="" loading="lazy" decoding="async">
+        </picture>
         <div class="photo-border"></div>
         <div class="photo-caption" data-copy="copy-20">Dress up</div>
       </div>
@@ -129,7 +137,11 @@
           <div class="develop">
             <div class="polaroid polaroid--baby">
               <div class="polaroid-photo">
-                <img class="polaroid-img develop-target" src="assets/img/baby.jpg" alt="Детская фотография Карины" loading="lazy">
+                <picture>
+                  <source type="image/avif" srcset="assets/img/baby-240.avif 240w, assets/img/baby-480.avif 480w, assets/img/baby-720.avif 720w" sizes="14.25rem">
+                  <source type="image/webp" srcset="assets/img/baby-240.webp 240w, assets/img/baby-480.webp 480w, assets/img/baby-720.webp 720w" sizes="14.25rem">
+                  <img class="polaroid-img develop-target" src="assets/img/baby-720.jpg" srcset="assets/img/baby-240.jpg 240w, assets/img/baby-480.jpg 480w, assets/img/baby-720.jpg 720w" sizes="14.25rem" width="960" height="1280" alt="Детская фотография Карины" loading="lazy" decoding="async">
+                </picture>
                 <div class="develop-tint" aria-hidden="true"></div>
               </div>
               <div class="develop-hold" aria-hidden="true"></div>
@@ -164,7 +176,11 @@
             <div class="develop">
               <div class="polaroid polaroid--dinner">
                 <div class="polaroid-photo">
-                  <img class="polaroid-img develop-target" src="assets/img/dinner.jpg" alt="Детская фотография Карины" loading="lazy">
+                  <picture>
+                    <source type="image/avif" srcset="assets/img/dinner-180.avif 180w, assets/img/dinner-360.avif 360w, assets/img/dinner-540.avif 540w" sizes="10.5rem">
+                    <source type="image/webp" srcset="assets/img/dinner-180.webp 180w, assets/img/dinner-360.webp 360w, assets/img/dinner-540.webp 540w" sizes="10.5rem">
+                    <img class="polaroid-img develop-target" src="assets/img/dinner-540.jpg" srcset="assets/img/dinner-180.jpg 180w, assets/img/dinner-360.jpg 360w, assets/img/dinner-540.jpg 540w" sizes="10.5rem" width="720" height="1280" alt="Детская фотография Карины" loading="lazy" decoding="async">
+                  </picture>
                   <div class="develop-tint" aria-hidden="true"></div>
                 </div>
                 <div class="develop-hold" aria-hidden="true"></div>
@@ -200,7 +216,11 @@
         <div class="develop develop--toast">
           <div class="polaroid polaroid--toast">
             <div class="toast-photo">
-              <div class="toast-img develop-target"></div>
+              <picture>
+                <source type="image/avif" srcset="assets/img/toast-220.avif 220w, assets/img/toast-440.avif 440w, assets/img/toast-660.avif 660w" sizes="(max-width: 760px) 10.5rem, 13.5rem">
+                <source type="image/webp" srcset="assets/img/toast-220.webp 220w, assets/img/toast-440.webp 440w, assets/img/toast-660.webp 660w" sizes="(max-width: 760px) 10.5rem, 13.5rem">
+                <img class="toast-img develop-target" src="assets/img/toast-660.jpg" srcset="assets/img/toast-220.jpg 220w, assets/img/toast-440.jpg 440w, assets/img/toast-660.jpg 660w" sizes="(max-width: 760px) 10.5rem, 13.5rem" width="882" height="1280" alt="" loading="lazy" decoding="async">
+              </picture>
               <div class="develop-tint" aria-hidden="true"></div>
             </div>
             <div class="develop-hold" aria-hidden="true"></div>
@@ -227,6 +247,11 @@
         <div class="chapter-label" data-copy="copy-40">ПРО ПОДАРКИ</div>
       </div>
       <div class="photo-hat">
+        <picture>
+          <source type="image/avif" srcset="assets/img/hat-270.avif 270w, assets/img/hat-540.avif 540w, assets/img/hat-720.avif 720w" sizes="16.25rem">
+          <source type="image/webp" srcset="assets/img/hat-270.webp 270w, assets/img/hat-540.webp 540w, assets/img/hat-720.webp 720w" sizes="16.25rem">
+          <img class="photo-img" src="assets/img/hat-720.jpg" srcset="assets/img/hat-270.jpg 270w, assets/img/hat-540.jpg 540w, assets/img/hat-720.jpg 720w" sizes="16.25rem" width="720" height="1280" alt="" loading="lazy" decoding="async">
+        </picture>
         <div class="photo-border"></div>
         <div class="photo-caption photo-caption--hat" data-copy="copy-41">Cheers!</div>
       </div>
