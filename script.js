@@ -1,5 +1,6 @@
 // Language switcher (RU / EN, remembered in ?lang=), reveal-on-scroll animation,
-// hand-written hero title, "Add to calendar" menu, countdown to the party, developing polaroids (shake, long press or click) and their tilt on scroll.
+// hand-written hero title, "Add to calendar" menu, countdown to the party, developing polaroids (shake, long press or click), their tilt on scroll
+// and the karaoke equalizer.
 (() => {
   'use strict';
 
@@ -745,6 +746,20 @@
     countdown.hidden = false;
   }
 
+  // Karaoke equalizer: animated only while it is in the viewport, to spare phone batteries.
+  // Without IntersectionObserver or with reduced motion the bars stay still.
+  function setUpEqualizer() {
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      entry.target.classList.toggle('is-playing', entry.isIntersecting);
+    }));
+    document.querySelectorAll('.equalizer').forEach(equalizer => {
+      equalizer.classList.add('is-animated');
+      observer.observe(equalizer);
+    });
+  }
+
   languageButtons.forEach(button => {
     button.addEventListener('click', () => setLanguage(button.dataset.language, true));
   });
@@ -755,4 +770,5 @@
   setUpDevelop();
   setUpTilt();
   setUpHeroWriting();
+  setUpEqualizer();
 })();
