@@ -1278,8 +1278,7 @@ a:focus-visible,
 }
 
 .section-programme .quiz + .programme-text,
-.section-programme .programme-activity + .programme-text,
-.section-programme .karaoke-title + .programme-text {
+.section-programme .programme-activity + .programme-text {
   margin-top: var(--space-4);
 }
 
@@ -1415,70 +1414,6 @@ a:focus-visible,
   text-align: center;
   letter-spacing: 0.08em;
   line-height: 1.6;
-}
-
-/* Karaoke title with a small equalizer after it. The title stays on one line and is centred
-   together with the equalizer. */
-.karaoke-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: var(--space-3);
-}
-
-.karaoke-title > * {
-  flex: none;
-}
-
-/* Decorative equalizer: bars in the text colour rising from the baseline. It is sized in em of
-   the karaoke title and takes no height in the line (negative top margin), so neither the
-   animation nor the equalizer itself moves the text around it. Each bar is as tall as the
-   equalizer and slides down into it (translateY, clipped by overflow), so its rounded top keeps
-   its shape at any level. Without JavaScript and with reduced motion the bars stand still at
-   different heights. */
-.equalizer {
-  --equalizer-height: 0.6em;
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-1);
-  height: var(--equalizer-height);
-  margin-top: calc(-1 * var(--equalizer-height));
-  overflow: hidden;
-  color: var(--color-cream);
-  font-size: var(--text-6xl);
-  pointer-events: none;
-}
-
-.equalizer > span {
-  width: 0.12em;
-  height: 100%;
-  border-radius: 0.06em 0.06em 0 0;
-  background-color: currentColor;
-  transform: translateY(calc((1 - var(--equalizer-rest)) * 100%));
-}
-
-.equalizer > :nth-child(1) { --equalizer-rest: 0.45; --equalizer-duration: 1.7s; --equalizer-delay: -0.4s; }
-.equalizer > :nth-child(2) { --equalizer-rest: 0.85; --equalizer-duration: 1.3s; --equalizer-delay: -1.1s; }
-.equalizer > :nth-child(3) { --equalizer-rest: 0.6;  --equalizer-duration: 1.9s; --equalizer-delay: -0.7s; }
-.equalizer > :nth-child(4) { --equalizer-rest: 1;    --equalizer-duration: 1.5s; --equalizer-delay: -1.3s; }
-.equalizer > :nth-child(5) { --equalizer-rest: 0.5;  --equalizer-duration: 1.8s; --equalizer-delay: -0.2s; }
-
-/* script.js adds .is-animated when motion is allowed and toggles .is-playing while the
-   equalizer is in the viewport; out of view the animation is paused. */
-.equalizer.is-animated > span {
-  animation: equalizer-bounce var(--equalizer-duration) ease-in-out var(--equalizer-delay) infinite;
-  animation-play-state: paused;
-}
-
-.equalizer.is-playing > span {
-  animation-play-state: running;
-}
-
-@keyframes equalizer-bounce {
-  0%, 100% { transform: translateY(70%); }
-  30% { transform: translateY(0); }
-  55% { transform: translateY(50%); }
-  80% { transform: translateY(15%); }
 }
 
 /* ==========================================================================
@@ -1863,14 +1798,6 @@ a:focus-visible,
     line-height: 1.4;
   }
 
-  .karaoke-title {
-    gap: var(--space-2);
-  }
-
-  .equalizer {
-    font-size: var(--text-2xl);
-  }
-
   .programme-text {
     font-size: var(--text-base);
   }
@@ -1920,11 +1847,6 @@ a:focus-visible,
   }
 
   .countdown-number.is-changed {
-    animation: none;
-  }
-
-  /* script.js does not start the equalizer; this only guards against stray motion. */
-  .equalizer > span {
     animation: none;
   }
 
