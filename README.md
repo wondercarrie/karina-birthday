@@ -13,7 +13,8 @@ The page is in Russian by default and can be switched to English with the RU / E
 index.html              Markup. Elements with data-copy get their text from script.js.
 styles.css              All styles: fonts, design tokens, reset, components, sections, media queries.
 script.js               RU/EN copy, the event data (EVENT), the language switcher, the hand-written hero
-                        title, the "Add to calendar" menu, the countdown, the reveal-on-scroll animation, the developing polaroids and their tilt on scroll.
+                        title, the "Add to calendar" menu, the countdown, the reveal-on-scroll animation, the developing polaroids, their tilt on scroll
+                        and the karaoke equalizer.
 share-preview.jpg       Link preview image (og:image / twitter:image).
 assets/
   img/                  Photos as AVIF, WebP and JPEG in three widths each (built by tools/images/), the paw icon
@@ -85,6 +86,17 @@ near the viewport are measured, once per animation frame). On desktop (`hover: h
 `--polaroid-rotate`, the tilt in `transform`, the shift and lift in `translate`, and the tap nudge
 animates `rotate`, so the effects add up instead of overriding each other. With reduced motion the
 photos stay in their base position.
+
+## Karaoke equalizer
+
+After "Karaoke time" in the programme five small cream bars bounce like an equalizer. They are sized
+in em of the title, stand on its baseline and take no height in the line, so the text around them
+does not move; the title and the equalizer are centred together and never wrap. Each bar is as tall
+as the equalizer and slides down into it (`translateY`, clipped by `overflow: hidden`), so its rounded
+top keeps its shape at any level. The bars have different durations and delays, so they do not move
+in sync. The animation runs only while the equalizer is in the viewport (an IntersectionObserver
+toggles `animation-play-state`). Without JavaScript and with `prefers-reduced-motion: reduce` the bars
+stand still at different heights. The equalizer is decorative (`aria-hidden`) and ignores the pointer.
 
 ## Add to calendar
 
