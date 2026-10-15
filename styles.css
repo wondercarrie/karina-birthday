@@ -89,6 +89,7 @@
   --space-24: 6rem;
   --space-30: 7.5rem;
   --space-48: 12rem;
+  --space-56: 14rem;
 
   /* Vertical rhythm */
   --space-block: var(--space-7);
@@ -1715,14 +1716,16 @@ a:focus-visible,
     line-height: 1.45;
   }
 
-  /* Childhood caption in the free top-right corner, clear of the face and the title.
-     The curtain there is light, so a soft shadow keeps the cream text readable. */
+  /* Childhood caption on the lace curtain to the right of the bow, at the bow's height and clear
+     of the face and the title. The photo is as wide as the hero, so the bow ends at about 65% of
+     its width at any phone width. The curtain there is light, so a soft shadow keeps the cream
+     text readable. */
   .hero-caption {
-    top: var(--space-6);
-    left: auto;
-    right: var(--space-4);
-    width: 45%;
-    font-size: var(--text-2xl);
+    top: var(--space-56);
+    left: 67%;
+    right: var(--space-3);
+    width: auto;
+    font-size: clamp(var(--text-xl), 6.5vw, var(--text-2xl));
     text-shadow: 0 0 0.25rem rgba(32, 20, 14, 0.6), 0 0 0.75rem rgba(32, 20, 14, 0.45);
   }
 
