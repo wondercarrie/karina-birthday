@@ -16,9 +16,10 @@ a phone, see the README sections Photos and Fonts. Class names refer to the curr
    in Luxurious Script at 36px / 24px on mobile. The script is optically small, so these headings are
    hard to read on a phone; consider one step up (48px / 30px).
 
-3. **Hero caption contrast on mobile.** On mobile the caption sits over the light curtain in the top
-   right corner and stays readable only thanks to a `text-shadow`. If the hero photo or its crop
-   changes, re-check the position and contrast.
+3. **Hero caption contrast on mobile.** On mobile the caption sits over the light lace curtain to the
+   right of the bow and stays readable only thanks to a `text-shadow`. Its position (`top`, `left: 67%`)
+   is tied to where the bow is in this photo and this crop; if either changes, re-check the position
+   and contrast.
 
 4. **Below 280px the page overflows.** The baby polaroid is a fixed 244px and the section has a 9%
    inset, so at 240px it is wider than the screen. Widths under 280px are not supported today.
